@@ -1,0 +1,306 @@
+<section ng-controller="ShirtController" class="content content-area single-product">
+
+  <div class='shirt-products'>
+  	{% include 'size-modal-single' %}
+  </div>
+
+  <div class="mobile-product-title">
+    <p class="brand">{{ product.vendor }}</p>
+    <p class="title">{{ product.title }}</p>
+    {% if product.compare_at_price_min > product.price_min %}
+    <p class="price sale"><span class="original">{{ product.compare_at_price_min | money }}</span> {{ product.price_min | money }}</p>
+    {% else %}
+    <p class="price">{{ product.price_min | money }}</p>
+    {% endif %}
+  </div>
+
+  <section id="product-area" class="clearfix product-area">
+
+
+    <div class="custom-product-wrapper">
+      <div class="showcase {% if product.images.size == 1 %}wide{% endif %}">
+
+        <div class="breadcrumb-navigation">
+          {% if product.tags contains 'shirt' %}
+          <span><a href="/collections/manhattan">Collection: Manhattan</a></span>
+          {% endif %}
+          {% if product.tags contains 'flannels' %}
+          <span><a href="/collections/flannels">Collection: Flannels</a></span>
+          {% else %}
+          <span><a href="/collections/highline">Collection: Highline</a></span>
+          {% endif %}
+          <span class="sep">></span> <span>{{ product.title }}</span>
+        </div>
+
+        <!-- START MAGICZOOMPLUS IMAGES -->{% include 'magiczoomplus' %}
+        {% if settings.display-product-email-link %}
+        <div class="notes">
+          <a href="mailto:{{ shop.email }}?Subject={{ product.title | escape }}" class="email-us"><span class="icon">j</span>Email us about this product</a>
+        </div>
+        {% endif %}
+        {% if settings.enable-fitting-guide %}
+        <div class="notes">
+          <a href="/pages/{{ settings.fitting-guide-link }}" class="fitting-guide"><span class="icon">{{ settings.fitting-guide-icon }}</span>{{ settings.fitting-guide-label }}</a>
+        </div>
+        {% endif %}
+      </div>
+
+      {% if product.url contains "measur" %}<br>{% endif %}
+
+      <!-- END MAGICZOOMPLUS IMAGES -->
+
+    </div><!-- end custom-product-wrapper -->
+
+
+    <div ng-cloak class="details {% if product.images.size > 1 %}border{% endif %} {% if product.variants.size == 1 and settings.display-product-quantity-option == false %}no-options{% endif %}">
+
+      <div class="module header">
+        <h1 class="title">{{ product.title }}</h1>
+        <div class="product-description">{{product.description}}</div>
+
+        {% if product.compare_at_price_min > product.price_min %}
+        <p class="price sale"><span class="original">{{ product.compare_at_price_min | money }}</span> {{ product.price_min | money }}</p>
+        {% else %}
+        <p class="price">
+          {{ product.price_min | money }}
+        </p>
+        {% endif %}
+      </div>
+
+      <div class="color-wrapper">
+        <h3>COLOR: <em>{{product.title}}</em></h3>
+        {% capture swatch_name %}swatch-{{product.handle}}.jpg{% endcapture %}
+        <img class="swatch" src="{{ swatch_name | file_url }}">
+      </div>
+
+      <div ng-controller="SizingController" ng-cloak>
+
+        <div class="size-wrapper" ng-show="showInputs">
+          <h3>FIND MY SIZE</h3>
+
+          <img class="explanation1" src="https://cdn.shopify.com/s/files/1/0434/4097/files/question-mark.jpg?8107312065723205287">
+          <span class="explanation1-text">We do things differently here at Stantt. No more dealing with S/M/L. Enter your measurements and our algorithm will find the one of our 75 sizes that's tailored to give you a perfect fit.</span>
+
+
+          {% unless customer %}
+              <!--<em>Already know your size? <a href="/account/login">Sign in.</a></em>-->
+          {% endunless %}
+
+          <section class="size-input">
+            <label>CHEST</label>
+            <input ng-model="measurements.chest" type="text"><span>
+            <select ng-model="measurements.unit"><option value="in">in</option><option value="cm">cm</option></select></span>
+            <img ng-click="changeSizingStep('2', $event)" class="explanation2" src="https://cdn.shopify.com/s/files/1/0434/4097/files/question-mark.jpg?8107312065723205287">
+            <i class="explanation2-video"></i>
+          </section>
+
+          <section class="size-input">
+            <label>WAIST</label>
+            <input ng-model="measurements.waist" type="text"><span>
+            <select ng-model="measurements.unit"><option value="in">in</option><option value="cm">cm</option></select></span>
+            <img ng-click="changeSizingStep('3', $event)" class="explanation3" src="https://cdn.shopify.com/s/files/1/0434/4097/files/question-mark.jpg?8107312065723205287">
+            <i class="explanation3-video"></i>
+          </section>
+
+          <section class="size-input">
+            <label>SLEEVE</label>
+            <input ng-model="measurements.sleeve" type="text"><span>
+            <select ng-model="measurements.unit"><option value="in">in</option><option value="cm">cm</option></select></span>
+            <img ng-click="changeSizingStep('4', $event)" class="explanation4" src="https://cdn.shopify.com/s/files/1/0434/4097/files/question-mark.jpg?8107312065723205287">
+            <i class="explanation4-video"></i>
+          </section>
+
+          <button ng-hide="httpWorking" ng-click="findMySize()" class="">FIND SIZE</button>
+          <button ng-show="httpWorking" disabled="disabled">FINDING &nbsp; <img src="{{ 'ajax-loader.gif' | file_url }}"></button>
+
+          <div ng-controller="DirectSizeInputController" class="know-size">
+            <em ng-click="showHideInputs()">Already know your Stantt size? <i ng-hide="showDirectInput" class="fa fa-caret-right"></i> <i ng-show="showDirectInput" class="fa fa-caret-down"></i></em>
+            <div ng-show="showDirectInput" class="know-size-input">
+              <input type="text" ng-model="inputSize" placeholder="ENTER SIZE">
+              <img ng-click="changeSizingStep('direct', $event)" class="know-size-explanation" src="https://cdn.shopify.com/s/files/1/0434/4097/files/question-mark.jpg?8107312065723205287"><br>
+            </div>
+            <button ng-show="showDirectInput" ng-click="loadSize(inputSize)">LOAD SIZE</button>
+          </div>
+
+        </div>
+
+        <div class="size-is" ng-show="stanttSize.name && !showInputs">
+          <h3>Your Stantt Size is:</h3>
+          <h2><span ng-bind="stanttSize.name "></span> <em>&#8482;</em></h2>
+
+          <img class="explanation5" src="https://cdn.shopify.com/s/files/1/0434/4097/files/question-mark.jpg?8107312065723205287">
+          <span class="explanation5-text">As a homage to Stantt's birthplace, we've named each size after a street in New York City.</span>
+
+          <div class="size-buttons">
+            {% unless customer %}
+            	<a href='' ng-click="changeSizingStep('save', $event)">Save Size</a>
+            {% endunless %}
+            <a href='' ng-click="showInputs = true">Change Size</a>
+          </div>
+        </div>
+
+      </div>
+
+      {% include "express-collar-cuff-selection" %}
+
+      <div class="module options {% if product.url contains "gift-card" %}gift-card{% endif %} {% unless product.available %}unavailable{% endunless %}">
+
+        {% if product.available %} <!-- If the product is available then... -->
+        <form action="/cart/add" method="post">
+
+          {% if product.variants.size > 1 %} <!-- Create a variants dropdown IF the product has more than one variant -->
+
+          <select name="id" id="product-select" class="product-select">
+            {% for variant in product.variants %}
+            <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
+            {% endfor %}
+          </select>
+
+          <script>
+            $(function(){
+              new Shopify.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallbackQuickShop });
+
+              {% if product.available %}
+              {% assign found_one_in_stock = false %}
+              {% for variant in product.variants %}
+              {% if variant.available and found_one_in_stock == false %}
+              {% assign found_one_in_stock = true %}
+              {% for option in product.options %}
+              $('#product-select-option-' + {{ forloop.index0 }}).val({{ variant.options[forloop.index0] | json }}).trigger('change');
+              {% endfor %}
+              {% endif %}
+              {% endfor %}
+              {% endif %}
+            });
+          </script>
+
+          {% else %} <!-- If the product only has one variant, create a hidden input with the variant id. NOTE: Necessary for "add to cart" to work -->
+
+          {% for variant in product.variants %}
+          <input type="hidden" name="id" class="product-select" value="{{ variant.id }}" data-variant-title="{{ variant.title }}" />
+          {% endfor %}
+
+          {% endif %}
+
+          {% if settings.display-product-quantity-option %}
+          <div class="selector-wrapper quantity">
+            <label>QTY</label>
+            <input type="number" class="product-quantity field" name="quantity" value="1">
+          </div>
+          {% else %}
+          <input type="hidden" name="quantity" value="1">
+          {% endif %}
+
+          <div class="selector-wrapper submit-wrapper">
+            {% if product.options.size > 1 %}<label></label>{% endif %}
+
+            {% if product.url contains "measur" %}
+            <button type="submit" class="action-button submit button-5">&#43; Add to cart</button>
+            {% else %}
+            <button ng-disabled="!stanttSize.id" type="submit" class="action-button submit">&#43; Add to cart</button>
+            {% endif %}
+          </div>
+
+          <p class="measure-instructions" ng-hide="stanttSize.id">
+            Please enter your measurements to find your size before adding to cart.
+          </p>
+
+            {% if product.tags contains 'flannels' %}
+            <em class='ships-by'>*ships third week of January</em>
+			{% endif %}
+
+
+          {% if product.url contains "measur" %}
+          <div class="product-share-section">
+            <strong>SHARE</strong>
+            <div class="addthis_custom_sharing"></div>
+          </div><!-- end product-share-section -->
+          {% endif %}
+
+
+        </form>
+        {% else %}
+
+        <span class="action-button unavailable disabled">Sold out</span>
+
+        {% endif %}
+
+      </div>
+
+    </div><!-- end details-->
+
+  </section><!-- end product-area -->
+
+
+  {% if product.metafields.global.related_products %}
+
+    {% assign handles = product.metafields.global.related_products | split: ',' %}
+    <section class="related-products">
+      <h3 class="section-title">CUSTOMER FAVORITES</h3>
+
+      <ul class="product-list">
+
+		{% assign allProducts = all_products %}
+        {% for handle in handles %}<li>
+        	{% assign pHandle = handle | strip %}
+            <a href="/products/{{pHandle}}?view=single">
+              <img src="{{ allProducts[pHandle].images[0].src | img_url: 'large' }}">
+            </a>
+          </li>{% endfor %}
+
+      </ul>
+    </section>
+
+  {% endif %}
+
+
+</section>
+
+{% if settings.display-fullsize-product-viewer %}
+<section class="fullscreen-product-viewer">
+  <div class="modal">
+    <div class="modal-wrap">
+      <span class="close">v</span>
+      <div class="showcase {% if product.images.size == 1 %}wide{% endif %}">
+        <div class="container">
+          <div class="wrap">
+            <img alt="{{ product.featured_image.alt }}" src="{{ product.featured_image | product_img_url: 'original' }}">
+            <span class="overlay"></span>
+          </div>
+        </div>
+      </div>
+
+      {% if product.images.size > 1 %}
+      <div class="pager antiscroll-wrap">
+        <div class="antiscroll-inner">
+          {% for image in product.images %}
+          <div class="wrap thumb {% include 'for-looper' %} {% if forloop.first %}active{% endif %}">
+            <img alt="{{ image.alt }}" src="{{ image.src | product_img_url: 'small' }}" data-high-res-url="{{ image.src | product_img_url: 'original' }}">
+            <span class="overlay"></span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+</section>
+{% endif %}
+
+{% unless product.url contains "measur" %}
+<div class="yotpo yotpo-main-widget"
+     data-product-id="351048429"
+     data-name="{{ product.title | escape }}"
+     data-url="{{ shop.url }}{{ product.url }}"
+     data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}"
+     data-description="{{ product.description | escape }}">
+</div>
+{% endunless %}
+
+
+<style>
+  .pxuSexyDropWrapper {
+    display: none;
+  }
+</style>
