@@ -1,0 +1,43 @@
+<li {% assign itemType = product %}{% if template contains 'search' %}{% assign itemType = item %}{% elsif template contains 'product' %}{% assign itemType = prod %}{% endif %} class="product product-{{ itemType.id }} {% include 'for-looper' %} {% cycle 'flush', '', '', '' %}">
+
+  {% if settings.products-per-row == 'two' and template == 'collection' %}
+    {% assign productImageSize = '1024x1024' %}
+  {% else %}
+    {% assign productImageSize = 'grande' %}
+  {% endif %}
+
+  <div class="product-inner">
+    <figure>
+      <img alt="{{ itemType.images[0].alt }}" src="{{ itemType.images[0] | product_img_url: productImageSize }}">
+
+      <a href="{{ itemType.url }}" class="{% if settings.product-image-borders %}with-border{% endif %}"></a>
+
+      {% if settings.enable-quick-shop %}
+      <div class="overlay" data-id="{{ itemType.id }}">
+        <span class="label">{{ settings.quick-shop-label }}</span>
+      </div>
+      {% endif %}
+    </figure>
+    <p class="brand">{{ itemType.vendor | link_to_vendor }}</p>
+    <p class="title"><a href="{{ itemType.url }}">{{ itemType.title }}</a></p>
+    
+    {% if collection.url contains "tapemeasure" %}
+      <p class="collection-description">{{ itemType.description }}</p>
+    {% endif %}
+    
+    {% if itemType.compare_at_price_min > itemType.price_min %}
+        <p class="price sale"><span class="label">On sale</span> <span class="original">{{ itemType.compare_at_price_min | money }}</span> {{ itemType.price_min | money }}</p>
+    {% else %}
+    	{% if collection.url contains "gift-cards" %}
+    	  <p class="price">Starting at {{ itemType.price_min | money }}</p>
+        {% else %}
+          <p class="price">{{ itemType.price_min | money }}</p>
+        {% endif %}
+    {% endif %}
+
+    {% if settings.enable-quick-shop %}
+      {% include 'product-quick-shop' %}
+    {% endif %}
+
+  </div>
+</li>

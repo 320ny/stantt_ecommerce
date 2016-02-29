@@ -1,0 +1,57 @@
+<section class="content content-area">
+
+  {% include 'breadcrumbs' %}
+
+  <div class="page-title">
+    <span class="label">Search results</span>
+  </div>
+
+  {% paginate search.results by settings.search-results-per-page %}
+  <section class="results">
+
+    <p class="results-label">{{ search.results_count }} {{ search.results_count | pluralize: 'result', 'results' }} for '{{ search.terms }}'</p>
+
+    {% for item in search.results %}
+      <article class="result {% include 'for-looper' %} {% if item.featured_image %}item-product{% else %}item-article{% endif %}" data-type="{{ item.type }}">
+
+        {% if item.featured_image %}
+
+          <figure>
+            <img alt="{{ item.images[0].alt }}" src="{{ item.images[0] | product_img_url: 'large' }}">
+              <a class="{% if settings.product-image-borders %}overlay{% endif %}" href="{{ item.url }}"></a>
+          </figure><div class="details">
+            <p class="brand">{{ item.vendor | link_to_vendor }}</p>
+            <p class="title"><a href="{{ item.url }}">{{ item.title }}</a></p>
+            {% if item.compare_at_price_min > item.price_min %}
+                <p class="price sale"><span class="label">On sale</span> <span class="original">{{ item.compare_at_price_min | money }}</span> {{ item.price_min | money }}</p>
+            {% else %}
+                <p class="price">{{ item.price_min | money }}</p>
+            {% endif %}
+          </div>
+
+        {% else %}
+
+          <h1 class="title"><a href="{{ item.url }}">{{ item.title }}</a></h1>
+          <div class="rte clearfix">
+            {% if item.excerpt.size > 0 %}
+              {{ item.excerpt }}
+            {% else %}
+              <p>{{ item.content | strip_html | truncatewords: 50 }}</p>
+            {% endif %}
+          </div>
+
+        {% endif %}
+
+      </article>
+    {% endfor %}
+
+    {% if paginate.previous or paginate.next %}
+      {% include 'pagination' %}
+    {% endif %}
+
+  </section>
+  {% endpaginate %}
+
+</section>
+
+

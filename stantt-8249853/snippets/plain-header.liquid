@@ -1,0 +1,492 @@
+<header class="main-header-wrap">
+	    
+  <section class="main-header content-area">
+
+    <!-- Action links
+    ============================================= -->
+    <div class="action-links clearfix">
+      <h1 class="store-title">
+        {% if settings.use-logo %}
+          <a href="/">
+            <img alt="{{ shop.name }} logo" class='regular-logo' src="{{ 'logo.png' | asset_url }}" alt="{{ shop.description | escape }}">
+            <img alt="{{ shop.name }} logo" class='retina-logo' src="{% if settings.use-retina-logo %}{{ 'logo-retina.png' | asset_url }}{% else %}{{ 'logo.png' | asset_url }}{% endif %}" alt="{{ shop.description | escape }}">
+          </a>
+        {% else %}
+          <a href="/">{{ shop.name }}</a>
+        {% endif %}
+      </h1>
+
+      
+    <!-- Full navigation
+    ============================================= -->
+    <nav class="full {% unless template == 'index' and settings.show-slideshow == true and settings.slideshow-match-width == false %}bordered{% endunless %} {{ settings.mobile-navigation-colour-scheme }}">
+
+      <!-- Main nav
+      ++++++++++++++++++++++++++++ -->
+      <ul>
+
+      </ul>
+      <!-- ++++++++++++++++++++++++++++ -->
+      
+    </nav><!-- end full navigation -->
+
+      
+    <!--
+    <div class="search-wrap full">
+      <form action="/search" method="post">
+        <input class="search-input" name="q" type="text" placeholder="Search" value="">
+        <span class="icon">s</span>
+      </form>
+    </div>
+	-->
+      
+     <div class="tools">
+        <div class="header-blurb">
+          
+        </div>
+
+       
+        <!--
+        <a class="search" href="#"><span class="icon">s</span><label>Search</label></a>
+		-->
+       
+       <div class="secondary-nav">
+
+
+          {% if shop.customer_accounts_enabled %}
+
+            {% if customer %}
+              <div class="header-sizing-data">
+                <div data-customer-id="{{customer.id}}"></div>
+                <div data-customer-name="{{customer.name}}"></div>
+                <div data-customer-email="{{customer.email}}"></div>
+                <div data-customer-size-id="{{customer.metafields.Size.code}}"></div>
+                <div data-customer-size-name="{{customer.metafields.Size.name}}"></div>
+                <div data-customer-measurement-chest="{{customer.metafields.Measurement.chest}}"></div>
+                <div data-customer-measurement-waist="{{customer.metafields.Measurement.waist}}"></div>
+                <div data-customer-measurement-sleeve="{{customer.metafields.Measurement.sleeve}}"></div>
+                <div data-customer-measurement-unit="{{customer.metafields.Measurement.unit}}"></div>
+              </div>
+            {% else %}
+              <a class="account-options" href="/account/login">
+                <!--<span class="icon">a</span>LOGIN</span>-->
+                LOGIN
+              </a><span class="nav-divider">|</span>
+            {% endif %}
+
+          {% endif %}
+
+          
+		</div><!-- end secondary-nav -->
+       
+      </div><!-- end tools -- >
+
+    <!-- Compact navigation
+    ============================================= -->
+    <nav class="compact {% unless template == 'index' and settings.show-slideshow == true and settings.slideshow-match-width == false %}bordered{% endunless %} {{ settings.mobile-navigation-colour-scheme }} {% if shop.customer_accounts_enabled %}account-enabled{% endif %}">
+
+    </nav>
+
+                  
+    </div><!-- end action-links -->
+      
+  </section><!-- end main-header content area -->
+    
+    
+  <!-- Mobile navigation
+  ============================================= -->
+  <section class="mobile-dropdown {{ settings.mobile-navigation-colour-scheme }}">
+    <ul class="list primary">
+      {% for link in linklists.main-menu.links %}
+
+        {% capture link_handle %}{{ link.title | handle }}{% endcapture %}
+
+        {% capture link_title %}
+          {% if link.title == 'Catalog' and settings.catalog-label-override.size > 0 %}
+            {{ settings.catalog-label-override }}
+          {% else %}
+            {{ link.title }}
+          {% endif %}
+        {% endcapture %}
+
+        {% assign meganav = false %}
+        {% if link.title == 'Catalog' and settings.enable-mega-nav %} {% assign meganav = true %} {% endif %}
+
+        {% assign dropdown = false %}
+        {% if linklists[link_handle] and linklists[link_handle].links.size > 0 %} {% assign dropdown = true %} {% endif %}
+
+        <li class="list-item {% include 'for-looper' %} {% if meganav or dropdown %}dropdown{% endif %}">
+          <a href="{{ link.url }}">{{ link_title }}{% if meganav or dropdown %}<span class="icon"></span>{% endif %}</a>
+
+          {% if meganav %}
+
+            <ul class="list secondary">
+
+              {% if linklists[settings.meganav-list-1].title.size > 0 %}
+                <li class="list-item dropdown">
+                  <a href="{{ linklists[settings.meganav-list-1].url }}">{{ linklists[settings.meganav-list-1].title }}<span class="icon"></span></a>
+                  <ul class="list tertiary">
+                    {% for link_tertiary in linklists[settings.meganav-list-1].links %}
+
+                      {% assign dropdown = false %}
+                      {% capture link_handle_tertiary %}{{ link_tertiary.title | handle }}{% endcapture %}
+                      {% if linklists[link_handle_tertiary] and linklists[link_handle_tertiary].links.size > 0 %}{% assign dropdown = true %}{% endif %}
+
+                      <li class="list-item {% if dropdown %}dropdown{% endif %}">
+                        <a href="{{ link_tertiary.url }}">{{ link_tertiary.title }}{% if dropdown %}<span class="icon"></span>{% endif %}</a>
+
+                        {% if dropdown %}
+                        <ul class="list quaternary">
+                          {% for link_quaternary in linklists[link_handle_tertiary].links %}
+                            <li class="list-item">
+                              <a href="{{ link_quaternary.url }}">{{ link_quaternary.title }}</a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                        {% endif %}
+
+                      </li>
+
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% endif %}
+
+              {% if linklists[settings.meganav-list-2].title.size > 0 %}
+                <li class="list-item dropdown">
+                  <a href="{{ linklists[settings.meganav-list-2].url }}">{{ linklists[settings.meganav-list-2].title }}<span class="icon"></span></a>
+                  <ul class="list tertiary">
+                    {% for link_tertiary in linklists[settings.meganav-list-2].links %}
+
+                      {% assign dropdown = false %}
+                      {% capture link_handle_tertiary %}{{ link_tertiary.title | handle }}{% endcapture %}
+                      {% if linklists[link_handle_tertiary] and linklists[link_handle_tertiary].links.size > 0 %}{% assign dropdown = true %}{% endif %}
+
+                      <li class="list-item {% if dropdown %}dropdown{% endif %}">
+                        <a href="{{ link_tertiary.url }}">{{ link_tertiary.title }}{% if dropdown %}<span class="icon"></span>{% endif %}</a>
+
+                        {% if dropdown %}
+                        <ul class="list quaternary">
+                          {% for link_quaternary in linklists[link_handle_tertiary].links %}
+                            <li class="list-item">
+                              <a href="{{ link_quaternary.url }}">{{ link_quaternary.title }}</a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                        {% endif %}
+
+                      </li>
+
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% endif %}
+
+              {% if linklists[settings.meganav-list-3].title.size > 0 %}
+                <li class="list-item dropdown">
+                  <a href="{{ linklists[settings.meganav-list-3].url }}">{{ linklists[settings.meganav-list-3].title }}<span class="icon"></span></a>
+                  <ul class="list tertiary">
+                    {% for link_tertiary in linklists[settings.meganav-list-3].links %}
+
+                      {% assign dropdown = false %}
+                      {% capture link_handle_tertiary %}{{ link_tertiary.title | handle }}{% endcapture %}
+                      {% if linklists[link_handle_tertiary] and linklists[link_handle_tertiary].links.size > 0 %}{% assign dropdown = true %}{% endif %}
+
+                      <li class="list-item {% if dropdown %}dropdown{% endif %}">
+                        <a href="{{ link_tertiary.url }}">{{ link_tertiary.title }}{% if dropdown %}<span class="icon"></span>{% endif %}</a>
+
+                        {% if dropdown %}
+                        <ul class="list quaternary">
+                          {% for link_quaternary in linklists[link_handle_tertiary].links %}
+                            <li class="list-item">
+                              <a href="{{ link_quaternary.url }}">{{ link_quaternary.title }}</a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                        {% endif %}
+
+                      </li>
+
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% endif %}
+
+            </ul>
+
+          {% endif %}
+
+          {% if dropdown %}
+
+            <ul class="list secondary">
+              {% for link_secondary in linklists[link_handle].links %}
+
+                {% capture link_handle_secondary %}{{ link_secondary.title | handle }}{% endcapture %}
+                {% assign dropdown = false %}
+                {% if linklists[link_handle_secondary] and linklists[link_handle_secondary].links.size > 0 %} {% assign dropdown = true %} {% endif %}
+
+                <li class="list-item {% if dropdown %}dropdown{% endif %}">
+                  <a href="{{ link_secondary.url }}">{{ link_secondary.title }}{% if dropdown %}<span class="icon"></span>{% endif %}</a>
+
+                  {% if dropdown %}
+
+                    <ul class="list tertiary">
+                      {% for link_tertiary in linklists[link_handle_secondary].links %}
+
+                        {% capture link_handle_tertiary %}{{ link_tertiary.title | handle }}{% endcapture %}
+                        {% assign dropdown = false %}
+                        {% if linklists[link_handle_tertiary] and linklists[link_handle_tertiary].links.size > 0 %} {% assign dropdown = true %} {% endif %}
+
+                        <li class="list-item {% if dropdown %}dropdown{% endif %}">
+                          <a href="{{ link_tertiary.url }}">{{ link_tertiary.title }} {% if dropdown %}<span class="icon"></span>{% endif %}</a>
+
+                          {% if dropdown %}
+
+                            <ul class="list quaternary">
+                              {% for link_quaternary in linklists[link_handle_tertiary].links %}
+                                <li class="list-item">
+                                  <a href="{{ link_quaternary.url }}">{{ link_quaternary.title }}</a>
+                                </li>
+                              {% endfor %}
+                            </ul>
+
+                          {% endif %}
+                        </li>
+                      {% endfor %}
+                    </ul>
+
+                  {% endif %}
+
+                </li>
+
+              {% endfor %}
+            </ul>
+
+          {% endif %}
+
+        </li>
+
+      {% endfor %}
+    </ul>
+  </section>
+
+  {% if settings.enable-mega-nav %}
+  {% assign limit = settings.meganav-limit | times: 1 %}
+  {% assign columnCount = 0 %}
+
+  {% if linklists[settings.meganav-list-1].title.size > 0 %}
+    {% assign columnCount = columnCount | plus: 1 %}
+  {% endif %}
+
+  {% if linklists[settings.meganav-list-2].title.size > 0 %}
+    {% assign columnCount = columnCount | plus: 1 %}
+  {% endif %}
+
+  {% if linklists[settings.meganav-list-3].title.size > 0 %}
+    {% assign columnCount = columnCount | plus: 1 %}
+  {% endif %}
+
+  <!-- Mega navigation
+  ============================================= -->
+  <section class="mega-nav {{ settings.mobile-navigation-colour-scheme }}">
+    <div class="mega-nav-wrap content-area">
+
+        <!-- Main mega list
+        ++++++++++++++++++++++++++++ -->
+        <ul class="main-list mega-nav-list clearfix">
+          {% if linklists[settings.meganav-list-1].title.size > 0 %}
+          <li class="list first clearfix">
+
+            <h2 class="label">
+              {{ linklists[settings.meganav-list-1].title }}
+            </h2>
+            <ul data-list="{{ linklists[settings.meganav-list-1].handle }}" class="list-wrap">
+              {% for link in linklists[settings.meganav-list-1].links %}
+
+                {% if forloop.index < limit or columnCount == 1 %}
+                  {% capture link_handle %}{{ link.title | handle }}{% endcapture %}
+                  {% assign hasCategory = false %}
+                  {% if linklists[link_handle] and linklists[link_handle].links.size > 0 %} {% assign hasCategory = true %} {% endif %}
+
+                  <li class="list-item {{ settings.top-level-columns }}"><a data-category="{{ link.title | handleize }}" class="item {% if hasCategory %}has-category{% endif %}" href="{{ link.url }}">{{ link.title }}{% if hasCategory %}<span class="more-icon">+</span>{% endif %}</a></li>
+                {% elsif forloop.index == limit %}
+                  <li class="list-item {{ settings.top-level-columns }}"><a class="item show-more" href="#">More...</a></li>
+                {% endif %}
+
+              {% endfor %}
+            </ul>
+
+          </li>{% endif %}{% if linklists[settings.meganav-list-2].title.size > 0 %}<li class="list clearfix">
+
+              <h2 class="label">
+                {{ linklists[settings.meganav-list-2].title }}
+              </h2>
+              <ul data-list="{{ linklists[settings.meganav-list-2].handle }}" class="list-wrap">
+                {% for link in linklists[settings.meganav-list-2].links %}
+
+                  {% if forloop.index < limit %}
+                    {% capture link_handle %}{{ link.title | handle }}{% endcapture %}
+                    {% assign hasCategory = false %}
+                    {% if linklists[link_handle] and linklists[link_handle].links.size > 0 %} {% assign hasCategory = true %} {% endif %}
+
+                    <li class="list-item {{ settings.top-level-columns }}"><a data-category="{{ link.title | handleize }}" class="item {% if hasCategory %}has-category{% endif %}" href="{{ link.url }}">{{ link.title }}{% if hasCategory %}<span class="more-icon">+</span>{% endif %}</a></li>
+                  {% elsif forloop.index == limit %}
+                    <li class="list-item {{ settings.top-level-columns }}"><a class="item show-more" href="#">More...</a></li>
+                  {% endif %}
+
+                {% endfor %}
+              </ul>
+
+          </li>{% endif %}{% if linklists[settings.meganav-list-3].title.size > 0 %}<li class="list clearfix">
+
+            <h2 class="label">
+              {{ linklists[settings.meganav-list-3].title }}
+            </h2>
+            <ul data-list="{{ linklists[settings.meganav-list-3].handle }}" class="list-wrap">
+              {% for link in linklists[settings.meganav-list-3].links %}
+
+                {% if forloop.index < limit %}
+                  {% capture link_handle %}{{ link.title | handle }}{% endcapture %}
+                  {% assign hasCategory = false %}
+                  {% if linklists[link_handle] and linklists[link_handle].links.size > 0 %} {% assign hasCategory = true %} {% endif %}
+
+                  <li class="list-item {{ settings.top-level-columns }}"><a data-category="{{ link.title | handleize }}" class="item {% if hasCategory %}has-category{% endif %}" href="{{ link.url }}">{{ link.title }}{% if hasCategory %}<span class="more-icon">+</span>{% endif %}</a></li>
+                {% elsif forloop.index == limit %}
+                  <li class="list-item {{ settings.top-level-columns }}"><a class="item show-more" href="#">More...</a></li>
+                {% endif %}
+
+              {% endfor %}
+            </ul>
+
+          </li>{% endif %}
+        </ul>
+
+        <!-- Expanded mega list
+        ++++++++++++++++++++++++++++ -->
+        <ul class="expanded-list mega-nav-list clearfix">
+
+          {% if settings.meganav-list-1 != 'none' %}<li class="back"></li><li data-list="{{ linklists[settings.meganav-list-1].handle }}" class="list {% include 'for-looper' %} clearfix">
+
+            <h2 class="label">{{ linklists[settings.meganav-list-1].title }}</h2>
+            <ul class="list-wrap">
+              {% for link in linklists[settings.meganav-list-1].links %}
+
+                {% capture link_handle %}{{ link.title | handle }}{% endcapture %}
+                {% assign hasCategory = false %}
+                {% if linklists[link_handle] and linklists[link_handle].links.size > 0 %} {% assign hasCategory = true %} {% endif %}
+
+                <li class="list-item">
+                  <a data-category="{{ link.title | handleize }}" class="item {% if hasCategory %}has-category{% endif %}" href="{{ link.url }}">{{ link.title }}{% if hasCategory %}<span class="more-icon">+</span>{% endif %}</a>
+                </li>
+
+              {% endfor %}
+            </ul>
+
+          </li>{% endif %}{% if settings.meganav-list-2 != 'none' %}<li data-list="{{ linklists[settings.meganav-list-2].handle }}" class="list {% include 'for-looper' %} clearfix">
+
+            <h2 class="label">{{ linklists[settings.meganav-list-2].title }}</h2>
+            <ul class="list-wrap">
+              {% for link in linklists[settings.meganav-list-2].links %}
+
+                {% capture link_handle %}{{ link.title | handle }}{% endcapture %}
+                {% assign hasCategory = false %}
+                {% if linklists[link_handle] and linklists[link_handle].links.size > 0 %} {% assign hasCategory = true %} {% endif %}
+
+                <li class="list-item">
+                  <a data-category="{{ link.title | handleize }}" class="item {% if hasCategory %}has-category{% endif %}" href="{{ link.url }}">{{ link.title }}{% if hasCategory %}<span class="more-icon">+</span>{% endif %}</a>
+                </li>
+
+              {% endfor %}
+            </ul>
+
+          </li>{% endif %}{% if settings.meganav-list-3 != 'none' %}<li data-list="{{ linklists[settings.meganav-list-3].handle }}" class="list {% include 'for-looper' %} clearfix">
+
+            <h2 class="label">{{ linklists[settings.meganav-list-3].title }}</h2>
+            <ul class="list-wrap">
+              {% for link in linklists[settings.meganav-list-3].links %}
+
+                {% capture link_handle %}{{ link.title | handle }}{% endcapture %}
+                {% assign hasCategory = false %}
+                {% if linklists[link_handle] and linklists[link_handle].links.size > 0 %} {% assign hasCategory = true %} {% endif %}
+
+                <li class="list-item">
+                  <a data-category="{{ link.title | handleize }}" class="item {% if hasCategory %}has-category{% endif %}" href="{{ link.url }}">{{ link.title }}{% if hasCategory %}<span class="more-icon">+</span>{% endif %}</a>
+                </li>
+
+              {% endfor %}
+            </ul>
+
+          </li>{% endif %}
+
+        </ul>
+
+        <!-- Category mega list
+        ++++++++++++++++++++++++++++ -->
+        <ul class="category-list mega-nav-list clearfix">
+
+          <li class="back"></li>
+
+          {% assign first = true %}
+          {% for link in linklists[settings.meganav-list-1].links %}
+
+            {% capture link_handle %}{{ link.title | handle }}{% endcapture %}
+            {% if linklists[link_handle] and linklists[link_handle].links.size > 0 %}
+
+              <li data-category="{{ link_handle }}" class="list {% if first %}first{% endif %} clearfix">
+                <h2 class="label">{{ linklists[settings.meganav-list-1].title }} / {{ linklists[link_handle].title }}</h2>
+                <ul class="list-wrap">
+                  {% for link_child in linklists[link_handle].links %}
+                    <li class="list-item {% include 'for-looper' %}"><a class="item" href="{{ link_child.url }}">{{ link_child.title }}</a></li>
+                  {% endfor %}
+                </ul>
+              </li>
+              {% assign first = false %}
+
+            {% endif %}
+          {% endfor %}
+
+          {% assign first = true %}
+          {% for link in linklists[settings.meganav-list-2].links %}
+
+            {% capture link_handle %}{{ link.title | handle }}{% endcapture %}
+            {% if linklists[link_handle] and linklists[link_handle].links.size > 0 %}
+
+              <li data-category="{{ link_handle }}" class="list {% if first %}first{% endif %} clearfix">
+                <h2 class="label">{{ linklists[settings.meganav-list-2].title }} / {{ linklists[link_handle].title }}</h2>
+                <ul class="list-wrap">
+                  {% for link_child in linklists[link_handle].links %}
+                    <li class="list-item {% include 'for-looper' %}"><a class="item" href="{{ link_child.url }}">{{ link_child.title }}</a></li>
+                  {% endfor %}
+                </ul>
+              </li>
+              {% assign first = false %}
+
+            {% endif %}
+          {% endfor %}
+
+          {% assign first = true %}
+          {% for link in linklists[settings.meganav-list-3].links %}
+
+            {% capture link_handle %}{{ link.title | handle }}{% endcapture %}
+            {% if linklists[link_handle] and linklists[link_handle].links.size > 0 %}
+
+              <li data-category="{{ link_handle }}" class="list {% if first %}first{% endif %} clearfix">
+                <h2 class="label">{{ linklists[settings.meganav-list-3].title }} / {{ linklists[link_handle].title }}</h2>
+                <ul class="list-wrap">
+                  {% for link_child in linklists[link_handle].links %}
+                    <li class="list-item {% include 'for-looper' %}"><a class="item" href="{{ link_child.url }}">{{ link_child.title }}</a></li>
+                  {% endfor %}
+                </ul>
+              </li>
+              {% assign first = false %}
+
+            {% endif %}
+          {% endfor %}
+
+        </ul>
+
+    </div>
+  </section>
+  {% endif %}
+
+</header>

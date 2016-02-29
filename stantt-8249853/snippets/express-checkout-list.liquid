@@ -1,0 +1,14 @@
+<div class="container product-image-wrapper">
+
+
+  <div>
+    {% for p in collection.products %}
+        {% capture swatch_name %}swatch-{{p.handle}}.jpg{% endcapture %}
+          <a href="#/color/{{p.handle}}">
+            <img ng-class="{'shirt-product-thumb': false }" src="{{ p.images[1].src | img_url: 'medium' }}">
+            <span>{{ p.title }}</span>
+          </a>  
+    {% endfor %}
+  </div>
+
+</div><!-- end product-image-wrapper -->

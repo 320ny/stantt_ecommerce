@@ -1,0 +1,129 @@
+{% paginate collection.products by settings.products-per-page %}
+
+{% capture collection_url %}{% if collection.url.size == 0 %}/collections/all{% else %}{{ collection.url }}{% endif %}{% endcapture %}
+
+<section class="content content-area tapemeasure">
+ 
+  <img class="gidt-card-img" src="https://cdn.shopify.com/s/files/1/0434/4097/files/Gift-Card-Product-Header.jpg?7457200798130005352">
+  
+
+  
+  <div class="page-title">
+    <span class="label">{{ collection.title }}</span>
+
+    {% if collection.all_tags.size > 0 %}
+    <div class="tags-wrap preload">
+      <select class="coll-filter styled-select tags-dropdown">
+        <option value="">All</option>
+        {% for tag in collection.all_tags %}
+          {% if current_tags contains tag %}
+            <option value="{{ tag | handle }}" selected>{{ tag }}</option>
+          {% else %}
+            <option value="{{ tag | handle }}">{{ tag }}</option>
+          {% endif %}
+        {% endfor %}
+      </select>
+
+      <ul class="tags">
+        {% for tag in collection.all_tags %}
+         <li class="tag show">{{ tag | link_to_tag: tag }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+
+  {% if collection.products.size == 0 %}
+    <p class="empty">No products in this collection</p>
+  {% else %}
+
+    {% if collection.description.size > 0 or settings.collection-top-pagination %}
+      {% if collection.description.size > 0 or paginate.previous or paginate.next%}
+      <div class="collection-header clearfix">
+
+        <div class="description rte">{{ collection.description }}</div>
+
+        {% if settings.collection-top-pagination %}
+          {% if paginate.previous or paginate.next %}
+            {% include 'pagination' %}
+          {% endif %}
+        {% endif %}
+      </div>
+      {% endif %}
+    {% endif %}
+
+    <ul class="tapemeasure-products product-list {{ settings.products-per-row }}">   
+      <li class="product product-3756727172  last ">
+        <div class="product-inner">
+          <figure>
+            <img alt="Gift Card + Measuring Kit" src="https://cdn.shopify.com/s/files/1/0434/4097/files/Gift-Card-Kit-thumbnail.jpg?6119764666029909139">
+            <a href="/products/gift-card-1" class="with-border"></a>  
+          </figure>
+          <p class="brand"><a href="/collections/vendors?q=Stantt" title="Stantt">Stantt</a></p>
+          <p class="title"><a href="/products/gift-card-1">Physical Gift Card + <br>Free Measuring Kit</a></p>
+         
+        </div>
+	  </li>
+      
+      <li class="product product-368828753 first  flush">
+        <div class="product-inner">
+          <figure>
+            <img alt="Physical Gift Card" src="https://cdn.shopify.com/s/files/1/0434/4097/files/Gift-Card-thumbnail.jpg?6119764666029909139">
+            <a href="/products/physical-gift-card" class="with-border"></a>
+          </figure>
+          <p class="brand"><a href="/collections/vendors?q=Stantt" title="Stantt">Stantt</a></p>
+          <p class="title"><a href="/products/gift-card">Physical Gift Card</a></p>
+        </div>
+	  </li>
+
+      
+      <li class="product product-368828753 first  flush">
+        <div class="product-inner">
+          <figure>
+            <img alt="Digital Gift Card" src="https://cdn.shopify.com/s/files/1/0434/4097/files/Gift-Card-thumbnail.jpg?6119764666029909139">
+            <a href="/products/gift-card" class="with-border"></a>
+          </figure>
+          <p class="brand"><a href="/collections/vendors?q=Stantt" title="Stantt">Stantt</a></p>
+          <p class="title"><a href="/products/gift-card">Digital Gift Card</a></p>
+        </div>
+	  </li>
+      
+      <!--{% for product in collection.products limit: settings.products-per-page %}{% include 'product-item' %}{% endfor %}-->
+    </ul>
+  {% endif %}
+
+  {% if paginate.previous or paginate.next %}
+    {% include 'pagination' %}
+  {% endif %}
+
+</section>
+{% endpaginate %}
+
+<script>
+  /* Product Tag Filters - Good for any number of filters on any type of collection pages */
+  /* Brought to you by Caroline Schnapp */
+  var collFilters = jQuery('.coll-filter');
+  collFilters.change(function() {
+    var newTags = [];
+    collFilters.each(function() {
+      if (jQuery(this).val()) {
+        newTags.push(jQuery(this).val());
+      }
+    });
+    if (newTags.length) {
+      var query = newTags.join('+');
+      window.location.href = jQuery('{{ 'tag' | link_to_tag: 'tag' }}').attr('href').replace('tag', query);
+    }
+    else {
+      {% if collection.handle %}
+      window.location.href = '/collections/{{ collection.handle }}';
+      {% elsif collection.products.first.type == collection.title %}
+      window.location.href = '{{ collection.title | url_for_type }}';
+      {% elsif collection.products.first.vendor == collection.title %}
+      window.location.href = '{{ collection.title | url_for_vendor }}';
+      {% endif %}
+    }
+  });
+  
+</script>
+<div ng-controller="SizingController"></div>

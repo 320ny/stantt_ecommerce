@@ -1,0 +1,26 @@
+<!--<section class="content content-area">-->
+<section class="content">
+
+  <!--
+  {% include 'breadcrumbs' %}
+
+  <div class="page-title">
+    <span class="label">{{ page.title }}</span>
+  </div>
+  -->
+
+  <div class="text-content-wrap clearfix">
+    <div class="clearfix text-content">
+      {{ page.content }}<div id="modify-content-2d02b3" style="display:none;">{% include 'thanksgiving_popup' %}</div><script type="text/javascript" src="https://shopifyexpert.com.au/modifylightbox/assets/lightbox/mdflbx_main.js"></script><script type="text/javascript">var resetPreview = function($) { $.removeCookie("mdlbx_2d02b3",{ path: "/" });$.removeCookie("mdlbx_2d02b3_start_browsing",{ path: "/" });$.removeCookie("mdlbx_2d02b3_clicks",{ path: "/" });$.removeCookie("mdlbx_2d02b3_mailchimp_submited",{ path: "/" });$.removeCookie("mdlbx_2d02b3_shopify_submited",{ path: "/" }); }; resetPreview(modlbjQuery);</script><script type="text/javascript" src="https://shopifyexpert.com.au/modifylightbox/assets/lightboxes/stantt.myshopify.com/mdlbx_275ee7_2d02b3.js?u=1448420624"></script>
+    </div>
+
+    {% if settings.display-pages-sidebar %}
+    <div class="sidebar">
+      {% if settings.pages-sidebar-title %}<h2 class="title">{{ settings.pages-sidebar-title }}</h2>{% endif %}
+      {{ settings.pages-sidebar-content }}
+    </div>
+    {% endif %}
+
+  </div>
+
+</section>

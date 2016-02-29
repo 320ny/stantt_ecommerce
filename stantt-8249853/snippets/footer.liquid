@@ -1,0 +1,185 @@
+<!-- Footer
+============================================= -->
+{% assign footerModules = 1 %}
+
+{% unless settings.twitter-url.size == 0 and facebook.twitter-url.size == 0 and settings.pinterest-url.size == 0 and settings.instagram-url.size == 0 %}
+  {% assign footerModules = footerModules | plus: 1 %}
+{% endunless %}
+
+{% if settings.show-mailing-list %}
+  {% assign footerModules = footerModules | plus: 1 %}
+{% endif %}
+
+<div class="container footer-container">
+  
+<footer class="main-footer content-area" id="main-footer">
+  
+  <section class="email-capture">
+    <!--<p>Come along for the ride as we set a new standard in apparel.  Along the way, get the latest news and exclusive deals.</p>-->
+
+	{% form 'customer' %}
+		<div class="wrap">
+          	<h5>Join the Revolution.</h5>
+			<input type="hidden" id="contact_tags" name="contact[tags]" value="prospect,newsletter,footer"/>
+			<input type="hidden" id="newsletter-first-name" name="contact[first_name]" value="Newsletter" />
+			<input type="hidden" id="newsletter-last-name" name="contact[last_name]" value="Subscriber" />
+			<input class="email" type="email" id="contact_email" name="contact[email]" placeholder="Enter your email" value="" />
+			<input type="submit" class="submit" name="subscribe" value="JOIN"/>
+		</div>
+	{% endform %}
+
+  </section><!-- end email-capture -->
+  
+  <section class="footer-links">
+    <div class="footer-links-1">
+      <h5>SHOP</h5>
+      <a href="/pages/manhattan">Manhattan Collection</a>
+      <a href="/pages/highline">Highline Collection</a>
+      <a href="/products/measuringkit">Measuring Kits</a>
+    </div><div class="footer-links-2">
+      <h5>ABOUT</h5>
+      <a href="/pages/stantt-way">Our Story</a>
+      <a href="/pages/stantt-way">Why Stantt?</a>
+      <a href="/pages/visit-our-pop-up">Visit Us</a>
+    </div><div class="footer-links-3">
+      <h5>HELP</h5>
+      <a href="https://stantt.zendesk.com" target="_blank">FAQ</a>
+      <a href="https://stantt.zendesk.com" target="_blank">Terms &amp; Privacy</a>
+      <a href="/pages/contact-us">Customer Service</a>
+      <a href="mailto:questions@stantt.com" target="_blank">Email Us</a>
+    </div>
+  </section>
+  
+  <section class="footer-social">
+    <a class="social-icon" href="{{ settings.facebook-url }}" target="_blank"><img src="https://cdn.shopify.com/s/files/1/0434/4097/files/facebook.png?12351113045124784265"></a>
+    <a class="social-icon" href="{{ settings.twitter-url }}" target="_blank"><img src="https://cdn.shopify.com/s/files/1/0434/4097/files/twitter.png?12351113045124784265"></a>
+    <a class="social-icon" href="{{ settings.instagram-url }}" target="_blank"><img src="https://cdn.shopify.com/s/files/1/0434/4097/files/instagram.png?12351113045124784265"></a>
+    <p>1.800.556.3695
+    <a href="mailto:questions@stantt.com" target="_blank">questions@stantt.com</a>
+    </p>
+  </section>
+  
+   <!--
+  	  <section class="footer-contact">
+      <section class="contact-option">
+        <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/email-icon.png?9088">
+        <span><a href="mailto:questions@stantt.com" target=_"blank">QUESTIONS@STANTT.COM</a></span>
+      </section>
+
+      <section class="contact-option">
+        <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/phone-icon.png?9088">
+        <span>1-800-556-3695</span>
+      </section>
+    </section>
+
+    <section class="footer-links">
+      <span><a href="/pages/refer-a-friend">REFER A FRIEND</a></span>
+    </section>
+
+    <section class="footer-links">
+      <a href="#">FAQ</a><span class="nav-divider">|</span>
+      <a href="#">ABOUT US</a><span class="nav-divider">|</span>
+      <a href="/pages/contact-us">HELP</a>
+    </section>
+    
+  	</section>-->
+    
+  <!-- Connect with us
+  ++++++++++++++++++++++++++++ -->
+    <!--
+
+  	<ul class="connect clearfix module-count-{{ footerModules }}">
+	  {% unless settings.twitter-url.size == 0 and settings.facebook-url.size == 0 and settings.pinterest-url.size == 0 and settings.instagram-url.size == 0 %}
+      <li class="social">
+      <ul>
+        {% if settings.facebook-url.size > 0 %}<li class="social-link facebook"><a href="{{ settings.facebook-url }}" target="_blank"><img src="//cdn.shopify.com/s/files/1/0434/4097/files/social-facebook.png?1802"></a></li>{% endif %}
+        {% if settings.twitter-url.size > 0 %}<li class="social-link twitter"><a href="{{ settings.twitter-url }}" target="_blank"><img src="//cdn.shopify.com/s/files/1/0434/4097/files/social-twitter.png?1802"></a></li>{% endif %}
+        {% if settings.instagram-url.size > 0 %}<li class="social-link instagram"><a href="{{ settings.instagram-url }}" target="_blank"><img src="//cdn.shopify.com/s/files/1/0434/4097/files/social-instagram.png?1802"></a></li>{% endif %}
+        {% if settings.pinterest-url.size > 0 %}<li class="social-link pinterest"><a href="{{ settings.pinterest-url }}" target="_blank">p</a></li>{% endif %}
+        {% if settings.google-plus-url.size > 0 %}<li class="social-link google-plus"><a href="{{ settings.google-plus-url }}" target="_blank">g</a></li>{% endif %}
+        {% if settings.tumblr-url.size > 0 %}<li class="social-link tumblr"><a href="{{ settings.tumblr-url }}" target="_blank">T</a></li>{% endif %}
+        {% if settings.youtube-url.size > 0 %}<li class="social-link youtube"><a href="{{ settings.youtube-url }}" target="_blank">y</a></li>{% endif %}
+        {% if settings.vimeo-url.size > 0 %}<li class="social-link vimeo"><a href="{{ settings.vimeo-url }}" target="_blank">V</a></li>{% endif %}
+      </ul>
+        
+      {% if settings.show-mailing-list %}
+      <strong>JOIN OUR MAILING LIST</strong>
+      <form action="{{ settings.mailchimp-action-url }}" method="post" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+      <div class="wrap">
+      <input class="email" name="EMAIL" type="email" placeholder="email address" value="">
+      <input class="submit" name="subscribe" type="submit" value="JOIN">
+      </div>
+      </form>
+      {% endif %}
+        
+      </li>{% endunless %}   
+  	</ul>
+  
+    <section class="footer-links">
+      <div class="footer-links-column column-divider">
+        <strong>HELP</strong>
+        <ul>
+          <li><a href="#">FIT GUIDE</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">RETURNS &amp; EXCHANGES</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-column">
+        <strong>STANTT</strong>
+        <ul>
+          <li><a href="#">ABOUT US</a></li>
+          <li><a href="#">CONTACT US</a></li>
+          <li><a href="#">LEGAL</a></li>
+          <li><a href="#">PRESS</a></li>
+        </ul>
+      </div>
+      
+    </section>
+    
+    -->
+    
+  <!--
+  <ul class="connect clearfix module-count-{{ footerModules }}">
+    <li class="contact first">
+      <h2 class="title">Get in touch</h2>
+      <p class="phone">{{ settings.shop-phone }}</p>
+      <p class="email"><a href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>
+    </li>{% unless settings.twitter-url.size == 0 and settings.facebook-url.size == 0 and settings.pinterest-url.size == 0 and settings.instagram-url.size == 0 %}<li class="social">
+      <h2 class="title">Follow us out there</h2>
+      <ul>
+        {% if settings.twitter-url.size > 0 %}<li class="social-link twitter"><a href="{{ settings.twitter-url }}" target="_blank">t</a></li>{% endif %}
+        {% if settings.facebook-url.size > 0 %}<li class="social-link facebook"><a href="{{ settings.facebook-url }}" target="_blank">f</a></li>{% endif %}
+        {% if settings.pinterest-url.size > 0 %}<li class="social-link pinterest"><a href="{{ settings.pinterest-url }}" target="_blank">p</a></li>{% endif %}
+        {% if settings.google-plus-url.size > 0 %}<li class="social-link google-plus"><a href="{{ settings.google-plus-url }}" target="_blank">g</a></li>{% endif %}
+        {% if settings.instagram-url.size > 0 %}<li class="social-link instagram"><a href="{{ settings.instagram-url }}" target="_blank">i</a></li>{% endif %}
+        {% if settings.tumblr-url.size > 0 %}<li class="social-link tumblr"><a href="{{ settings.tumblr-url }}" target="_blank">T</a></li>{% endif %}
+        {% if settings.youtube-url.size > 0 %}<li class="social-link youtube"><a href="{{ settings.youtube-url }}" target="_blank">y</a></li>{% endif %}
+        {% if settings.vimeo-url.size > 0 %}<li class="social-link vimeo"><a href="{{ settings.vimeo-url }}" target="_blank">V</a></li>{% endif %}
+      </ul>
+    </li>{% endunless %}{% if settings.show-mailing-list %}<li class="newsletter">
+      <h2 class="title">Newsletter</h2>
+      <form action="{{ settings.mailchimp-action-url }}" method="post" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+        <div class="wrap">
+          <input class="email" name="EMAIL" type="email" placeholder="Email address" value="">
+          <input class="submit" name="subscribe" type="submit" value="submit">
+        </div>
+      </form>
+    </li>{% endif %}
+  </ul>
+  -->
+  <!-- Sub-footer
+  ++++++++++++++++++++++++++++ -->
+    
+</footer><!-- end main-footer -->
+
+</div><!-- end container -->
+
+<section class="sub-footer-links">
+  <p class="copyright">&copy; COPYRIGHT {{ 'now' | date: "%Y" }} STANTT. ALL RIGHTS RESERVED.</p>
+    <!--
+  	<a href="#" target="_blank">PRIVACY POLICY</a>
+    <a href="#" target="_blank">TERMS &amp; CONDITIONS</a>
+    <a href="#" target="_blank">RETURN POLICY</a>
+	-->
+</section><!-- end sub-footer-links -->

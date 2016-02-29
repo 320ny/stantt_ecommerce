@@ -1,0 +1,132 @@
+<div ng-show="sizingStep" class='size-modal-alt size-modal-single' ng-class="{'know-size-modal': sizingStep == 'direct'}" ng-cloak>
+  <div class="close-modal-x" ng-click=changeSizingStep(undefined)>X</div>
+  <div class="modal-container" ng-controller='SizingController'>
+    
+    <div class="sizing-steps" ng-show="sizingStep == '2'">
+      <h3>CHEST</h3>
+      <a href="//fast.wistia.net/embed/iframe/zfjqeeaob0?popover=true" class="wistia-popover[height=450,playerColor=7b796a,width=800]">
+        <img class="video" src="https://cdn.shopify.com/s/files/1/0434/4097/files/chest-video.jpg?16978823771516946513">
+      </a>
+      <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/popover-v1.js"></script>
+      
+      <div class="measure-details-wrapper">
+        <div class="measure-details">
+          <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/input1-img1.jpg?17954">
+          <p>With your elbows raises, wrap your measuring tool around your chest, just below your armpits.</p>
+        </div><div class="measure-details">
+          <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/input1-img2.jpg?17957">
+          <p>Drop your elbows to your side. You are going for the largest part of your chest.</p>
+        </div>
+      </div>
+      
+      <em><a href="#" ng-click=changeSizingStep(undefined)>Close Window</a></em>
+    </div>  
+
+    <div class="sizing-steps" ng-show="sizingStep == '3'">
+      <h3>WAIST</h3>
+      <a href="//fast.wistia.net/embed/iframe/ujs8xzlylr?popover=true" class="wistia-popover[height=450,playerColor=7b796a,width=800]">
+        <img class="video" src="https://cdn.shopify.com/s/files/1/0434/4097/files/waist-video.jpg?16978823771516946513">
+      </a>
+
+      <div class="measure-details-wrapper">
+        <div class="measure-details">
+          <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/input2-img1.jpg?17932">
+          <p>DON'T SUCK IN and breathe naturally.</p>
+        </div><div class="measure-details">
+          <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/input2-img2.jpg?17932">
+          <p>Wrap your measuring tool about 2 inches below your belly-button.</p>
+        </div>
+      </div>
+   
+      <em><a href="#" ng-click=changeSizingStep(undefined)>Close Window</a></em> 
+    </div>  
+	
+    <div class="sizing-steps" ng-show="sizingStep == '4'">
+      <h3>SLEEVE</h3>
+      <a href="//fast.wistia.net/embed/iframe/n6ew3n50zx?popover=true" class="wistia-popover[height=450,playerColor=7b796a,width=800]">
+        <img class="video" src="https://cdn.shopify.com/s/files/1/0434/4097/files/sleeve-video.jpg?16978823771516946513">
+      </a>
+      
+      <div class="measure-details-wrapper measure-details-wrapper-sleeve">
+        <div class="measure-details">
+          <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/input3-img1.jpg?18093">
+          <p>Place measuring tool at the bottom of the back-center of your neck.</p>
+        </div><div class="measure-details">
+          <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/input3-img2.jpg?18093">
+          <p>Place your fist on your waist. Run measuring tool over your shoulder and elbow.</p>
+        </div><div class="measure-details">
+          <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/input3-img3.jpg?18093">
+          <p>Continue down your arm to the bottom of the ball on the outside of your wrist.</p>
+        </div>
+      </div>
+   
+      <em><a href="#" ng-click=changeSizingStep(undefined)>Close Window</a></em>       
+    </div>
+    
+    <div class="sizing-steps" ng-show="sizingStep == 'save'">
+        {% if customer %}
+        
+          <div class="sizing-thank-you">
+      		<h2>Thank You</h2>
+      		<h3>Your size has been saved</h3>
+            {% if template == 'product.single' %}
+            	<button ng-click="changeSizingStep(undefined)">Continue Shopping</button>
+            {% else %}
+            	<a href='/collections/manhattan'><button>Continue Shopping</button></a>
+            {% endif %}
+    	  </div>
+        
+        {% else %}
+      	  <div class="sizing-create-account">
+            <h5>Create an account to save your size, so your next order is just a few clicks away!</h5>
+
+            <div class="measure-details-wrapper measure-details-wrapper-sleeve">
+
+              <div class="measure-details">
+                {% form 'create_customer' %}
+                    {% if form.posted_successfully? %}
+                      <div class="success-message"><span>{{ form.errors | default_errors }}</span></div>
+                    {% elsif form.errors %}
+                      <div class="error-message"><span>{{ form.errors | default_errors }}</span></div>
+                    {% endif %}
+
+                    <div class="field-wrap first-name">
+                      <label for="customer[first_name]">NAME</label>
+                      <input type="text" placeholder="FIRST" value="{{customer.first_name}}" name="customer[first_name]" class="field">
+                    </div>
+
+                    <div class="field-wrap last-name">
+                      <!--<label for="customer[last_name]">LAST NAME</label>-->
+                      <input type="text" placeholder="LAST" value="{{customer.last_name}}" name="customer[last_name]" class="field">
+                    </div>
+
+                    <div class="field-wrap email">
+                      <label for="customer[email]">EMAIL</label>
+                      <input type="text" value="{{customer.email}}" name="customer[email]" class="field">
+                    </div>
+
+                    <div class="field-wrap password">
+                      <label for="customer[password]">PASSWORD</label>
+                      <input type="password" placeholder="" value="" name="customer[password]" class="field">
+                    </div>
+                    <input id="thankyou_return_url" type="hidden" name="return_to" value="" />
+                    <div>
+                        <input type="submit" class="action-button submit-button" value="SAVE MY SIZE">
+                    </div>
+
+                {% endform %}
+              </div>
+            </div>
+      	  </div>
+        {% endif %}
+      
+    </div>
+    
+    <div class="sizing-steps find-size-shirt" ng-show="sizingStep == 'direct'">
+      <p><em>If you already have a Stantt shirt, you'll find your size embroidered just underneath the Stantt label on the inside of your shirt.</em></p>
+      <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/find-size.jpg?17779689592342012624">
+    </div>
+    
+
+  </div>
+</div>

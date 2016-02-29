@@ -1,0 +1,27 @@
+<section class="content content-area">
+
+  <!--{% include 'breadcrumbs' %}-->
+
+  <!--
+  <div class="page-title">
+    <span class="label">Page not found</span>
+  </div>
+  -->
+
+  <h2 class="fancy"><span>PAGE NOT FOUND (404 error)</span></h2>
+  
+  <p class="message empty">{{ settings.404-message }}</p>
+
+  {% if settings.display-404-products %}
+  <!-- Featured products
+  ============================================= -->
+  <section class="products">
+
+      <ul class="product-list">
+      {% for product in collections.[settings.404-products-collection].products limit: 4 %}{% include 'product-item' %}{% endfor %}
+      </ul>
+
+  </section>
+  {% endif %}
+
+</section>

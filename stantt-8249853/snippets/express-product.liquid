@@ -1,0 +1,113 @@
+     <section class="express-product-details">
+
+      <section id="product-area-{{product.handle}}" class="clearfix product-area">
+        <!--
+        <aside class="product-notice-bar">
+          <p>Turns out that a lot of guys are sick of S/M/L, so we are dealing with a high level of order volume. We are working as quickly as we can to keep up with production, but estimated ship time is 2-3 weeks from when an order is placed. Thanks for understanding!</p>
+        </aside>--><!-- end product-notice-bar -->
+       <div class="container">
+
+        <div class="product-details-wrapper"> 
+
+          <div class="details">
+
+            <div class="module options">
+              {% if product.available %} <!-- If the product is available then... -->
+              <form action="/cart/add" method="post">
+
+                <h2>{{product.title | upcase}}</h2>
+
+                {% capture swatch_name %}swatch-{{base_handle}}.jpg{% endcapture %}
+                <img src="{{ swatch_name | file_url }}">
+
+                <p class="product-price"><strong>{{ product.price | money}}</strong></p>
+
+
+                <h2 class="product-size-name"><span ng-bind="stanttSize.name "></span> <em>&#8482;</em></h2>
+                <div ng-controller="DirectSizeInputController" class="know-size">
+                  <em ng-click="showHideInputs()">Change Size <i ng-hide="showDirectInput" class="fa fa-caret-right"></i> <i ng-show="showDirectInput" class="fa fa-caret-down"></i></em>
+                  <div ng-show="showDirectInput" class="know-size-input">
+                    <input type="text" ng-model="inputSize" placeholder="ENTER SIZE">
+                  </div>
+                  <button ng-show="showDirectInput" ng-click="loadSize(inputSize)">LOAD SIZE</button>
+                </div>
+
+
+                <p class="stantt-size-available whatsthis-trigger2" ng-show="stanttSize.available">STANTT SIZE:<br>
+                    <select name="id" id="product-select-{{product.handle}}" class="product-select">
+                      {% for variant in product.variants %}
+                        <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
+                      {% endfor %}
+                    </select>
+                </p>
+
+                <p class="cart-attribute__field location-section">
+                  <label>LOCATION:</label><br>
+                  <select id="location" name="attributes[Location]">
+                    <option value="Chelsea Market"{% if cart.attributes["Location"] == "Chelsea Market" %} selected{% endif %}>Chelsea Market</option>
+                    <option value="47th & Lex"{% if cart.attributes["Location"] == "47th & Lex" %} selected{% endif %}>47th & Lex</option>
+                    <option value="Brower Club"{% if cart.attributes["Location"] == "Brower Club" %} selected{% endif %}>Brower Club</option>
+                    <option value="Garden State Plaza"{% if cart.attributes["Location"] == "Garden State Plaza" %} selected{% endif %}>Garden State Plaza</option>
+                  </select>
+                </p>
+
+                {% if product.variants.size > 1 %} <!-- Create a variants dropdown IF the product has more than one variant -->
+
+                {% include "express-collar-cuff-selection" %}
+
+
+                <p class="product-color">
+                  <span><strong>COLOR:</strong> {{product.title}} -</span>
+                  <span> Select size above to see ship timing</span>
+                  <span class="shipping-message"></span>
+                </p>
+
+                  <script>
+                    $(function(){
+                      new Shopify.OptionSelectors("product-select-{{product.handle}}", { product: {{ product | json }}, onVariantSelected: selectCallbackQuickShop });
+
+
+                      {% if product.available %}
+                        {% assign found_one_in_stock = false %}
+                        {% for variant in product.variants %}
+                          {% if variant.available and found_one_in_stock == false %}
+                            {% assign found_one_in_stock = true %}
+                            {% for option in product.options %}
+                              $('#product-select-option-' + {{ forloop.index0 }}).val({{ variant.options[forloop.index0] | json }}).trigger('change');
+                            {% endfor %}
+                          {% endif %}
+                        {% endfor %}
+                      {% endif %}
+                    });
+                  </script>
+
+                {% endif %}
+
+
+                {% if product.handle contains "-barrel" or product.handle contains "-french" %}
+                  <div class="selector-wrapper quantity">
+                    <label>QTY <!-- test --></label>
+                    <input type="number" class="product-quantity field" name="quantity" value="1">
+                  </div>
+
+                  <div class="selector-wrapper submit-wrapper">
+                    {% if product.options.size > 1 %}<label></label>{% endif %}
+                    <button type="submit" class="action-button submit button-5">&#43; Add to cart</button>
+                    <!--<input type="submit" class="action-button submit button-5" value="Add to cart">-->
+                  </div>
+                {% endif %}
+
+
+                <!--<a href='/cart' class="checkout button-5">CHECK OUT</a>-->
+
+                </form>
+              {% else %}
+                <span class="action-button unavailable disabled">Sold out</span>
+              {% endif %}
+
+            </div>
+          </div>
+          </div><!-- end product-details-wrapper -->
+        </div><!-- end container -->
+      </section><!-- end product-area -->
+    </section><!-- end content -->

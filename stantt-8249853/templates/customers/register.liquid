@@ -1,0 +1,88 @@
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
+<script src="https://code.angularjs.org/1.2.21/angular-route.min.js"></script>
+<script src="{{ 'app.js' | asset_url }}"></script>
+
+<section class="content content-area customer login">
+<!--
+  {% include 'breadcrumbs' %}
+
+  <div class="page-title">
+    <span class="label">Sign up</span>
+  </div>
+-->
+  
+  <!--<div class="fancy-headline-wrapper">
+    <h2 class="fancy"><span>CREATE YOUR FREE ACCCOUNT</span></h2>
+  </div>-->
+
+  <div id="customer-create" class="account-form" ng-app="App" ng-controller="RegistrationController">
+    
+    <div class="measurements-callout" ng-show="sizeService.stanttSize.available" ng-cloak>
+      
+      <h5>YOUR STANTT SIZE IS</h5>
+      <h3>{% raw %}{{sizeService.stanttSize.name}}{% endraw %}</h3>
+      <div>
+        
+        <div class="measurements-wrapper">
+          <em>{% raw %}{{sizeService.measurements.chest}}{% endraw %}</em><br>
+          <span>CHEST</span>
+        </div><!-- end measurements-wrapper -->
+        
+        <div class="measurements-wrapper">
+          <em>{% raw %}{{sizeService.measurements.waist}}{% endraw %}</em><br>
+          <span>WAIST</span>
+        </div><!-- end measurements-wrapper -->
+
+        <div class="measurements-wrapper">
+          <em>{% raw %}{{sizeService.measurements.sleeve}}{% endraw %}</em><br>
+          <span>SLEEVE</span>
+        </div><!-- end measurements-wrapper -->
+        
+      </div>
+      
+      <hr>
+      
+      <p>Save your size to ensure that your measurements are stored in our system and your next order is just a few click away!</p>
+      
+    </div>
+    
+    {% form 'create_customer' %}
+      {% if form.posted_successfully? %}
+    	<div class="success-message"><span>{{ form.errors | default_errors }}</span></div>
+      {% elsif form.errors %}
+        <div class="error-message"><span>{{ form.errors | default_errors }}</span></div>
+      {% endif %}
+	
+      <div class="field-wrap first-name">
+        <label for="customer[first_name]">NAME</label>
+        <input type="text" placeholder="FIRST" value="{{customer.first_name}}" name="customer[first_name]" class="field">
+      </div>
+
+      <div class="field-wrap last-name">
+        <!--<label for="customer[last_name]">LAST NAME</label>-->
+        <input type="text" placeholder="LAST" value="{{customer.last_name}}" name="customer[last_name]" class="field">
+      </div>
+
+      <div class="field-wrap email">
+        <label for="customer[email]">EMAIL</label>
+        <input type="text" value="{{customer.email}}" name="customer[email]" class="field">
+      </div>
+
+      <div class="field-wrap password">
+        <label for="customer[password]">PASSWORD</label>
+        <input type="password" placeholder="" value="" name="customer[password]" class="field">
+      </div>
+
+    <div ng-hide="sizeService.stanttSize.available" ng-cloak>
+      <input type="submit" class="action-button submit-button" value="CREATE MY ACCOUNT">
+    </div>
+    
+    <div class="measurements-blurb" ng-show="sizeService.stanttSize.available" ng-cloak>
+      <input type="submit" class="action-button submit-button" value="SAVE MY SIZE">
+      <p>Because you tried it on, you already know your Stantt size fits like a glove. You'll never have to enter your measurements again.</p>
+    </div>
+
+    {% endform %}
+  </div>
+
+</section>

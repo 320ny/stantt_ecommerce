@@ -1,0 +1,83 @@
+{% layout "theme.express" %}
+
+<section class="content express-checkout-new">
+
+  <div ng-controller="ExpressCheckoutMenu" ng-cloak class="express-checkout-menu">
+    <div ng-click="toggleMenu()" class="label" ng-click="">{{collection.title}} <i class="fa fa-angle-down"></i></div>
+    <ul ng-show="showMenu" class="dropdown-wrap primary">
+      {% raw %} <li ng-repeat="link in menuLinks"><a href="{{link.url}}">{{link.name}}</a></li>{% endraw %} 
+    </ul>
+  </div>  
+
+  <section ng-controller="AutoSizeLoadURLController"></section>
+  <div ng-controller="ShirtController" class='shirt-products'>
+    <section class="express-product-list">
+      {% raw %}{{stanttSize.name}}{% endraw %}
+      {% include 'express-checkout-list' %}
+    </section>
+    <section class="express-product-details">
+      {% for product in collection.products %}
+        <div ng-if="activeShirt == '{{product.handle}}'">
+          <iframe width="800px" height="1200px" src="https://stantt.com/products/{{product.handle}}?view=express&size={% raw %}{{stanttSize.name}}{% endraw %}"></iframe>
+        </div>
+      {% endfor %}
+    </section>
+  </div>
+  <div ng-view></div>
+  
+</section>
+
+<script>
+    var selectShirtProductCallback = function(variant, selector) {
+
+    {% if template contains 'pre-order' %}
+      var submitText = 'Pre-Order';
+    {% else %}
+      var submitText = 'Add to cart';
+    {% endif %}
+    
+   //console.log(variant);
+   //console.log(selector.product.handle);
+
+    var id = selector.product.handle;
+    
+    var context = $("#product-area-" + id);
+    
+
+    if (variant && variant.available == true) {
+      context.find('.submit').attr('value', submitText)
+      
+
+      if ( variant.compare_at_price > 0 && variant.compare_at_price > variant.price ) {
+        if (settings.currency == 'USD' || settings.currency == 'CAD') {
+          context.find('.product-price').html('<span class="original">' + Shopify.formatMoney(variant.compare_at_price) + '</span>' + Shopify.formatMoney(variant.price));  // update price field
+        } else {
+          context.find('.product-price').html('<span class="original">' + Shopify.formatMoney(variant.compare_at_price, "{{shop.money_with_currency_format}}") + '</span>' + Shopify.formatMoney(variant.price, "{{shop.money_with_currency_format}}"));  // update price field
+        }
+
+      } else {
+        if (settings.currency == 'USD' || settings.currency == 'CAD') {
+          context.find('.product-price').html(Shopify.formatMoney(variant.price));  // update price field
+        } else {
+          context.find('.product-price').html(Shopify.formatMoney(variant.price, "{{shop.money_with_currency_format}}"));  // update price field
+        }
+
+      }
+                                                                  
+      // Update shipping message   
+      
+      if (selector.product.tags.indexOf('sold-out') >= 0) {
+        context.find('.shipping-message').html("SOLD OUT");
+      }                             
+                             
+    
+      context.find('.submit').removeAttr('disabled').attr('value', submitText); // remove unavailable class from add-to-cart button, and re-enable button
+    
+    } else {
+      var message = variant ? "Sold Out" : "Unavailable";
+      context.find('.submit').attr('disabled', 'disabled').attr('value', message)
+      context.find('.product-price').text(message);
+    }
+  };
+</script>
+<div ng-controller="SizingController"></div>

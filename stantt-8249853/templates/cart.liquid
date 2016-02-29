@@ -1,0 +1,108 @@
+<section class="content content-area cart-page">
+<!--
+  {% include 'breadcrumbs' %}
+
+  <div class="page-title">
+    <span class="label">Cart</span>
+  </div>
+-->
+  <div class="fancy-headline-wrapper">
+    <h2 class="fancy"><span>YOUR CART</span></h2>
+  </div>
+  
+  
+  {% if cart.item_count > 0 %}
+
+    <form action="/cart" method="post" id="cart-form">
+      <input type="hidden" name="attributes[shiptocode]" value="STANPB" />
+    
+
+      <table class="table">
+
+        <thead>
+          <tr class="table-header">
+            <th class="first">Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th class="last"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for item in cart.items %}
+            <tr class="table-row {% include 'for-looper' %}">
+              <td class="product-item first">
+                  <a class="remove" href="/cart/change/{{ item.variant.id }}?quantity=0">v</a>
+                  <div class="image-wrap">
+                    {% assign index = 0 %}
+                    {% for image in item.product.images %}
+                      {% if item.variant.title contains image.alt %}
+                        {% assign index = forloop.index0 %}
+                      {% endif %}
+                    {% endfor %}
+                    
+                    {% assign product_collections = (item.product.collections | map: 'title' %}
+                    {% if product_collections contains 'Shirts' %}
+                    	{% capture item_url %} /products/{{item.product.handle}}/?view=single {% endcapture %}
+                    {% else %}
+                    	{% assign item_url = item.product.url %}
+                    {% endif %}
+                    
+                    <a class="image" href="{{ item_url }}">
+                    	{{ item.product.images[index] |  product_img_url: 'medium' | img_tag }}
+                      	{% if settings.product-image-borders %}<span class="outline"></span>{% endif %}
+                    </a>
+                    
+                  </div><div class="wrap">
+                    <span class="label vendor">{{ item.vendor }}</span>
+                <span class="label title"><a href="/collections/shirts/#/color/{{ item.product.handle }}">{{ item.product.title}}</a></span>
+                    <span class="label variant">{{ item.variant.title }}</span>
+                  </div>
+              </td>
+              <td class="price">{{ item.price | money }}</td>
+              <td class="quantity"><input type="text" class="field" value="{{ item.quantity }}" data-id="{{ item.variant.id }}"></td>
+              <td class="total">{{ item.quantity | times: item.price | money }}</td>
+              <td class="remove last"><a href="/cart/change/{{ item.variant.id }}?quantity=0">v</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+
+      <div class="cart-tools clearfix">
+        <!--
+        <div class="instructions standard">
+          <p>Special instructions</p>
+          <textarea class="field" name="note">{{ cart.note }}</textarea>
+        </div>
+		-->
+        <div class="totals">
+          <p class="price">{{ cart.total_price | money }}</p>
+          <p class="message">Excluding tax and shipping</p>
+          <div class="checkout">
+            <input class="action-button button button-2" type="submit" name="checkout" value="Check out" />
+          </div>
+        </div>
+        <!--
+        <div class="instructions mobile">
+          <p>Special instructions</p>
+        </div>
+		-->
+      </div>
+
+      {% if settings.shipping_calculator == true %}
+        {% include 'shipping-calculator' %}
+      {% endif %}
+      
+
+    </form>
+
+  {% else %}
+
+    <p class="empty">You don't have any items in your cart yet. <!--<a href="{{ shop.url }}/collections/all">--><a href="/collections/shirts">Continue shopping.</a></p>
+
+  {% endif %}
+
+  <div ng-controller="SizingController"></div>
+</section>

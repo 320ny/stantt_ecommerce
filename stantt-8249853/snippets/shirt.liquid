@@ -1,0 +1,147 @@
+<section class="content" ng-cloak>
+
+  <section id="product-area-{{product.handle}}" class="clearfix product-area">
+    <!--
+    <aside class="product-notice-bar">
+      <p>Turns out that a lot of guys are sick of S/M/L, so we are dealing with a high level of order volume. We are working as quickly as we can to keep up with production, but estimated ship time is 2-3 weeks from when an order is placed. Thanks for understanding!</p>
+    </aside>--><!-- end product-notice-bar -->
+   <div class="container">
+     
+     <div class="container product-image-wrapper">
+        <div id="product-image-{{product.handle}}" class="wrap">
+          <!--<img alt="{{ product.featured_image.alt }}" src="{{ product.featured_image | product_img_url: 'original' }}">-->
+          {% if settings.product-image-borders %}<span class="overlay"></span>{% endif %}
+        </div>
+
+      {% if product.images.size > 1 %}
+      <div class="pager">
+        <div class="inner">
+          {% include 'magiczoomplus' %}
+          {% for image in product.images %}
+            <div class="wrap thumb {% include 'for-looper' %} {% if forloop.first %}active{% endif %}">
+              <!--<img alt="{{ image.alt }}" src="{{ image.src | product_img_url: 'compact' }}" ng-click="changeMainImage('{{product.handle}}', '{{ image.src | product_img_url: 'original' }}')">-->
+              <!-- Preload Image -->
+              <img style="display:none;" src="{{ image.src | product_img_url: 'original' }}">
+              <span class="overlay"></span>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+    </div><!-- end product-image-wrapper -->
+
+    <div class="product-details-wrapper {% if product.tags contains 'limited-edition' %}limited-edition-background{%endif%}"> 
+
+      <div class="details {% if product.images.size > 1 %}border{% endif %} {% if product.variants.size == 1 and settings.display-product-quantity-option == false %}no-options{% endif %}">
+
+        <div class="module options">
+          {% if product.available %} <!-- If the product is available then... -->
+          <form action="/cart/add" method="post">
+            {% if product.tags contains 'limited-edition' %}
+            <h2>LIMITED EDITION #1: EMPIRE STATE</h2>
+            {% else %}
+            <h2>{{product.title | upcase}}</h2>
+            {% endif %}
+            {% if product.tags contains 'limited-edition' %}
+              <div class="limited-edition-counter">
+                <div class="counter-container">
+                  <div class="counter-progress" style="width:{{product.metafields.global.limited_edition_inventory | minus: 50 | times: -1 | divided_by: 50.0 | times: 100}}%">
+                    <span class="counter-progress-amount"><p>SOLD OUT <!--ONLY {{product.metafields.global.limited_edition_inventory}} SHIRT LEFT--></p></span>
+                  </div>
+                </div>
+                <span class="counter-total">50</span>
+              </div>
+            {% endif %}
+            {{ product.description }}
+            <p class="product-price">{{ product.price | money}}</p>
+
+            <h3 class="whatsthis-trigger" ng-hide="stanttSize.available"><img class="product-arrow" ng-hide="stanttSize.available" src="https://cdn.shopify.com/s/files/1/0434/4097/files/product-arrow.png?19297">STEP 1: FIND YOUR SIZE
+              <img class="whatsthis" src="https://cdn.shopify.com/s/files/1/0434/4097/files/whatsthis-partial.jpg?19109">
+              <span class="explanation">In order to find your size, we will need a few simple measurements. Click "Get Started" to begin.</span>
+            </h3>
+              
+            <p class="stantt-size-available whatsthis-trigger2" ng-show="stanttSize.available">YOUR STANTT SIZE IS:<br>
+              <img class="whatsthis2" src="https://cdn.shopify.com/s/files/1/0434/4097/files/whatsthis-partial.jpg?19109">
+              <span class="explanation2">As an homage to Stantt's birthplace, we have named each size after a street in New York City.</span>
+              <span ng-bind="stanttSize.name"></span>
+            </p>
+            <button ng-hide="stanttSize.available" class="button-5 get-started" ng-click="changeSizingStep('1', $event)">GET STARTED</button>
+            <button ng-show="stanttSize.available" class="button-5 get-started" ng-click="changeSizingStep('2', $event)">CHANGE SIZE</button>
+            {% if product.variants.size > 1 %} <!-- Create a variants dropdown IF the product has more than one variant -->
+              {% unless customer %} 
+                <p class="already-member" ng-hide="stanttSize.available">Already a member? <a href="/account/login">Sign in</a></p>
+            	<p class="already-member" ng-show="stanttSize.available"><a href="/account/register">Save my Size</a></p>
+              {% endunless %}
+
+            
+            {% include 'shirt-selector' %} 
+            
+            <p class="product-color">
+              <span><strong>COLOR:</strong> {{product.title}}</span>
+              <span ng-hide="stanttSize.available"> Select size above to see ship timing</span>
+              <span ng-show="stanttSize.available" class="shipping-message"></span>
+            </p>
+            
+              <script>
+                $(function(){
+                  new Shopify.OptionSelectors("product-select-{{product.handle}}", { product: {{ product | json }}, onVariantSelected: selectShirtProductCallback });
+
+                  {% if product.available %}
+                    {% assign found_one_in_stock = false %}
+                    {% for variant in product.variants %}
+                      {% if variant.available and found_one_in_stock == false %}
+                        {% assign found_one_in_stock = true %}
+                        {% for option in product.options %}
+                          $('#product-select-option-' + {{ forloop.index0 }}).val({{ variant.options[forloop.index0] | json }}).trigger('change');
+                        {% endfor %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                });
+              </script>
+
+            {% endif %}
+
+
+            {% if product.tags contains 'sold-out' %}
+            {% else %}
+              <div class="selector-wrapper quantity">
+                <label>QTY</label>
+                <input type="number" class="product-quantity field" name="quantity" value="1">
+              </div>
+
+              <div ng-show="stanttSize.name" class="selector-wrapper submit-wrapper">
+                {% if product.options.size > 1 %}<label></label>{% endif %}
+                 <button type="submit" class="action-button submit button-5">&#43; Add to cart</button>
+                <!--<input type="submit" class="action-button submit button-5" value="Add to cart">-->
+              </div>
+            {% endif %}
+
+            <div class="product-share-section">
+              <strong>SHARE</strong>
+		      <div class="addthis_custom_sharing"></div>
+			</div><!-- end product-share-section -->
+            
+            <!--<a href='/cart' class="checkout button-5">CHECK OUT</a>-->
+
+            <select name="id" id="product-select-{{product.handle}}" class="product-select">
+              {% for variant in product.variants %}
+                <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
+              {% endfor %}
+            </select>
+
+
+          </form>
+          {% else %}
+            <span class="action-button unavailable disabled">Sold out</span>
+          {% endif %}
+          
+        </div>
+      </div>
+      </div><!-- end product-details-wrapper -->
+    </div><!-- end container -->
+  </section><!-- end product-area -->
+</section><!-- end content -->
+
+<div ng-show="sizingStep" ng-click="changeSizingStep(undefined)" class="active" id="sizing-modal-background"></div>

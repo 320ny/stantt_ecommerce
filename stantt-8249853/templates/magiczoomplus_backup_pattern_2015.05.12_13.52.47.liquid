@@ -1,0 +1,38 @@
+<div class="container">
+          <div class="wrap">
+            <img alt="{{ product.featured_image.alt }}" src="{{ product.featured_image | product_img_url: 'original' }}">
+            {% if settings.product-image-borders %}<span class="overlay"></span>{% endif %}
+          </div>
+        </div>
+
+        {% if settings.display-fullsize-product-viewer %}
+        <div class="notes">
+          <a href="#" class="toggle-fullview"><span class="icon">l</span>View fullsize image</a>
+        </div>
+        {% endif %}
+        {% if settings.display-product-email-link %}
+        <div class="notes">
+          <a href="mailto:{{ shop.email }}?Subject={{ product.title | escape }}" class="email-us"><span class="icon">j</span>Email us about this product</a>
+        </div>
+        {% endif %}
+        {% if settings.enable-fitting-guide %}
+        <div class="notes">
+          <a href="/pages/{{ settings.fitting-guide-link }}" class="fitting-guide"><span class="icon">{{ settings.fitting-guide-icon }}</span>{{ settings.fitting-guide-label }}</a>
+        </div>
+        {% endif %}
+      </div>
+
+      {% if product.url contains "measur" %}<br>{% endif %}
+      
+      {% if product.images.size > 1 %}
+      <div class="pager">
+        <div class="inner">
+          {% for image in product.images %}
+            <div class="wrap thumb {% include 'for-looper' %} {% if forloop.first %}active{% endif %}">
+              <img alt="{{ image.alt }}" src="{{ image.src | product_img_url: 'small' }}" data-high-res-url="{{ image.src | product_img_url: 'original' }}">
+              <span class="overlay"></span>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}

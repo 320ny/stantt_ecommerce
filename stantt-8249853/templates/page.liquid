@@ -1,0 +1,27 @@
+<!--<section class="content content-area">-->
+<section class="content">
+
+  <!--
+  {% include 'breadcrumbs' %}
+
+  <div class="page-title">
+    <span class="label">{{ page.title }}</span>
+  </div>
+  -->
+
+  <div class="text-content-wrap clearfix">
+    <div class="clearfix text-content">
+      {{ page.content }}
+    </div>
+
+    {% if settings.display-pages-sidebar %}
+    <div class="sidebar">
+      {% if settings.pages-sidebar-title %}<h2 class="title">{{ settings.pages-sidebar-title }}</h2>{% endif %}
+      {{ settings.pages-sidebar-content }}
+    </div>
+    {% endif %}
+
+  </div>
+
+  <div ng-controller="SizingController"></div>
+</section>

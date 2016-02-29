@@ -1,0 +1,32 @@
+<header class="main-header-wrap header-express">
+	    
+  <section class="main-header content-area">
+
+    <!-- Action links
+    ============================================= -->
+    <div class="action-links clearfix">
+      <h1 class="store-title">
+        {% if settings.use-logo %}
+          <a href="/">
+            <img alt="{{ shop.name }} logo" class='regular-logo' src="{{ 'logo.png' | asset_url }}" alt="{{ shop.description | escape }}">
+            <img alt="{{ shop.name }} logo" class='retina-logo' src="{% if settings.use-retina-logo %}{{ 'logo-retina.png' | asset_url }}{% else %}{{ 'logo.png' | asset_url }}{% endif %}" alt="{{ shop.description | escape }}">
+          </a>
+        {% else %}
+          <a href="/">{{ shop.name }}</a>
+        {% endif %}
+      </h1>
+    </div>
+    
+    <div class="tools">
+
+      <div class="secondary-nav">
+
+        <a href="/cart" class="btn">View Cart</a>
+
+      </div><!-- end secondary-nav -->
+
+    </div><!-- end tools -->
+
+  </section>
+
+</header>

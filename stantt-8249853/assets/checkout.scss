@@ -1,0 +1,55 @@
+html {
+  font-family: 'Merriweather', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+}
+body {
+  font-family: 'Merriweather', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+}
+.cssgradients .header__backdrop {
+  background: none;
+}
+#header #tagline .title,
+#email label,
+.group h3,
+.pgroup h3,
+.section__header h3,
+h3,
+h5 {
+  font-family: "Sweet Sans Light",sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.call-to-action input.btn {
+  display: inline-block;
+  padding: 15px 50px;
+  text-align: center;
+  font-size: 1.4em;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  color: #fff;
+  background-color: #2D2D2D;
+  font-family: "Sweet Sans Light",sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+}
+.payment-due__price {
+  color: #2D2D2D;
+  font-family: "Sweet Sans Light",sans-serif;
+  font-style: normal;
+  font-weight: normal;
+}
+.shop__name {
+  display: none;
+}
+.header__backdrop {
+  background: #fff;
+  opacity: 0;
+}

@@ -1,0 +1,41 @@
+<section class="content blog-post-article">
+
+  <!--{% include 'breadcrumbs' %}-->
+	
+  <!--
+  <div class="page-title">
+    <span class="label"><a href="{{ blog.url }}">{{ article.title }}</a></span>
+  </div>
+  -->
+  
+  <div class="blog-header">
+  <a href="/blogs/news">
+    <h3>THE STANTT GENTLEMAN'S GUIDE</h3>
+    <hr>
+    <p><em>Making it easy for guys like you to have impeccable style, every day.</em></p>
+  </a>
+  </div><!-- end blog-header -->
+
+
+  <div class="content-wrap clearfix">
+
+    <section class="articles">
+      <div class="article-content rte clearfix">
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+        
+        {% if settings.display-excerpts and article.excerpt.size > 0 %}
+          {{ article.excerpt }}
+        {% endif %}
+      </div>
+
+      {% include 'article-item' %}
+    </section>
+    
+    {% include 'blog-sidebar' %}
+    {% if settings.display-recent-posts or settings.display-tag-list %}
+      {% include 'blog-sidebar' %}
+    {% endif %}
+
+  </div>
+
+</section>

@@ -1,0 +1,39 @@
+<script>
+    
+  var CheckoutExpress = (function() {
+
+    function changeSizeTo(size, select) {
+      var select = $(select);
+      if (select.val() != size) {
+        select.val(size).trigger('change');
+      }
+    }
+
+    function registerSizeSelects() {
+      $(document).on('change', '[data-option="option1"]', function(event) {
+        var size = $(this).val();
+
+        var selects = $('[data-option="option1"]').not($(this));
+        for (i = 0; i < selects.length; i++) { 
+          changeSizeTo(size, selects[i]);
+        }
+
+      });  
+    }
+
+    return {
+      start: function() {
+        registerSizeSelects(); 
+      }
+    }
+  }());
+    
+    
+    
+  $(function() {
+    
+    CheckoutExpress.start();
+    
+  });
+  
+</script>

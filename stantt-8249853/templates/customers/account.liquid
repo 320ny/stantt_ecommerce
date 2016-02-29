@@ -1,0 +1,109 @@
+
+
+<section class="content content-area customer account" ng-app="App" ng-controller="CustomerAccountController">
+  
+  <h2 class="fancy"><span>YOUR STANTT ACCOUNT</span></h2>
+  
+  <div class="content-wrap clearfix">
+    <div class="account-info">
+      <a href="/collections/manhattan" class=" cta">BACK TO SHOP</a>
+      <h3><span class="name">{{ customer.name }}</span></h3>
+      <p>
+        <span class="email">{{ customer.email }} (<a href="/account/logout">log out</a>)</span>
+      </p>
+      <div>
+        <br>
+        <h3>Your Measurements</h3>
+        <!--<a class="button button-2" href="/collections/shirts/#/color/navy-gingham?sizingStep=1">Change</a>-->
+        <p>Chest: <span id="customer-measurement-chest">{{customer.metafields.Measurement.chest}}</span></p>
+        <p>Waist: <span id="customer-measurement-waist">{{customer.metafields.Measurement.waist}}</span></p>
+        <p>Sleeve: <span id="customer-measurement-sleeve">{{customer.metafields.Measurement.sleeve}}</span></p>
+        
+        {% if customer.orders.size < 1 and  customer.metafields.Kickstarter.cart_link %}
+          <p>If your measurements have changed please email us directly at  
+            <a href="mailto:questions@stantt.com" target="_blank">questions@stantt.com</a>
+          </p>
+        {% else %}
+        	<p><a href="/pages/measurements">Update Measurements</a></p>
+        {% endif %}
+        
+        <h3 class="stantt-size">Your Stantt Size</h3>
+        <p><span id="customer-size-name">{{customer.metafields.Size.name}}</span></p>
+      </div>
+
+      {% if customer.default_address != nil %}
+        <br>
+        <h3>Your Default Address</h3>
+        <div class="address-wrap">
+          <p>
+          <span class="address">{{ customer.default_address.street }}</span>
+          <span class="city">
+            {{ customer.default_address.city }}{% if customer.default_address.province.size > 0 %}, {{ customer.default_address.province }}{% endif %}</span>
+          <span class="country">{{ customer.default_address.country }}{% if customer.default_address.zip.size > 0 %}, {{ customer.default_address.zip }}{% endif %}</span>
+      	  </p>  
+      	</div>
+      {% endif %}
+
+      <a class="view-addresses" href="/account/addresses">Update Addresses ({{ customer.addresses_count }})</a>
+
+      {% if customer.orders.size < 1 and  customer.metafields.Kickstarter.cart_link %}
+      
+        <a class="button button-2" href="{{customer.metafields.Kickstarter.cart_link}}?attributes[shiptocode]=STANPB">PRE-ORDER CHECKOUT</a>
+      
+      {% endif %}
+      
+    </div>
+
+    <div class="order-history">
+      
+
+      {% if customer.orders.size > 0 %}
+        <table class="orders table">
+          <thead>
+            <tr>
+              <th class="first">Order</th>
+              <th>Payment</th>
+              <th>Fulfillment</th>
+              <th class="last">Total</th>
+            </tr>
+          </thead>
+
+          <tbody>
+          {% for order in customer.orders %}
+            <tr class="{% include 'for-looper' %} {% if order.cancelled %}cancelled_order{% endif %}">
+              <td class="order-number first">{{ order.name | link_to: order.customer_url }} <span class="date">- {{ order.created_at | date: "%b %d, %Y" }}</span></td>
+              <td class="payment-status {{ order.financial_status }}">{{ order.financial_status | capitalize }}</td>
+              <td class="fulfillment-status {{ order.fulfillment_status }}">{{ order.fulfillment_status | capitalize }}</td>
+              <td class="total last">{{ order.total_price | money }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <!--<p class="empty">You haven't placed any orders yet.</p>-->
+      {% endif %}
+
+    </div>
+  </div>
+
+
+</section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
+<script src="https://code.angularjs.org/1.2.21/angular-route.min.js"></script>
+<script src="{{ 'app.js' | asset_url }}"></script>
+
+<!-- Begin talkable integration code -->
+<div id="talkable-sa"></div>
+
+<script>
+  var _talkable_affiliate = {
+    affiliate_member: {
+      email: "{% if customer.email %}{{customer.email}}{% else %}{% endif %}", 
+      first_name: "{% if customer.first_name %}{{customer.first_name}}{% else %}{% endif %}", 
+      last_name: "{% if customer.last_name %}{{customer.last_name}}{% else %}{% endif %}" 
+    }
+  };
+</script>
+<script src="//d2jjzw81hqbuqv.cloudfront.net/integration/clients/stantt.min.js"></script>
+<!-- End talkable integration code -->

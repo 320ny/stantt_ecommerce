@@ -1,0 +1,49 @@
+<section class="content blog-content">
+
+  <!--{% include 'breadcrumbs' %}-->
+  <!--
+  <div class="page-title">
+    <span class="label">{{ blog.title }}</span>
+  </div>
+  -->
+  <div class="blog-header">
+  <a href="/blogs/news">
+  <h3>THE STANTT GENTLEMAN'S GUIDE</h3>
+  <hr>
+  <p><em>Making it easy for guys like you to have impeccable style, every day.</em></p>
+  </a>
+  </div><!-- end blog-header -->
+  
+  <div class="content-wrap blog-content-wrap clearfix">
+
+    {% paginate blog.articles by settings.articles-per-page %}
+    <section class="articles">
+
+      {% for article in blog.articles %}
+        {% include 'article-item' %}
+      {% endfor %}
+
+      {% if paginate.previous or paginate.next %}
+        {% include 'pagination' %}
+      {% endif %}
+
+    </section>
+    {% endpaginate %}
+
+    {% include 'blog-sidebar' %}
+    
+    {% if settings.display-recent-posts or settings.display-tag-list %}
+      {% include 'blog-sidebar' %}
+    {% endif %}
+
+    {% paginate blog.articles by settings.articles-per-page %}
+      {% if paginate.previous or paginate.next %}
+        <div class="mobile">
+          {% include 'pagination' %}
+        </div>
+      {% endif %}
+    {% endpaginate %}
+
+  </div>
+
+</section>

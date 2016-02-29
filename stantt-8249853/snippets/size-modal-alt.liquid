@@ -1,0 +1,268 @@
+<div ng-show="sizingStep" class='size-modal-alt' ng-cloak>
+  <div class="close-modal-x" ng-click=changeSizingStep(undefined)>X</div>
+  <div class="modal-container" ng-controller='SizingController'>
+    <div ng-show="sizingStep == '1'">
+      <h3>FIND A MEASURING TOOL</h3>
+      <hr>
+      <p>You will need some kind of measuring tool. No need to stress if you don't have a flexible tape. You can also use a pair of headphones, a piece of string or twine, and a ruler or regular tape-measure.</p>
+      <img class="measurement-icons" src="https://cdn.shopify.com/s/files/1/0434/4097/files/measurment-icons.jpg?19507">
+      <p>Once you have gathered your measuring tools, you are ready to begin.</p>
+      <button class="button-5" ng-click="changeSizingStep(2, $event)">GET STARTED</button>
+      <!--
+      <div class="remind-later">
+        <p>Don't have time to take your measurements?</p>
+        <a href="#">Remind me later ></a>
+      </div>--><!-- end remind-later -->
+      <!--<p><a class="shop-btn" href="/pages/tape-measure">Click here to receive a free STANTT tape measure</a></p>-->
+    </div>  
+    <div class="sizing-steps" ng-show="sizingStep == '2'">
+      <h3>INPUT 1: CHEST</h3>
+      <a href="//fast.wistia.net/embed/iframe/zfjqeeaob0?popover=true" class="wistia-popover[height=450,playerColor=7b796a,width=800]">
+        <img class="video" src="https://cdn.shopify.com/s/files/1/0434/4097/files/video1.jpg?19667">
+      </a>
+      <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/popover-v1.js"></script>
+      <p><strong>Need more detailed instructions?</strong></p>
+      <a href="/pages/measurements" target="_blank"><em>View Detailed Measurement Guide ></em></a>
+      <div class="size-wrapper">
+        <div class="form-size-wrapper">
+          <label for="chest-input">ENTER CHEST MEASUREMENT</label>
+          <input ng-model="measurements.chest" id="chest-input" type="text" name="chest" highlight-me>
+          <div class="form-unit-selector">
+            <select ng-model="measurements.unit" ng-options="unit for unit in ['in', 'cm']"></select>
+          </div>
+        </div>
+      </div>
+      <button class="button-5 next-btn" ng-click="changeSizingStep(3, $event)" ng-disabled="measurements.chest.length < 2">NEXT &gt;</button>
+    </div>  
+
+    <div class="sizing-steps" ng-show="sizingStep == '3'">
+      <h3>INPUT 2: TRUE WAIST</h3>
+      <a href="//fast.wistia.net/embed/iframe/ujs8xzlylr?popover=true" class="wistia-popover[height=450,playerColor=7b796a,width=800]">
+        <img class="video" src="https://cdn.shopify.com/s/files/1/0434/4097/files/video2.jpg?19935">
+      </a>
+      <p><strong>Need more detailed instructions?</strong></p>
+      <a href="/pages/measurements" target="_blank"><em>View Detailed Measurement Guide ></em></a>
+      <div class="size-wrapper">
+        <div class="form-size-wrapper">
+          <label for="waist-input">ENTER TRUE WAIST MEASUREMENT</label>
+          <input ng-model="measurements.waist" id="waist-input" type="text" name="waist" highlight-me>
+          <div class="form-unit-selector">
+            <select ng-model="measurements.unit" ng-options="unit for unit in ['in', 'cm']"></select>
+          </div>
+        </div>
+      </div>
+      <button class="button-5 back-btn" ng-click="changeSizingStep(2, $event)">&lt; BACK</button>
+      <button class="button-5 next-btn" ng-click="changeSizingStep(4, $event)" ng-disabled="measurements.waist.length < 2">NEXT &gt;</button>
+    </div>  
+	
+    <div class="sizing-steps" ng-show="sizingStep == '4'">
+      <h3>INPUT 3: SLEEVE</h3>
+      <a href="//fast.wistia.net/embed/iframe/n6ew3n50zx?popover=true" class="wistia-popover[height=450,playerColor=7b796a,width=800]"><img class="video" src="https://cdn.shopify.com/s/files/1/0434/4097/files/video3.jpg?19943"></a>
+      <p><strong>Need more detailed instructions?</strong></p>
+      <a href="/pages/measurements" target="_blank"><em>View Detailed Measurement Guide ></em></a>
+      <div class="size-wrapper">
+        <div class="form-size-wrapper">
+          <label for="sleeve-input">ENTER SLEEVE MEASUREMENT</label>
+          <input ng-model="measurements.sleeve" id="sleeve-input" type="text" name="sleeve" highlight-me>
+          <div class="form-unit-selector">
+            <select ng-model="measurements.unit" ng-options="unit for unit in ['in', 'cm']"></select>
+          </div>
+        </div>
+      </div>
+      <button class="button-5 back-btn" ng-click="changeSizingStep(3, $event)">&lt; BACK</button>
+      <button class="button-5 next-btn" ng-click="showStanttSize($event)" ng-disabled="measurements.sleeve.length < 2">NEXT &gt;</button>
+    </div>
+    
+    <div class="sizing-steps last-step" ng-show="sizingStep == '5'">
+      <h3>YOUR STANTT SIZE IS</h3>
+      <hr>
+      <div class="size-wrapper stantt-size">
+      	<h2 ng-bind="stanttSize.name"></h2>
+        <div class="form-size-wrapper">
+          <input ng-model="measurements.chest" disabled="disabled" type="text" name="chest">
+          <br>
+          <label>CHEST</label>
+        </div>
+        <div class="form-size-wrapper">
+          <input ng-model="measurements.waist" disabled="disabled"  type="text" name="waist">
+          <br>
+          <label>WAIST</label>
+        </div>
+        <div class="form-size-wrapper">
+          <input ng-model="measurements.sleeve" disabled="disabled"  type="text" name="sleeve" >
+          <br>
+          <label>SLEEVE</label>
+        </div>
+        <!--
+        <div class="form-unit-selector">
+          <label ng-bind="measurements.unit"></label>
+        </div>
+		-->
+      </div>
+      
+      <p class="correct-measurements">Are these measurements correct? <a href="http://stantt.com/collections/shirts#/color/navy-gingham?sizingStep=1">Click here to retake them</a></p>
+      <hr class="extended">
+      <div ng-if="stanttSize.id == 0">
+        <div size-not-found-form class="no-matching-size"></div>
+      </div>
+      
+      <div class="finished-buttons" ng-if="stanttSize.id > 0">
+        {% if customer %}
+          <div ng-hide="stanttSize.id == 0" class="finished-buttons-section">
+            <button class="button-5" ng-click="changeSizingStep(undefined)">RETURN TO SHOP</button>
+          </div>
+        {% else %}
+          <div class="finished-buttons-section save-my-size" ng-hide="showRegistrationFrom">
+            <p><strong>SAVE YOUR SIZE</strong><br>Become an honorary Stantt Revolutionary. You will never have to take these measurements again and your unique size will be stored in our system.</p>
+            <button class="button-5" ng-click="showRegistrationFrom = true">SAVE</button> 
+          </div>
+          <div class="finished-buttons-section" ng-hide="showRegistrationFrom">
+            <p><strong>PROCEED AS GUEST</strong><br>It’s okay if you are afraid of committment,. You will always have the option to save your size later.<br><br></p>
+            <button class="button-5 guest-checkout" ng-click="changeSizingStep(undefined)">CHECK OUT AS GUEST</button>
+          </div>
+          <div ng-show="showRegistrationFrom">
+            {% include 'create_account' %}
+          </div>
+        {% endif %}
+      </div>
+      
+    </div>
+  </div>
+ </div>
+
+
+<!--
+<div ng-show="sizingStep" class='size-modal' ng-cloak>
+  <div class="close-modal-x" ng-click=changeSizingStep(undefined)>X</div>
+  <div ng-controller='SizingController' ng-switch="sizingStep">
+    <div ng-switch-when="1">
+      <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/size-1_v2.png?5732">
+      <button class="button-5" ng-click="changeSizingStep(2, $event)">GET STARTED</button>
+      <p><a class="shop-btn" href="/pages/tape-measure">Click here to receive a free STANTT tape measure</a></p>
+    </div>  
+    <div ng-switch-when="2">
+	  <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/size-2-alt.fw.png?11233">	
+      <div class="size-wrapper">
+        <div class="form-size-wrapper">
+          <input ng-model="measurements.chest" type="text" name="chest" highlight-me>
+          <br>
+          <label>CHEST</label>
+        </div>
+        <div class="form-size-wrapper disabled-wrapper">
+          <input ng-model="measurements.waist" type="text" name="waist" ng-disabled="true">
+          <br>
+          <label>WAIST</label>
+        </div>
+        <div class="form-size-wrapper disabled-wrapper">
+          <input ng-model="measurements.sleeve" type="text" name="sleeve" ng-disabled="true">
+          <br>
+          <label>SLEEVE</label>
+        </div>
+        <div class="form-unit-selector">
+          <select ng-model="measurements.unit" ng-options="unit for unit in ['in', 'cm']"></select>
+        </div>
+      </div>
+      <button class="button-5 back-next-buttons" ng-click="changeSizingStep(1, $event)">&lt; BACK</button>
+      <button class="button-5" ng-click="changeSizingStep(3, $event)" ng-disabled="measurements.chest.length < 2">NEXT ></button>
+    </div>  
+    <div ng-switch-when="3">
+      <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/size-3.png?5366">
+      <div class="size-wrapper">
+		<div class="form-size-wrapper  disabled-wrapper">
+          <input ng-model="measurements.chest" type="text" name="chest" ng-disabled="true">
+          <br>
+          <label>CHEST</label>
+        </div>
+        <div class="form-size-wrapper">
+          <input ng-model="measurements.waist" type="text" name="waist" highlight-me>
+          <br>
+          <label>WAIST</label>
+        </div>
+        <div class="form-size-wrapper  disabled-wrapper">
+          <input ng-model="measurements.sleeve" type="text" name="sleeve" ng-disabled="true">
+          <br>
+          <label>SLEEVE</label>
+        </div>
+        <div class="form-unit-selector">
+          <select ng-model="measurements.unit" ng-options="unit for unit in ['in', 'cm']"></select>
+        </div>
+      </div>
+      <button class="button-5 back-next-buttons" ng-click="changeSizingStep(2, $event)">&lt; BACK</button>
+      <button class="button-5" ng-click="changeSizingStep(4, $event)" ng-disabled="measurements.waist.length < 2">NEXT ></button>
+    </div>
+    <div ng-switch-when="4">
+      <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/size-4.png?5378">
+      <div class="size-wrapper">
+        <div class="form-size-wrapper  disabled-wrapper">
+          <input ng-model="measurements.chest" type="text" name="chest" ng-disabled="true">
+          <br>
+          <label>CHEST</label>
+        </div>
+        <div class="form-size-wrapper  disabled-wrapper">
+          <input ng-model="measurements.waist" type="text" name="waist" ng-disabled="true">
+          <br>
+          <label>WAIST</label>
+        </div>
+        <div class="form-size-wrapper">
+          <input ng-model="measurements.sleeve" type="text" name="sleeve" highlight-me>
+          <br>
+          <label>SLEEVE</label>
+        </div>
+        <div class="form-unit-selector">
+          <select ng-model="measurements.unit" ng-options="unit for unit in ['in', 'cm']"></select>
+        </div>
+      </div>
+      <button class="button-5 back-next-buttons" ng-click="changeSizingStep(3, $event)">&lt; BACK</button>
+      <button class="button-5" ng-click="showStanttSize($event)" ng-disabled="measurements.sleeve.length < 2">FINISH ></button>
+    </div>
+    <div ng-switch-when="5">
+      <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/size-5.png?5381">
+      <div class="size-wrapper stantt-size">
+      	<h2 ng-bind="stanttSize.name"></h2>
+        <div ng-if="stanttSize.id == 0">
+          <div size-not-found-form class="no-matching-size"></div>
+        </div>
+        <div class="size-wrapper">
+        <div class="form-size-wrapper">
+          <input ng-model="measurements.chest" disabled="disabled" type="text" name="chest">
+          <br>
+          <label>CHEST</label>
+        </div>
+        <div class="form-size-wrapper">
+          <input ng-model="measurements.waist" disabled="disabled"  type="text" name="waist">
+          <br>
+          <label>WAIST</label>
+        </div>
+        <div class="form-size-wrapper">
+          <input ng-model="measurements.sleeve" disabled="disabled"  type="text" name="sleeve" >
+          <br>
+          <label>SLEEVE</label>
+        </div>
+        <div class="form-unit-selector">
+          <label ng-bind="measurements.unit"></label>
+        </div>
+      </div>
+        <p class="correct-measurements">Are these measurements correct?<br>
+          <button ng-click="changeSizingStep(2, $event)" class="button-5">CLICK HERE TO RETAKE THEM</button>
+        </p>
+      </div>
+      <div class="finished-buttons" ng-if="stanttSize.id > 0">
+        {% if customer %}
+          <div ng-hide="stanttSize.id == 0" class="finished-buttons-section">
+            <button class="button-5" ng-click="changeSizingStep(undefined)">RETURN TO SHOP</button>
+          </div>
+        {% else %}
+          <div class="finished-buttons-section save-my-size">
+            <a class="button-5" href="/account/register">SAVE MY SIZE</a>
+            <p>Become an honorary Stantt Revolutionary. You will never have to take these measurements again and your unique size will be stored in our system.</p>
+          </div>
+          <div class="finished-buttons-section">
+            <button class="button-5" ng-click="changeSizingStep(undefined)">SHOP AS GUEST</button>
+              <p>It’s okay if you are afraid of committment,. You will always have the option to size your size later.</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+-->

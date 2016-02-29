@@ -1,0 +1,274 @@
+{% assign product_collections = (product.collections | map: 'title' %}
+
+{% unless product_collections contains 'Shirts' %}
+	
+
+  <section class="content content-area {% if product.url contains "measur" %}tape-measure-product{% endif %}">
+    <div class="mobile-product-title">
+      <p class="brand">{{ product.vendor }}</p>
+      <p class="title">{{ product.title }}</p>
+      {% if product.compare_at_price_min > product.price_min %}
+        <p class="price sale"><span class="original">{{ product.compare_at_price_min | money }}</span> {{ product.price_min | money }}</p>
+      {% else %}
+        <p class="price">{{ product.price_min | money }}</p>
+      {% endif %}
+
+      {% if product.url contains "measuringkit" %}
+        <p class="custom-description">We searched the world to find the materials for your shirt. But feel for yourself how incredibly soft they are. Each measuring kit comes with a sample of all of our materials, a flexible tape measure and a $5 gift card you can use towards your Stantt shirt. Ships free within the Continental US. All sales final on measuring kits.</p>
+        <p class="kit-includes"><em>Kit Includes:</em><br>Fabric Swatches<br>1 Flexible Tape Measure<br>$5 Stantt Gift Card</p>
+      {% elsif product.url contains "tapemeasure" %}
+        <p class="custom-description">All we need are 3 measurements that you can take at home. Don't have a tape measure sitting around at home? We've got you covered. Ships for free within the Continental US.</p>
+      {% else %}
+        {{ product.description }}
+      {% endif %}
+
+    </div>
+
+    <section id="product-area" class="clearfix product-area">
+
+      <div class="custom-product-wrapper">
+        
+        <div class="showcase {% if product.images.size == 1 %}wide{% endif %}">
+            {% if product.url contains 'gift-card' %}
+              <div class="nonshirt-breadcrumbs">
+                <span><a href="/collections/gift-cards">Collection: Gift Cards</a></span>
+                <span class="sep">></span> <span>{{ product.title }}</span>
+              </div>
+            {% endif %}
+          <!-- START MAGICZOOMPLUS IMAGES -->{% include 'magiczoomplus' %}
+          {% if settings.display-product-email-link %}
+          <div class="notes">
+            <a href="mailto:{{ shop.email }}?Subject={{ product.title | escape }}" class="email-us"><span class="icon">j</span>Email us about this product</a>
+          </div>
+          {% endif %}
+          {% if settings.enable-fitting-guide %}
+          <div class="notes">
+            <a href="/pages/{{ settings.fitting-guide-link }}" class="fitting-guide"><span class="icon">{{ settings.fitting-guide-icon }}</span>{{ settings.fitting-guide-label }}</a>
+          </div>
+          {% endif %}
+        </div>
+
+        {% if product.url contains "measur" %}<br>{% endif %}
+
+        <!-- END MAGICZOOMPLUS IMAGES -->
+
+      </div><!-- end custom-product-wrapper -->
+
+
+        <div class="details {% if product.images.size > 1 %}border{% endif %} {% if product.variants.size == 1 and settings.display-product-quantity-option == false %}no-options{% endif %}">
+
+          <div class="module header">
+            <p class="brand">{{ product.vendor }}</p>
+            <p class="title">{{ product.title }}</p>
+
+            {% if product.url contains "measuringkit" %}
+              <p class="custom-description">We searched the world to find the materials for your shirt. But feel for yourself how incredibly soft they are. Each measuring kit comes with a sample of all of our materials, a flexible tape measure and a $5 gift card you can use towards your Stantt shirt. Ships free within the Continental US. All sales final on measuring kits.</p>
+            <p class="kit-includes"><em>Kit Includes:</em><br>Fabric Swatches of Each Shirt<br>Flexible Tape Measure<br>$5 Stantt Gift Card</p>
+            {% elsif product.url contains "tapemeasure" %}
+            <p class="custom-description">All we need are 3 measurements that you can take at home. Don't have a tape measure sitting around at home? We've got you covered. Ships for free within the Continental US.</p>
+            {% else %}
+              {{ product.description }}
+            {% endif %}
+
+            {% if product.compare_at_price_min > product.price_min %}
+              <p class="price sale"><span class="original">{{ product.compare_at_price_min | money }}</span> {{ product.price_min | money }}</p>
+            {% else %}
+              <p class="price">{{ product.price_min | money }}</p>
+            {% endif %}
+          </div>
+
+          {% if product.url contains "measur" %}
+            <!--
+            <div class="select-item">
+              <h4>SELECT YOUR ITEM:</h4>
+            </div>
+            -->
+
+          {% endif %}
+
+          <div class="module options {% if product.url contains "gift-card" %}gift-card{% endif %}{% if product.url contains "measur" %}tape-measure-wrap{% endif %}{% if product.url contains "metal-collar-stays" %}collar-stay{% endif %} {% unless product.available %}unavailable{% endunless %}">
+
+            {% if product.available %} <!-- If the product is available then... -->
+            <form action="/cart/add" method="post">
+
+              {% if product.variants.size > 1 %} <!-- Create a variants dropdown IF the product has more than one variant -->
+
+                <select name="id" id="product-select" class="product-select">
+                  {% for variant in product.variants %}
+                    <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
+                  {% endfor %}
+                </select>
+
+                <script>
+                  $(function(){
+                    new Shopify.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallbackQuickShop });
+
+                    {% if product.available %}
+                      {% assign found_one_in_stock = false %}
+                      {% for variant in product.variants %}
+                        {% if variant.available and found_one_in_stock == false %}
+                          {% assign found_one_in_stock = true %}
+                          {% for option in product.options %}
+                            $('#product-select-option-' + {{ forloop.index0 }}).val({{ variant.options[forloop.index0] | json }}).trigger('change');
+                          {% endfor %}
+                        {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                  });
+                </script>
+
+              {% else %} <!-- If the product only has one variant, create a hidden input with the variant id. NOTE: Necessary for "add to cart" to work -->
+
+                {% for variant in product.variants %}
+                  <input type="hidden" name="id" class="product-select" value="{{ variant.id }}" data-variant-title="{{ variant.title }}" />
+                {% endfor %}
+
+              {% endif %}
+
+              {% if settings.display-product-quantity-option %}
+                <div class="selector-wrapper quantity">
+                  <label>QTY</label>
+                  <input type="number" class="product-quantity field" name="quantity" value="1">
+                </div>
+              {% else %}
+                <input type="hidden" name="quantity" value="1">
+              {% endif %}
+
+              <div class="selector-wrapper submit-wrapper">
+                {% if product.options.size > 1 %}<label></label>{% endif %}
+
+                {% if product.url contains "measur" %}
+                  <button type="submit" class="action-button submit button-5">&#43; Add to cart</button>
+                {% else %}
+                <button type="submit" class="action-button submit">&#43; Add to cart</button>
+                {% endif %}
+              </div>
+
+              {% if product.url contains "measuringkit" %}
+                <div class="product-related-items">
+                  <a href="/products/tapemeasure">
+                    <h5>RELATED ITEMS</h5>
+                    <img src="https://cdn.shopify.com/s/files/1/0434/4097/products/Tape-Measure.jpg?v=1448409204">
+                    <p>Flexible Tape Measure</p>
+                  </a>
+                </div><!-- end product-related-items -->
+              {% endif %}
+
+              {% if product.url contains "tapemeasure" %}
+                <div class="product-related-items">
+                  <a href="/products/measuringkit">
+                    <h5>RELATED ITEMS</h5>
+                    <img src="http://cdn.shopify.com/s/files/1/0434/4097/products/Swatch-Kit-1_grande.jpg?v=1428071430">
+                    <p>Measuring Kit + $5 Gift Card</p>
+                  </a>
+                </div><!-- end product-related-items -->
+              {% endif %}
+
+              {% if product.url contains "measur" %}
+                <div class="product-share-section">
+                  <strong>SHARE</strong>
+                  <div class="addthis_custom_sharing"></div>
+                </div><!-- end product-share-section -->
+              {% endif %}
+
+
+            </form>
+            {% else %}
+
+              <span class="action-button unavailable disabled">Sold out</span>
+
+            {% endif %}
+
+          </div>
+
+        </div><!-- end details-->
+
+    </section><!-- end product-area -->
+
+    {% if settings.display-related-products %}
+
+        {% assign number_of_related_products_to_show = 4 %}
+        {% assign image_size = 'medium' %}
+        {% assign heading = settings.related-products-title %}
+
+        {% capture number_of_related_products_to_fetch %}{{ number_of_related_products_to_show | plus: 1 }}{% endcapture %}
+
+        {% if collection == null or collection.handle == 'frontpage' or collection.handle == 'all' %}
+            {% assign found_a_collection = false %}
+            {% for c in product.collections %}
+                {% if found_a_collection == false and c.handle != 'frontpage' and c.handle != 'all' %}
+                    {% assign found_a_collection = true %}
+                    {% assign collection = c %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        {% if collection.products.size > 1 %}
+
+        <section class="related-products">
+            <h1 class="section-title section-border">{{ heading }}</h1>
+
+            <ul class="product-list">
+
+                {% assign current_product_found = false %}
+                {% for prod in collection.products limit: number_of_related_products_to_fetch %}{% if prod.title == product.title %}{% assign current_product_found = true %}{% else %}{% unless current_product_found == false and forloop.last %}{% include 'product-item' %}{% endunless %}{% endif %}{% endfor %}
+
+            </ul>
+        </section>
+
+        {% endif %}
+
+    {% endif %}
+
+  </section>
+
+  {% if settings.display-fullsize-product-viewer %}
+  <section class="fullscreen-product-viewer">
+    <div class="modal">
+      <div class="modal-wrap">
+        <span class="close">v</span>
+        <div class="showcase {% if product.images.size == 1 %}wide{% endif %}">
+          <div class="container">
+            <div class="wrap">
+              <img alt="{{ product.featured_image.alt }}" src="{{ product.featured_image | product_img_url: 'original' }}">
+              <span class="overlay"></span>
+            </div>
+          </div>
+        </div>
+
+        {% if product.images.size > 1 %}
+        <div class="pager antiscroll-wrap">
+          <div class="antiscroll-inner">
+            {% for image in product.images %}
+              <div class="wrap thumb {% include 'for-looper' %} {% if forloop.first %}active{% endif %}">
+                <img alt="{{ image.alt }}" src="{{ image.src | product_img_url: 'small' }}" data-high-res-url="{{ image.src | product_img_url: 'original' }}">
+                <span class="overlay"></span>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+{% else %}
+	<h1 class="reviews-title">THANK YOU FOR YOUR PURCHASE!</h1>
+	<style>
+      div.yotpo-small-box.yotpo-nav.reviews {
+        display: none;
+      }
+      div.yotpo-nav-content {
+        display: none;
+      }
+	</style>
+    <div class="yotpo yotpo-main-widget"
+         data-product-id="{{ product.id }}"
+         data-name="{{ product.title | escape }}"
+         data-url="{{ shop.url }}{{ product.url }}"
+         data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}"
+         data-description="{{ product.description | escape }}">
+    </div>
+{% endunless %}
+<div ng-controller="SizingController"></div>

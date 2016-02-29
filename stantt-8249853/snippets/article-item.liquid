@@ -1,0 +1,251 @@
+<article id="article-{{ article.id }}" class="article clearfix {% include 'for-looper' %}">
+
+  <!-- Article meta
+  ============================================= -->
+  <!--
+  <ul class="meta">
+
+    <li class="title">
+      {% if template == 'blog' %}<a href="{{ article.url }}">{% endif %}
+        {{ article.title }}
+      {% if template == 'blog' %}</a>{% endif %}
+    </li>
+
+    <li class="date">
+      <label>{{ article.published_at | date: "%b %d, %Y" }}</label>
+    </li>
+
+    <li class="author">
+      {% if article.user.email.size > 0 %}
+      <div class="avatar-wrap">
+        {% if article.user.homepage.size > 0 %}<a href="{{ article.user.homepage }}">{% endif %}
+        <img alt="Author avatar" class="avatar" src="http://www.gravatar.com/avatar/{{ article.user.email | remove: ' ' | strip_newlines | downcase | md5 }}" />
+        {% if article.user.homepage.size > 0 %}</a>{% endif %}
+      </div>
+      {% endif %}
+      <label>Written by</label>
+      <span class="text">{{ article.user.name }}</span>
+    </li>
+
+    {% if article.tags.size > 0 %}
+    <li class="tags">
+      <label>Filed under</label>
+      <span class="text">
+        {% for tag in article.tags %}
+          <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>{% unless forloop.last %},&nbsp;{% endunless %}
+        {% endfor %}
+      </span>
+    </li>
+    {% endif %}
+
+    {% if article.comments_enabled? and article.comments.size > 0 and template == 'blog' %}
+    <li class="comments">
+      <label>Discussion</label>
+      <span class="text"><a href="{{ article.url }}#comments">{{ article.comments_count }} {{ article.comments_count | pluralize: 'comment', 'comments' }}</a></span>
+    </li>
+    {% endif %}
+
+
+    {% if blog.next_article or blog.previous_article %}
+    <li class="prev-next-post">
+      <label>
+        {% if blog.previous_article %}<a class="previous" href="{{ blog.previous_article }}"><span class="label">Previous</span><span class="icon">x</span></a>{% endif %}
+        {% if blog.next_article and blog.previous_article %} <span class="slash">/</span> {% endif %}
+        {% if blog.next_article %}<a class="next" href="{{ blog.next_article }}"><span class="label">Next</span><span class="icon">z</span></a>{% endif %}
+      </label>
+    </li>
+    {% endif %}
+
+    {% if template == 'article' %}
+    <li class="share-buttons">
+      <div class="share-wrap twitter">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-text="{{ shop.name }} | {{ article.title }}:" data-via="{{ settings.twitter-username }}">Tweet</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </div>
+
+      <div class="share-wrap google">
+        <div class="g-plusone" data-size="medium" data-annotation="none"></div>
+
+        <script type="text/javascript">
+          (function() {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/plusone.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+          })();
+        </script>
+      </div>
+
+      <div class="share-wrap facebook">
+        <div class="fb-like" data-href="{{ shop.url }}{{ article.url }}" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false"></div>
+      </div>
+    </li>
+    {% endif %}
+
+  </ul>
+  -->
+
+  <!-- Article content
+  ============================================= -->
+  <div class="article-content">
+
+    <!-- Article title -->
+    <!--
+    <header class="title">
+      {#% if template == 'blog' %}<a href="{{ article.url }}">{#% endif %}
+        {#{ article.title }}
+      {#% if template == 'blog' %}</a>{#% endif %}
+    </header>
+	-->
+
+    <!-- Article text -->
+    <div class="rte clearfix">
+      {% if template == 'article' %}
+        {{ article.content }}
+      {% elsif settings.display-excerpts != true %}
+        {{ article.content }}
+      {% elsif settings.display-excerpts and article.excerpt.size > 0 %}
+        <a href="{{ article.url }}">
+          {{ article.excerpt }}
+          <span class="go-to-post">Go to post ></span>
+        </a>
+      {% else %}
+        <p>{{ article.content | strip_html | truncatewords: 50 }}</p>
+        <a href="{{ article.url }}">Continue reading</a>
+      {% endif %}
+    </div>
+
+    {% if template == 'article' %}
+
+      <!-- MOBILE: Article meta
+      ============================================= -->
+      <ul class="meta mobile clearfix">
+
+        <!-- Author -->
+        <li class="author">
+          {% if article.user.email.size > 0 %}
+          <div class="avatar-wrap">
+            {% if article.user.homepage.size > 0 %}<a href="{{ article.user.homepage }}">{% endif %}
+            <img alt="Author avatar" class="avatar" src="http://www.gravatar.com/avatar/{{ article.user.email | remove: ' ' | strip_newlines | downcase | md5 }}" />
+            {% if article.user.homepage.size > 0 %}</a>{% endif %}
+          </div>
+          {% endif %}
+          <label>Written by</label>
+          <span class="text">{{ article.user.name }}</span>
+        </li>
+        {% if article.tags.size > 0 %}
+
+        <!-- Tags -->
+        <li class="tags">
+          <label>Filed under</label>
+          <span class="text">
+            {% for tag in article.tags %}
+              <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>{% unless forloop.last %},&nbsp;{% endunless %}
+            {% endfor %}
+          </span>
+        </li>
+        {% endif %}
+
+        <!-- Share options -->
+        <li class="share-buttons">
+          <div class="share-wrap twitter">
+            <a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-text="{{ shop.name }} | {{ article.title }}:" data-via="{{ settings.twitter-username }}">Tweet</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+          </div><div class="share-wrap google">
+            <div class="g-plusone" data-size="medium" data-annotation="none"></div>
+
+            <script type="text/javascript">
+              (function() {
+                var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                po.src = 'https://apis.google.com/js/plusone.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+              })();
+            </script>
+          </div><div class="share-wrap facebook">
+            <div class="fb-like" data-href="{{ shop.url }}{{ article.url }}" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false"></div>
+          </div>
+        </li>
+
+      </ul>
+
+      {% if article.comments_enabled? %}
+
+      <!-- Display comments
+      ============================================= -->
+      <div class="comments-wrap read {% if article.comments_count == 0 %}no-comments{% endif %}" id="comments">
+
+        <!-- Section title -->
+        <h2 class="title">
+          {% capture comment_count %}
+            {% if comment and comment.created_at %}
+              {{ article.comments_count | plus: 1 }}
+            {% else %}
+              {{ article.comments_count }}
+            {% endif %}
+          {% endcapture %}
+          Comments on this post <span class="count">({{ comment_count }})</span>
+        </h2>
+
+        <!-- List of comments -->
+        {% if article.comments_count > 0 %}
+        <ul class="comments">
+
+          <!-- Temporary comment on initial submit -->
+          {% if comment and comment.created_at %}
+          <li class="comment" id="comment-{{ comment.id }}">
+            <a href="{{ comment.url }}" class="date">{{ comment.created_at | date: "%b %d, %Y" }}</a>
+            <p class="body">{{ comment.content }}</p>
+            <p class="author">— {{ comment.author }}</p>
+          </li>
+          {% endif %}
+
+          <!-- List of comments -->
+          {% for comment in article.comments %}
+          <li class="comment {% include 'for-looper' %}" id="comment-{{ comment.id }}">
+            <a href="{{ comment.url }}" class="date">{{ comment.created_at | date: "%b %d, %Y" }}</a>
+            <div class="body">{{ comment.content }}</div>
+            <p class="author">— {{ comment.author }}</p>
+          </li>
+          {% endfor %}
+
+        </ul>
+        {% endif %}
+
+      </div>
+
+      <!-- Submit comments
+      ============================================= -->
+      <div class="comments-wrap submit">
+
+        <!-- Section title -->
+        <h2 class="title">Leave a comment</h2>
+
+        {% form article %}
+
+          {% if form.errors %}
+            <div class="error-message"><span>Error! Something went wrong.</span></div>
+          {% endif %}
+
+          <div class="field-wrap author">
+            <label>Name</label>
+            <input type="text" placeholder="Your name" value="" name="comment[author]" class="field {% if form.errors contains "author" %}error{% endif %}">
+          </div>
+
+          <div class="field-wrap email">
+            <label>Email</label>
+            <input type="text" placeholder="your@email.com" value="" name="comment[email]" class="field {% if form.errors contains "email" %}error{% endif %}">
+          </div>
+
+          <div class="field-wrap body">
+            <label>Message</label>
+            <textarea name="comment[body]" class="field {% if form.errors contains "body" %}error{% endif %}"></textarea>
+          </div>
+
+          <input type="submit" class="action-button submit-button" value="Submit">
+
+        {% endform %}
+      </div>
+      {% endif %}
+    {% endif %}
+
+  </div>
+</article>

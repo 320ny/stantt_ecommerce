@@ -1,0 +1,28 @@
+{% assign hand = product.handle %}
+
+<div ng-controller="CollarCuffController" class="collar-and-cuff">
+  <div>
+    <h3>COLLAR SELECTION:</h3>
+    <img ng-click="changeCollar('{{base_handle}}', 'button-down')" {% if hand contains "button-down" %}class="img-border"{% endif %} src="{{ "express-collar-button-down.jpg" | file_url }}">
+    <img ng-click="changeCollar('{{base_handle}}', 'semi')" {% if hand contains "semi" %}class="img-border"{% endif %} src="{{ "express-collar-semi-spread.jpg" | file_url }}">
+    <img ng-click="changeCollar('{{base_handle}}', 'mod')" {% if hand contains "mod" %}class="img-border"{% endif %} src="{{ "express-collar-modified-spread.jpg" | file_url }}">
+    <img ng-click="changeCollar('{{base_handle}}', 'cutaway')" {% if hand contains "cutaway" %}class="img-border"{% endif %} src="{{ "express-collar-cutaway.jpg" | file_url }}">
+  </div>
+  <div>
+    <h3>CUFF SELECTION:</h3>
+    <img ng-click="changeCuff('{{base_handle}}', 'barrel')" {% if hand contains "barrel" %}class="img-border"{% endif %} src="{{ "express-cuff-barrel.jpg" | file_url }}">
+    <img ng-click="changeCuff('{{base_handle}}', 'french')" {% if hand contains "french" %}class="img-border"{% endif %} src="{{ "express-cuff-french.jpg" | file_url }}">
+  </div>
+</div>
+
+<style>
+  .img-border {
+    border: solid red;
+  }
+  .collar-and-cuff img {
+  	cursor: pointer; 
+  }
+</style>
+
+
+

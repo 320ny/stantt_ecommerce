@@ -1,0 +1,111 @@
+<div id="quick-shop-{{ itemType.id }}" class="quick-shop-content clearfix">
+
+  <div class="showcase {% if itemType.images.size == 1 %}wide{% endif %}">
+    <div class="container">
+      <div class="wrap">
+        <img alt="{{ itemType.featured_image.alt }}" src="{{ itemType.featured_image | product_img_url: 'large' }}">
+        {% if settings.product-image-borders %}<span class="overlay"></span>{% endif %}
+      </div>
+    </div>
+
+    {% if settings.display-product-email-link %}<div class="notes"><a href="mailto:{{ shop.email }}?subject={{ itemType.title | escape }}" class="email-us"><span class="icon">j</span>Email us about this product</a></div>{% endif %}
+  </div>
+
+  {% if itemType.images.size > 1 %}
+  <div class="pager">
+    {% for image in itemType.images %}
+      <div class="wrap thumb {% include 'for-looper' %} {% if forloop.first %}active{% endif %}">
+        <img alt="{{ image.alt }}" src="{{ image.src | product_img_url: 'small' }}" data-high-res-url="{{ image.src | product_img_url: 'large' }}">
+        <span class="overlay"></span>
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="details {% if itemType.variants.size == 1 and settings.display-product-quantity-option == false %}no-options{% endif %}">
+
+    <div class="module header">
+      <span class="close-modal">v</span>
+      <p class="brand">{{ itemType.vendor }}</p>
+      <p class="title"><a href="{{ itemType.url }}">{{ itemType.title }}</a></p>
+      {% if itemType.compare_at_price_min > itemType.price_min %}
+        <p class="price sale"><span class="original">{{ itemType.compare_at_price_min | money }}</span> {{ itemType.price_min | money }}</p>
+      {% else %}
+        <p class="price">{{ itemType.price_min | money }}</p>
+      {% endif %}
+    </div>
+
+    <div class="module options {% unless itemType.available %}unavailable{% endunless %}">
+
+      {% if itemType.available %} <!-- If the product is available then... -->
+
+        {% if itemType.variants.size > 1 %} <!-- Create a variants dropdown IF the product has more than one variant -->
+
+          <select name="id" id="product-select-{{ itemType.id }}" class="product-select">
+            {% for variant in itemType.variants %}
+              <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
+            {% endfor %}
+          </select>
+
+          <script>
+            settings.products.push({{ itemType | json }});
+            $(function(){
+
+              new Shopify.OptionSelectors("product-select-{{ itemType.id }}", { product: {{ itemType | json }}, onVariantSelected: selectCallbackQuickShop });
+
+              {% assign found_one_in_stock = false %}
+              {% for variant in itemType.variants %}
+                {% if variant.available and found_one_in_stock == false %}
+                  {% assign found_one_in_stock = true %}
+                  {% for option in itemType.options %}
+                    $('#product-select-'+ {{ itemType.id }} +'-option-' + {{ forloop.index0 }}).val({{ variant.options[forloop.index0] | json }}).trigger('change');
+                  {% endfor %}
+                {% endif %}
+              {% endfor %}
+
+            });
+
+
+          </script>
+
+        {% else %} <!-- If the product only has one variant, create a hidden input with the variant id. NOTE: Necessary for "add to cart" to work -->
+
+          {% for variant in itemType.variants %}
+            <input type="hidden" name="id" class="product-select" value="{{ variant.id }}" data-variant-title="{{ variant.title }}" />
+          {% endfor %}
+
+        {% endif %}
+
+        {% if settings.display-product-quantity-option %}
+          <div class="selector-wrapper">
+            <label>Quantity</label>
+            <input type="text" class="product-quantity field" value="1">
+          </div>
+        {% else %}
+          <input type="hidden" class="product-quantity field" value="1">
+        {% endif %}
+
+        <div class="selector-wrapper">
+          {% if itemType.options.size > 1 %}<label></label>{% endif %}<span class="action-button submit">Add to cart</span>
+        </div>
+
+        <div class="error-wrap"></div>
+
+      {% else %}
+
+        <span class="action-button unavailable disabled">Sold out</span>
+
+      {% endif %}
+
+    </div>
+
+    <div class="module description">
+      {% if itemType.description.size > 0 %}
+        <div class="rte special">{{ itemType.description }}</div>
+      {% endif %}
+      <a class="go-to-product" href="{{ itemType.url }}">Visit product page <span>→</span></a>
+    </div>
+
+  </div>
+
+</div>

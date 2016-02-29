@@ -1,0 +1,1135 @@
+<h3>Atlantic Theme by <a href="http://www.pixelunion.net">Pixel Union</a> | v7.5.0</h3>
+<br />
+<p>If you require any support please review the <a href="http://atlantic-theme-minimal.myshopify.com/pages/documentation">documentation</a> or contact us at <a href="mailto:support@pixelunion.net">support@pixelunion.net</a></p>
+<p>Find us on the web: <a href="http://www.pixelunion.net">Pixel Union</a> | Twitter: <a href="http://twitter.com/pixelunion">@pixelunion</a> | Facebook: <a href="http://facebook.com/pixelunion">http://facebook.com/pixelunion</a></p>
+<br />
+<br />
+
+<fieldset>
+  <legend>General</legend>
+
+  <h3>Logo options</h3>
+  <table>
+    <tr>
+      <td><label for="use-logo">Use a logo?</label></td>
+      <td><input type="checkbox" name="use-logo"/></td>
+    </tr>
+    <tr>
+      <td><label for="logo">Logo image file</label></td>
+      <td><input type="file" name="logo.png" data-max-width="1000" data-max-height="1000" /></td>
+    </tr>
+    <tr>
+      <td><label for="use-retina-logo">Use retina logo?</label></td>
+      <td><input name="use-retina-logo" type="checkbox" /></td>
+    </tr>
+    <tr>
+      <td><label for="logo-retina">Custom logo (retina)</label></td>
+      <td><input type="file" name="logo-retina.png" data-max-width="2000" data-max-height="2000" /></td>
+    </tr>
+    <tr>
+      <td><label for="checkout-logo-height">Logo height (px)</label></td>
+      <td><input name="checkout-logo-height" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <p>Retina logos are displayed on devices that have a higher than normal pixel density. Using this option will ensure that your logo looks great on all devices (e.g., iPad with retina display).</p>
+        <p>Retina logos should be uploaded at exactly double the dimensions of your regular logo. So if your regular logo is 140x80 then your retina logo would be 280x160.</p>
+        <p><strong>Important:</strong> If using a retina logo, the 'logo height' field is required. Enter the height of your regular logo.</p>
+      </td>
+    </tr>
+  </table>
+
+  <br />
+
+  <h3>Background options</h3>
+  <table>
+    <tr>
+      <td><label for="background-colour">Background colour</label></td>
+      <td><input name="background-colour" class="color" type="text" value="" /></td>
+    </tr>
+  </table>
+
+  <br />
+
+  <h3>Global font options</h3>
+  <table>
+    <tr>
+      <td><label for="body-font">Body font</label></td>
+      <td>
+        <select name="body-font">
+          <optgroup label="Serif">
+            <option value="'PT Serif', 'Times New Roman', Times, serif">PT Serif</option>
+            <option value="Palatino, 'Palatino Linotype', 'Book Antiqua', serif">Palatino</option>
+            <option value="Garamond, Baskerville, Caslon, serif">Garamond</option>
+            <option value="Georgia, Utopia, 'Times New Roman', Times, serif">Georgia</option>
+            <option value="'Times New Roman', Times, serif">Times New Roman</option>
+          </optgroup>
+          <optgroup label="Slab">
+            <option value="'Arvo', serif">Arvo</option>
+          </optgroup>
+          <optgroup label="Sans-serif">
+            <option value="'Helvetica Neue', Helvetica, Arial, sans-serif" selected="selected">Helvetica</option>
+            <option value="'Open Sans', sans-serif">Open Sans</option>
+            <option value="'Source Sans Pro', sans-serif">Source Sans Pro</option>
+            <option value="'Raleway', sans-serif">Raleway</option>
+            <option value="Verdana, Helvetica, Arial, sans-serif">Verdana</option>
+            <option value="Tahoma, Verdana, Geneva, sans-serif">Tahoma</option>
+          </optgroup>
+          <optgroup label="Monospace">
+            <option value="'Courier New', Courier, monospace">Courier New</option>
+            <option value="Monaco, 'Lucida Console', 'DejaVu Sans Mono', monospace">Monaco/Lucida Console</option>
+          </optgroup>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td><label for="main-title-font">Main title font</label></td>
+      <td>
+        <select name="main-title-font">
+          <optgroup label="Serif">
+            <option value="'PT Serif', 'Times New Roman', Times, serif">PT Serif</option>
+            <option value="'TheanoDidotRegular', serif">Didot</option>
+            <option value="Palatino, 'Palatino Linotype', 'Book Antiqua', serif">Palatino</option>
+            <option value="Garamond, Baskerville, Caslon, serif">Garamond</option>
+            <option value="Georgia, Utopia, 'Times New Roman', Times, serif">Georgia</option>
+            <option value="'Times New Roman', Times, serif">Times New Roman</option>
+          </optgroup>
+          <optgroup label="Slab">
+            <option value="'Arvo', serif">Arvo</option>
+          </optgroup>
+          <optgroup label="Sans-serif">
+            <option value="'Helvetica Neue', Helvetica, Arial, sans-serif" selected="selected">Helvetica</option>
+            <option value="'Open Sans', sans-serif">Open Sans</option>
+            <option value="'Source Sans Pro', sans-serif">Source Sans Pro</option>
+            <option value="'Raleway', sans-serif">Raleway</option>
+            <option value="Verdana, Helvetica, Arial, sans-serif">Verdana</option>
+            <option value="Tahoma, Verdana, Geneva, sans-serif">Tahoma</option>
+          </optgroup>
+          <optgroup label="Monospace">
+            <option value="'Courier New', Courier, monospace">Courier New</option>
+            <option value="Monaco, 'Lucida Console', 'DejaVu Sans Mono', monospace">Monaco/Lucida Console</option>
+          </optgroup>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td><label for="secondary-header-font">Secondary header font</label></td>
+      <td>
+        <select name="secondary-header-font">
+          <optgroup label="Serif">
+            <option value="'PT Serif', 'Times New Roman', Times, serif">PT Serif</option>
+            <option value="Palatino, 'Palatino Linotype', 'Book Antiqua', serif">Palatino</option>
+            <option value="Garamond, Baskerville, Caslon, serif">Garamond</option>
+            <option value="Georgia, Utopia, 'Times New Roman', Times, serif">Georgia</option>
+            <option value="'Times New Roman', Times, serif">Times New Roman</option>
+          </optgroup>
+          <optgroup label="Slab">
+            <option value="'Arvo', serif">Arvo</option>
+          </optgroup>
+          <optgroup label="Sans-serif">
+            <option value="'Helvetica Neue', Helvetica, Arial, sans-serif" selected="selected">Helvetica</option>
+            <option value="'Open Sans', sans-serif">Open Sans</option>
+            <option value="'Source Sans Pro', sans-serif">Source Sans Pro</option>
+            <option value="'Raleway', sans-serif">Raleway</option>
+            <option value="Verdana, Helvetica, Arial, sans-serif">Verdana</option>
+            <option value="Tahoma, Verdana, Geneva, sans-serif">Tahoma</option>
+          </optgroup>
+          <optgroup label="Monospace">
+            <option value="'Courier New', Courier, monospace">Courier New</option>
+            <option value="Monaco, 'Lucida Console', 'DejaVu Sans Mono', monospace">Monaco/Lucida Console</option>
+          </optgroup>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td><label for="meta-font">Meta font</label></td>
+      <td>
+        <select name="meta-font">
+          <optgroup label="Serif">
+            <option value="'PT Serif', 'Times New Roman', Times, serif">PT Serif</option>
+            <option value="Palatino, 'Palatino Linotype', 'Book Antiqua', serif">Palatino</option>
+            <option value="Garamond, Baskerville, Caslon, serif">Garamond</option>
+            <option value="Georgia, Utopia, 'Times New Roman', Times, serif">Georgia</option>
+            <option value="'Times New Roman', Times, serif">Times New Roman</option>
+          </optgroup>
+          <optgroup label="Slab">
+            <option value="'Arvo', serif">Arvo</option>
+          </optgroup>
+          <optgroup label="Sans-serif">
+            <option value="'Helvetica Neue', Helvetica, Arial, sans-serif" selected="selected">Helvetica</option>
+            <option value="'Open Sans', sans-serif">Open Sans</option>
+            <option value="'Source Sans Pro', sans-serif">Source Sans Pro</option>
+            <option value="'Raleway', sans-serif">Raleway</option>
+            <option value="Verdana, Helvetica, Arial, sans-serif">Verdana</option>
+            <option value="Tahoma, Verdana, Geneva, sans-serif">Tahoma</option>
+          </optgroup>
+          <optgroup label="Monospace">
+            <option value="'Courier New', Courier, monospace">Courier New</option>
+            <option value="Monaco, 'Lucida Console', 'DejaVu Sans Mono', monospace">Monaco/Lucida Console</option>
+          </optgroup>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td><label for="main-title-uppercase">Use small caps for "Main title font"</label></td>
+      <td><input type="checkbox" name="main-title-uppercase"/></td>
+    </tr>
+  </table>
+
+  <br />
+
+  <h3>Global colour options</h3>
+  <table>
+    <tr>
+      <td><label for="logotype-link-colour">Logo type colour</label></td>
+      <td><input name="logotype-link-colour" class="color" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="logotype-link-hover-colour">Logo type hover colour</label></td>
+      <td><input name="logotype-link-hover-colour" class="color" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="header-action-link-colour">Header action link colour</label></td>
+      <td><input name="header-action-link-colour" class="color" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="header-action-link-hover-colour">Header action link hover colour</label></td>
+      <td><input name="header-action-link-hover-colour" class="color" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="nav-link-colour">Nav link colour</label></td>
+      <td><input name="nav-link-colour" class="color" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="nav-link-hover-colour">Nav link hover colour</label></td>
+      <td><input name="nav-link-hover-colour" class="color" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="text-colour">General text colour</label></td>
+      <td><input name="text-colour" class="color" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="title-colour">Title colour</label></td>
+      <td><input name="title-colour" class="color" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="accent-colour">Accent colour</label></td>
+      <td><input name="accent-colour" class="color" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="accent-hover-colour">Accent hover colour</label></td>
+      <td><input name="accent-hover-colour" class="color" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="inverse-accent-colour">Inverse accent colour</label></td>
+      <td><input name="inverse-accent-colour" class="color" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="theme-detail-link-colour">Theme detail link colour</label></td>
+      <td><input name="theme-detail-link-colour" class="color" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="theme-detail-link-hover-colour">Theme detail link hover colour</label></td>
+      <td><input name="theme-detail-link-hover-colour" class="color" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="light-text-colour">Meta text colour</label></td>
+      <td><input name="light-text-colour" class="color" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="meta-link-colour">Meta link colour</label></td>
+      <td><input name="meta-link-colour" class="color" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="meta-link-hover-colour">Meta link hover colour</label></td>
+      <td><input name="meta-link-hover-colour" class="color" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="lightest-text-colour">Lightest text colour</label></td>
+      <td><input name="lightest-text-colour" class="color" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="primary-border-colour">Primary border colour</label></td>
+      <td><input name="primary-border-colour" class="color" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="secondary-border-colour">Secondary border colour</label></td>
+      <td><input name="secondary-border-colour" class="color" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="nav-background-colour">Navigation background colour</label></td>
+      <td><input name="nav-background-colour" class="color" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="theme-assets-colour">Theme assets colour</label></td>
+      <td><input name="theme-assets-colour" class="color" type="text" value="" /></td>
+    </tr>
+  </table>
+
+  <br />
+
+  <h3>Navigation options</h3>
+  <table>
+    <tr>
+      <td><label for="mobile-navigation-colour-scheme">Colour scheme</label></td>
+      <td>
+        <select name="mobile-navigation-colour-scheme">
+          <option value="light">Light features</option>
+          <option value="dark">Dark features</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+
+  <br />
+
+  <h3>Mobile navigation options</h3>
+  <table>
+    <tr>
+      <td><label for="mobile-nav-secondary-colour">Mobile navigation secondary colour</label></td>
+      <td><input name="mobile-nav-secondary-colour" class="color" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="mobile-nav-tertiary-colour">Mobile navigation tertiary colour</label></td>
+      <td><input name="mobile-nav-tertiary-colour" class="color" type="text" value="" /></td>
+    </tr>
+    <tr>
+      <td><label for="mobile-nav-quaternary-colour">Mobile navigation quaternary colour</label></td>
+      <td><input name="mobile-nav-quaternary-colour" class="color" type="text" value="" /></td>
+    </tr>
+  </table>
+
+  <br />
+
+  <h3>Products thumbnails</h3>
+  <table>
+    <tr>
+      <td><label for="product-image-borders">Display image borders</label></td>
+      <td><input type="checkbox" name="product-image-borders"/></td>
+    </tr>
+  </table>
+
+  <br />
+
+  <h3>Mega navigation</h3>
+  <table>
+    <tr>
+      <td><label for="enable-mega-nav">Enable the mega-navigation</label></td>
+      <td><input type="checkbox" name="enable-mega-nav"/></td>
+    </tr>
+    <tr>
+      <td><label>Override "Catalog" label</label></td>
+      <td><input type="text" name="catalog-label-override" /></td>
+    </tr>
+    <tr>
+      <td><label>Top level columns layout</label></td>
+      <td>
+        <select name="top-level-columns">
+          <option value="one-column">One column</option>
+          <option value="two-columns">Two columns</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td><label>Truncate list after how many items?</label></td>
+      <td>
+        <select name="meganav-limit">
+          <option value="6">6</option>
+          <option value="12">12</option>
+          <option value="18">18</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td><label>Column 1</label></td>
+      <td><select class="linklist" name="meganav-list-1" /></td>
+    </tr>
+    <tr>
+      <td><label>Column 2</label></td>
+      <td><select class="linklist" name="meganav-list-2" /></td>
+    </tr>
+    <tr>
+      <td><label>Column 3</label></td>
+      <td><select class="linklist" name="meganav-list-3" /></td>
+    </tr>
+  </table>
+
+  <h3>Pagination</h3>
+  <table>
+    <tr>
+      <td><label for="pagination-style">Style</label></td>
+      <td>
+        <select name="pagination-style">
+          <option value="standard">Standard pagination</option>
+          <option value="jump-to-page">Jump-to-page pagination</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+
+</fieldset>
+
+<fieldset>
+  <legend>Home page</legend>
+
+  <h3>Section headers</h3>
+  <table>
+    <tr>
+      <td><label for="show-section-headers">Display section headers?</label></td>
+      <td><input type="checkbox" name="show-section-headers" /></td>
+    </tr>
+  </table>
+
+  <br />
+
+  <h3>Slideshow</h3>
+  <table>
+    <tr>
+      <td><label for="show-slideshow">Display slideshow?</label></td>
+      <td><input type="checkbox" name="show-slideshow" /></td>
+    </tr>
+    <tr>
+      <td><label for="slideshow-match-width">Match width to content area?</label></td>
+      <td><input type="checkbox" name="slideshow-match-width" /></td>
+    </tr>
+    <tr>
+      <td><label for="show-slideshow-pagination">Display pagination?</label></td>
+      <td><input type="checkbox" name="show-slideshow-pagination" /></td>
+    </tr>
+    <tr>
+      <td><label for="autoplay-slideshow">Autoplay slideshow?</label></td>
+      <td><input type="checkbox" name="autoplay-slideshow" /></td>
+    </tr>
+    <tr>
+      <td><label for="rotate-freq">Slideshow rotate delay (seconds)</label></td>
+      <td><input type="text" name="rotate-freq" /></td>
+    </tr>
+  </table>
+
+  <br />
+  <p><b>Note:</b> For best results use images that are consistent in their dimensions.</p>
+  <br />
+
+  <h4>Slide 1</h4>
+  <table class="standard-table">
+    <tr class="even">
+      <td>Display?</td>
+      <td><input type="checkbox" name="show-slide-1" value="1" checked="checked" /></td>
+    </tr>
+    <tr class="odd">
+      <td>Invert next/prev colour?</td>
+      <td><input type="checkbox" name="invert-controls-slide-1" value="1" /></td>
+    </tr>
+    <tr class="even">
+      <td>Slide image</td>
+      <td><input type="file" name="slide-image-1.jpg" data-max-width="5000" /></td>
+    </tr>
+    <tr class="odd">
+      <td>Position</td>
+      <td>
+        <select name="slide-position-1">
+          <option value="center bottom">Center bottom</option>
+          <option value="center top">Center top</option>
+          <option value="left bottom">Left bottom</option>
+          <option value="left top">Left top</option>
+          <option value="right bottom">Right bottom</option>
+          <option value="right top">Right top</option>
+        </select>
+      </td>
+    </tr>
+    <tr class="even">
+      <td>Display content?</td>
+      <td><input type="checkbox" name="show-slide-content-1" value="1" checked="checked" /></td>
+    </tr>
+    <tr class="odd">
+      <td>Title</td>
+      <td><input type="text" name="slide-title-1" /></td>
+    </tr>
+    <tr class="even">
+      <td>Tagline</td>
+      <td><input type="text" name="slide-tagline-1" /></td>
+    </tr>
+    <tr class="odd">
+      <td>Call to action text</td>
+      <td><input type="text" name="slide-button-1" /></td>
+    </tr>
+    <tr class="even">
+      <td>Call to action URL</td>
+      <td><input type="text" name="slide-link-1" /></td>
+    </tr>
+  </table>
+
+  <br />
+
+  <h4>Slide 2</h4>
+  <table class="standard-table">
+    <tr class="even">
+      <td>Display?</td>
+      <td><input type="checkbox" name="show-slide-2" value="1" checked="checked" /></td>
+    </tr>
+    <tr class="odd">
+      <td>Invert next/prev colour?</td>
+      <td><input type="checkbox" name="invert-controls-slide-2" value="1" /></td>
+    </tr>
+    <tr class="even">
+      <td>Slide image</td>
+      <td><input type="file" name="slide-image-2.jpg" data-max-width="5000" /></td>
+    </tr>
+    <tr class="odd">
+      <td>Position</td>
+      <td>
+        <select name="slide-position-2">
+          <option value="center bottom">Center bottom</option>
+          <option value="center top">Center top</option>
+          <option value="left bottom">Left bottom</option>
+          <option value="left top">Left top</option>
+          <option value="right bottom">Right bottom</option>
+          <option value="right top">Right top</option>
+        </select>
+      </td>
+    </tr>
+    <tr class="even">
+      <td>Display content?</td>
+      <td><input type="checkbox" name="show-slide-content-2" value="1" checked="checked" /></td>
+    </tr>
+    <tr class="odd">
+      <td>Title</td>
+      <td><input type="text" name="slide-title-2" /></td>
+    </tr>
+    <tr class="even">
+      <td>Tagline</td>
+      <td><input type="text" name="slide-tagline-2" /></td>
+    </tr>
+    <tr class="odd">
+      <td>Call to action text</td>
+      <td><input type="text" name="slide-button-2" /></td>
+    </tr>
+    <tr class="even">
+      <td>Call to action URL</td>
+      <td><input type="text" name="slide-link-2" /></td>
+    </tr>
+  </table>
+
+  <br />
+
+  <h4>Slide 3</h4>
+  <table class="standard-table">
+    <tr class="even">
+      <td>Display?</td>
+      <td><input type="checkbox" name="show-slide-3" value="1" checked="checked" /></td>
+    </tr>
+    <tr class="odd">
+      <td>Invert next/prev colour?</td>
+      <td><input type="checkbox" name="invert-controls-slide-3" value="1" /></td>
+    </tr>
+    <tr class="even">
+      <td>Slide image</td>
+      <td><input type="file" name="slide-image-3.jpg" data-max-width="5000" /></td>
+    </tr>
+    <tr class="odd">
+      <td>Position</td>
+      <td>
+        <select name="slide-position-3">
+          <option value="center bottom">Center bottom</option>
+          <option value="center top">Center top</option>
+          <option value="left bottom">Left bottom</option>
+          <option value="left top">Left top</option>
+          <option value="right bottom">Right bottom</option>
+          <option value="right top">Right top</option>
+        </select>
+      </td>
+    </tr>
+    <tr class="even">
+      <td>Display content?</td>
+      <td><input type="checkbox" name="show-slide-content-3" value="1" checked="checked" /></td>
+    </tr>
+    <tr class="odd">
+      <td>Title</td>
+      <td><input type="text" name="slide-title-3" /></td>
+    </tr>
+    <tr class="even">
+      <td>Tagline</td>
+      <td><input type="text" name="slide-tagline-3" /></td>
+    </tr>
+    <tr class="odd">
+      <td>Call to action text</td>
+      <td><input type="text" name="slide-button-3" /></td>
+    </tr>
+    <tr class="even">
+      <td>Call to action URL</td>
+      <td><input type="text" name="slide-link-3" /></td>
+    </tr>
+  </table>
+
+  <br />
+
+  <h4>Slide 4</h4>
+  <table class="standard-table">
+    <tr class="even">
+      <td>Display?</td>
+      <td><input type="checkbox" name="show-slide-4" value="1" checked="checked" /></td>
+    </tr>
+    <tr class="odd">
+      <td>Invert next/prev colour?</td>
+      <td><input type="checkbox" name="invert-controls-slide-4" value="1" /></td>
+    </tr>
+    <tr class="even">
+      <td>Slide image</td>
+      <td><input type="file" name="slide-image-4.jpg" data-max-width="5000" /></td>
+    </tr>
+    <tr class="odd">
+      <td>Position</td>
+      <td>
+        <select name="slide-position-4">
+          <option value="center bottom">Center bottom</option>
+          <option value="center top">Center top</option>
+          <option value="left bottom">Left bottom</option>
+          <option value="left top">Left top</option>
+          <option value="right bottom">Right bottom</option>
+          <option value="right top">Right top</option>
+        </select>
+      </td>
+    </tr>
+    <tr class="even">
+      <td>Display content?</td>
+      <td><input type="checkbox" name="show-slide-content-4" value="1" checked="checked" /></td>
+    </tr>
+    <tr class="odd">
+      <td>Title</td>
+      <td><input type="text" name="slide-title-4" /></td>
+    </tr>
+    <tr class="even">
+      <td>Tagline</td>
+      <td><input type="text" name="slide-tagline-4" /></td>
+    </tr>
+    <tr class="odd">
+      <td>Call to action text</td>
+      <td><input type="text" name="slide-button-4" /></td>
+    </tr>
+    <tr class="even">
+      <td>Call to action URL</td>
+      <td><input type="text" name="slide-link-4" /></td>
+    </tr>
+  </table>
+
+  <br />
+
+  <h4>Slide 5</h4>
+  <table class="standard-table">
+    <tr class="even">
+      <td>Display?</td>
+      <td><input type="checkbox" name="show-slide-5" value="1" checked="checked" /></td>
+    </tr>
+    <tr class="odd">
+      <td>Invert next/prev colour?</td>
+      <td><input type="checkbox" name="invert-controls-slide-5" value="1" /></td>
+    </tr>
+    <tr class="even">
+      <td>Slide image</td>
+      <td><input type="file" name="slide-image-5.jpg" data-max-width="5000" /></td>
+    </tr>
+    <tr class="odd">
+      <td>Position</td>
+      <td>
+        <select name="slide-position-5">
+          <option value="center bottom">Center bottom</option>
+          <option value="center top">Center top</option>
+          <option value="left bottom">Left bottom</option>
+          <option value="left top">Left top</option>
+          <option value="right bottom">Right bottom</option>
+          <option value="right top">Right top</option>
+        </select>
+      </td>
+    </tr>
+    <tr class="even">
+      <td>Display content?</td>
+      <td><input type="checkbox" name="show-slide-content-5" value="1" checked="checked" /></td>
+    </tr>
+    <tr class="odd">
+      <td>Title</td>
+      <td><input type="text" name="slide-title-5" /></td>
+    </tr>
+    <tr class="even">
+      <td>Tagline</td>
+      <td><input type="text" name="slide-tagline-5" /></td>
+    </tr>
+    <tr class="odd">
+      <td>Call to action text</td>
+      <td><input type="text" name="slide-button-5" /></td>
+    </tr>
+    <tr class="even">
+      <td>Call to action URL</td>
+      <td><input type="text" name="slide-link-5" /></td>
+    </tr>
+  </table>
+
+  <br />
+
+  <h3>Welcome message</h3>
+  <table>
+    <tr>
+      <td><label for="display-welcome-message">Display welcome message?</label></td>
+      <td><input type="checkbox" name="display-welcome-message" /></td>
+    </tr>
+    <tr>
+      <td><label for="welcome-title">Welcome title</label></td>
+      <td><input type="text" name="welcome-title" /></td>
+    </tr>
+    <tr>
+      <td><label for="welcome-tagline">Welcome tagline</label></td>
+      <td>
+        <textarea name="welcome-tagline"></textarea>
+      </td>
+    </tr>
+  </table>
+
+  <h3>Featured collections</h3>
+  <table>
+    <tr>
+      <td><label for="display-featured-collections">Display featured colections?</label></td>
+      <td><input type="checkbox" name="display-featured-collections" /></td>
+    </tr>
+    <tr>
+      <td><label for="featured-collections-title">Featured collections title</label></td>
+      <td><input type="text" name="featured-collections-title" /></td>
+    </tr>
+    <tr>
+      <td><label for="featured-collection-1">Collection #1</label></td>
+      <td><select class="collection" name="featured-collection-1" /></td>
+    </tr>
+    <tr>
+      <td><label for="featured-collection-2">Collection #2</label></td>
+      <td><select class="collection" name="featured-collection-2" /></td>
+    </tr>
+    <tr>
+      <td><label for="featured-collection-3">Collection #3</label></td>
+      <td><select class="collection" name="featured-collection-3" /></td>
+    </tr>
+  </table>
+
+  <h3>Featured products</h3>
+  <table>
+    <tr>
+      <td><label for="display-featured-products">Display featured products?</label></td>
+      <td><input type="checkbox" name="display-featured-products" /></td>
+    </tr>
+    <tr>
+      <td><label for="featured-products-collection">Choose a collection to display</label></td>
+      <td><select class="collection" name="featured-products-collection" /></td>
+    </tr>
+    <tr>
+      <td><label for="featured-products-title">Featured products title</label></td>
+      <td><input type="text" name="featured-products-title" /></td>
+    </tr>
+    <tr>
+      <td><label for="featured-products-limit">Number of products to display</label></td>
+      <td>
+        <select name="featured-products-limit">
+          <option value="4">4</option>
+          <option value="8">8</option>
+          <option value="12">12</option>
+          <option value="16">16</option>
+          <option value="20">20</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+
+  <h3>Featured blog</h3>
+  <table>
+    <tr>
+      <td><label for="display-featured-blog">Display featured blog?</label></td>
+      <td><input type="checkbox" name="display-featured-blog" /></td>
+    </tr>
+    <tr>
+      <td><label for="featured-blog-title">Blog title</label></td>
+      <td><input type="text" name="featured-blog-title" /></td>
+    </tr>
+    <tr>
+      <td><label for="featured-blog">Select a blog</label></td>
+      <td><select class="blog" name="featured-blog" /></td>
+    </tr>
+  </table>
+
+</fieldset>
+
+
+<fieldset>
+  <legend>Collection page</legend>
+  <table>
+    <tr>
+      <td><label for="products-per-row">Number of products per row</label></td>
+      <td>
+        <select name="products-per-row">
+          <option value="two">2</option>
+          <option value="three">3</option>
+          <option value="four">4</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td><label for="products-per-page">Number of products to display</label></td>
+      <td>
+        <select name="products-per-page">
+          <option value="4">4</option>
+          <option value="6">6</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="12">12</option>
+          <option value="15">15</option>
+          <option value="16">16</option>
+          <option value="18">18</option>
+          <option value="20">20</option>
+          <option value="48">48</option>
+          <option value="50">50</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td><label for="collection-top-pagination">Include top pagination</label></td>
+      <td><input type="checkbox" name="collection-top-pagination" /></td>
+    </tr>
+  </table>
+</fieldset>
+
+<fieldset>
+  <legend>Collection list page</legend>
+  <table>
+    <tr>
+      <td><label>Use a specific link list</label></td>
+      <td><select class="linklist" name="collection-listing-linklist" /></td>
+    </tr>
+  </table>
+</fieldset>
+
+<fieldset>
+  <legend>Product page</legend>
+  <table>
+    <tr>
+      <td><label for="display-related-products">Display related products?</label></td>
+      <td><input type="checkbox" name="display-related-products" /></td>
+    </tr>
+    <tr>
+      <td><label for="related-products-title">Related products title</label></td>
+      <td><input type="text" name="related-products-title" /></td>
+    </tr>
+    <tr>
+      <td><label for="display-product-quantity-option">Display product quantity option?</label></td>
+      <td><input type="checkbox" name="display-product-quantity-option" /></td>
+    </tr>
+    <tr>
+      <td><label for="display-fullsize-product-viewer">Enable fullsize product viewer</label></td>
+      <td><input type="checkbox" name="display-fullsize-product-viewer" /></td>
+    </tr>
+    <tr>
+      <td><label for="display-product-email-link">Display email link?</label></td>
+      <td><input type="checkbox" name="display-product-email-link" /></td>
+    </tr>
+    <tr>
+      <td><label for="enable-fitting-guide">Display fitting guide link?</label></td>
+      <td><input type="checkbox" name="enable-fitting-guide" /></td>
+    </tr>
+    <tr>
+      <td><label for="fitting-guide-label">Fitting guide label</label></td>
+      <td><input type="text" name="fitting-guide-label" /></td>
+    </tr>
+    <tr>
+      <td><label for="fitting-guide-link">Fitting guide link</label></td>
+      <td><select name="fitting-guide-link" class="page" /></td>
+    </tr>
+    <tr>
+      <td><label for="fitting-guide-icon">Fitting guide icon</label></td>
+      <td>
+        <select name="fitting-guide-icon">
+          <option value="k">Shirt</option>
+          <option value="b">Ruler</option>
+          <option value="d">Info</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+</fieldset>
+
+<fieldset>
+  <legend>Blog and article pages</legend>
+  <table>
+    <tr>
+      <td><label for="articles-per-page">Number of articles to display per page</label></td>
+      <td>
+        <select name="articles-per-page">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          <option value="25">25</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td><label for="display-excerpts">Display article excerpts?</label></td>
+      <td><input type="checkbox" name="display-excerpts" /></td>
+    </tr>
+    <tr>
+      <td><label for="display-recent-posts">Display recent posts?</label></td>
+      <td><input type="checkbox" name="display-recent-posts" /></td>
+    </tr>
+    <tr>
+      <td><label for="display-tag-list">Display tag list?</label></td>
+      <td><input type="checkbox" name="display-tag-list" /></td>
+    </tr>
+  </table>
+</fieldset>
+
+<fieldset>
+  <legend>Custom pages</legend>
+  <h3>Custom Sidebar</h3>
+  <table>
+    <tr>
+      <td><label for="display-pages-sidebar">Display sidebar?</label></td>
+      <td><input type="checkbox" name="display-pages-sidebar" /></td>
+    </tr>
+    <tr>
+      <td><label for="pages-sidebar-title">Sidebar title</label></td>
+      <td><input type="text" name="pages-sidebar-title" /></td>
+    </tr>
+    <tr>
+      <td><label for="pages-sidebar-content">Sidebar HTML content</label></td>
+      <td><textarea name="pages-sidebar-content"></textarea></td>
+    </tr>
+  </table>
+  <h3>Contact Form</h3>
+  <table>
+    <tr>
+      <td><label for="contact-success-message">Success message</label></td>
+      <td><input type="text" name="contact-success-message" /></td>
+    </tr>
+    <tr>
+      <td><label for="contact-error-message">Error message</label></td>
+      <td><input type="text" name="contact-error-message" /></td>
+    </tr>
+  </table>
+</fieldset>
+
+<fieldset>
+  <legend>Search results</legend>
+  <table>
+    <tr>
+      <td><label for="search-results-per-page">Number of results to display per page</label></td>
+      <td>
+        <select name="search-results-per-page">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          <option value="25">25</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+</fieldset>
+
+<fieldset>
+  <legend>404 page</legend>
+  <table>
+    <tr>
+      <td><label for="404-message">Message</label></td>
+      <td><textarea name="404-message" /></td>
+    </tr>
+    <tr>
+      <td><label for="display-404-products">Display products collection?</label></td>
+      <td><input type="checkbox" name="display-404-products" /></td>
+    </tr>
+    <tr>
+      <td><label for="404-products-collection">Choose a collection to display</label></td>
+      <td><select class="collection" name="404-products-collection" /></td>
+    </tr>
+  </table>
+</fieldset>
+
+<fieldset>
+  <legend>Footer</legend>
+
+  <table>
+    <tr>
+      <td><label>Contact phone number</label></td>
+      <td><input type="text" name="shop-phone" /></td>
+    </tr>
+  </table>
+
+  <br />
+
+  <h3>Social links</h3>
+  <table>
+
+    <tr>
+      <td><label>Twitter URL</label></td>
+      <td><input type="text" name="twitter-url" /></td>
+    </tr>
+    <tr>
+      <td><label>Facebook URL</label></td>
+      <td><input type="text" name="facebook-url" /></td>
+    </tr>
+    <tr>
+      <td><label>Pinterest URL</label></td>
+      <td><input type="text" name="pinterest-url" /></td>
+    </tr>
+    <tr>
+      <td><label>Google Plus URL</label></td>
+      <td><input type="text" name="google-plus-url" /></td>
+    </tr>
+    <tr>
+      <td><label>Instagram URL</label></td>
+      <td><input type="text" name="instagram-url" /></td>
+    </tr>
+    <tr>
+      <td><label>Tumblr URL</label></td>
+      <td><input type="text" name="tumblr-url" /></td>
+    </tr>
+    <tr>
+      <td><label>YouTube URL</label></td>
+      <td><input type="text" name="youtube-url" /></td>
+    </tr>
+    <tr>
+      <td><label>Vimeo URL</label></td>
+      <td><input type="text" name="vimeo-url" /></td>
+    </tr>
+  </table>
+
+  <br />
+
+  <h3>Mailing list</h3>
+  <table>
+    <tr>
+      <td><label for="show-mailing-list">Display mailing list module?</label></td>
+      <td><input type="checkbox" name="show-mailing-list" /></td>
+    </tr>
+    <tr>
+      <td><label for="mailchimp-action-url">Mailchimp action URL</label></td>
+      <td><input type="text" name="mailchimp-action-url" /></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>
+        <label>What is the <a href="http://support.shopify.com/customer/portal/articles/640278">Mailchimp action URL</a>?</label>
+      </td>
+    </tr>
+  </table>
+  <br />
+
+  <h3>Payment options</h3>
+  <table>
+    <tr>
+      <td><label for="payment-icon-colour">Payment icon colour</label></td>
+      <td>
+        <select name="payment-icon-colour">
+          <option value="dark">Dark</option>
+          <option value="light">Light</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td><label for="show-diners-club">Diners Club</label></td>
+      <td><input type="checkbox" name="show-diners-club" /></td>
+    </tr>
+    <tr>
+      <td><label for="show-maestro">Maestro</label></td>
+      <td><input type="checkbox" name="show-maestro" /></td>
+    </tr>
+    <tr>
+      <td><label for="show-interac">Interac</label></td>
+      <td><input type="checkbox" name="show-interac" /></td>
+    </tr>
+    <tr>
+      <td><label for="show-visa">Visa</label></td>
+      <td><input type="checkbox" name="show-visa" /></td>
+    </tr>
+    <tr>
+      <td><label for="show-mastercard">Mastercard</label></td>
+      <td><input type="checkbox" name="show-mastercard" /></td>
+    </tr>
+    <tr>
+      <td><label for="show-discover">Discover</label></td>
+      <td><input type="checkbox" name="show-discover" /></td>
+    </tr>
+    <tr>
+      <td><label for="show-dk">Dankort</label></td>
+      <td><input type="checkbox" name="show-dk" /></td>
+    </tr>
+    <tr>
+      <td><label for="show-american-express">American Express</label></td>
+      <td><input type="checkbox" name="show-american-express" /></td>
+    </tr>
+    <tr>
+      <td><label for="show-google-wallet">Google Wallet</label></td>
+      <td><input type="checkbox" name="show-google-wallet" /></td>
+    </tr>
+    <tr>
+      <td><label for="show-paypal">PayPal</label></td>
+      <td><input type="checkbox" name="show-paypal" /></td>
+    </tr>
+    <tr>
+      <td><label for="show-jcb">JCB</label></td>
+      <td><input type="checkbox" name="show-jcb" /></td>
+    </tr>
+    <tr>
+      <td><label for="show-cirrus">Cirrus</label></td>
+      <td><input type="checkbox" name="show-cirrus" /></td>
+    </tr>
+    <tr>
+      <td><label for="show-stripe">Stripe</label></td>
+      <td><input type="checkbox" name="show-stripe" /></td>
+    </tr>
+    <tr>
+      <td><label for="show-bitcoin">Bitcoin</label></td>
+      <td><input type="checkbox" name="show-bitcoin" /></td>
+    </tr>
+  </table>
+</fieldset>
+
+<fieldset>
+  <legend>Quick shop</legend>
+  <table>
+    <tr>
+      <td><label for="enable-quick-shop">Enable quick-shop</label></td>
+      <td><input type="checkbox" name="enable-quick-shop"/></td>
+    </tr>
+    <tr>
+      <td><label for="quick-shop-label">Quick shop label</label></td>
+      <td>
+        <input type="text" name="quick-shop-label" size="30" />
+      </td>
+    </tr>
+  </table>
+
+</fieldset>
+
+<fieldset>
+  <legend>Shipping Rates Calculator</legend>
+  <table>
+    <tr>
+      <td><label for="shipping_calculator">Show the shipping calculator?</label></td>
+      <td><input type="checkbox" name="shipping_calculator"/></td>
+    </tr>
+    <tr>
+      <td><label for="shipping_calculator_default_country">Default country selection</label></td>
+      <td>
+        <input type="text" name="shipping_calculator_default_country" size="30" value="United States" />
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><span class="note">If your customer is logged-in, the country in his default shipping address will be selected. If you are not sure about the spelling to use here, refer to the first checkout page.</span></td>
+    </tr>
+    <tr>
+      <td><label for="shipping_calculator_submit_button_label">Submit button label</label></td>
+      <td>
+        <input type="text" name="shipping_calculator_submit_button_label" size="30" value="Calculate shipping" />
+      </td>
+    </tr>
+    <tr>
+      <td><label for="shipping_calculator_submit_button_label_disabled">Submit button label when calculating</label></td>
+      <td>
+        <input type="text" name="shipping_calculator_submit_button_label_disabled" size="30" value="Calculating..." />
+      </td>
+    </tr>
+  </table>
+</fieldset>

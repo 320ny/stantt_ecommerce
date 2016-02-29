@@ -1,0 +1,96 @@
+<div class="sidebar">
+
+  <aside class="blog-email-capture">
+    <h5>DON'T MISS A POST:</h5>
+    <p>Subscribe to the Stantt Newsletter and never miss our exclusive news and features.</p>
+    {% form 'customer' %}
+    <div class="wrap">
+      <input type="hidden" id="contact_tags" name="contact[tags]" value="prospect,newsletter,footer"/>
+      <input type="hidden" id="newsletter-first-name" name="contact[first_name]" value="Newsletter" />
+      <input type="hidden" id="newsletter-last-name" name="contact[last_name]" value="Subscriber" />
+      <input class="email" type="email" id="contact_email" name="contact[email]" placeholder="email address" value="" /><input type="submit" class="submit" name="subscribe" value="SUBSCRIBE"/>
+    </div>
+    {% endform %}
+    <h6>FOLLOW US <a href="https://www.facebook.com/StanttBrand" target="_blank"><img src="https://cdn.shopify.com/s/files/1/0434/4097/files/fb-icon.png?8935546944671229691"></a><a href="https://twitter.com/StanttBrand" target="_blank"><img src="https://cdn.shopify.com/s/files/1/0434/4097/files/twitter-icon.png?8935546944671229691"></a><a href="http://instagram.com/stanttbrand" target="_blank"><img src="https://cdn.shopify.com/s/files/1/0434/4097/files/instagram-icon.png?8935546944671229691"></a></h6>
+  </aside><!-- end blog-email-capture -->
+  
+  <aside class="about-guide">
+    <h5>ABOUT THE GUIDE:</h5>
+    <p>We are committed to making it easy for guys like you to have impeccable style, every day.</p>
+  </aside>
+  
+  <aside class="featured-posts">
+    <h5>FEATURED POSTS:</h5>
+    
+    <div class="featured-post-item">
+      <a href="#">
+        <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/blog-placeholder.jpg?17265233029247912069">
+        <h6>TEN DRINKS YOU NEED TO<br>KNOW HOW TO MAKE ></h6>
+      </a>
+    </div>
+    
+    <div class="featured-post-item">
+      <a href="#">
+        <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/blog-placeholder2.jpg?234761492003786557">
+        <h6>HOW TO:<br>WEAR NAVY GINGHAM ></h6>
+      </a>
+    </div>
+
+    <div class="featured-post-item">
+      <a href="#">
+        <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/blog-placeholder3.jpg?17265233029247912069">
+        <h6>HOW TO:<br>GET A BIG BOY DESK ></h6>
+      </a>
+    </div>
+
+    <div class="featured-post-item">
+      <a href="#">
+        <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/blog-placeholder4.jpg?17265233029247912069">
+        <h6>LIFESTYLE:<br>CLASSIC TIMEPIECES ></h6>
+      </a>
+    </div>
+    
+  </aside>
+  
+  <!--
+  {% if settings.display-recent-posts %}
+  <div class="module recent-posts first">
+    <label>Recent posts</label>
+    <ul class="posts">
+      {% for recent_article in blogs[blog.handle].articles | limit: 5 %}
+      <li class="post {% include 'for-looper' %}">
+        <a class="title" href="{{ recent_article.url }}">{{ recent_article.title }}</a>
+        <span class="date">{{ recent_article.published_at | date: "%b %d, %Y" }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {% if settings.display-tag-list and blog.all_tags.size > 0 %}
+  <div class="module tags-list {% unless settings.display-recent-posts %}first{% endunless %}">
+    <label>Tags</label>
+    <ul class="tags">
+      {% for tag in blog.all_tags %}
+        {% assign tagCount = 0 %}
+        <li class="tag">
+          <a href="{{ blog.url }}/tagged/{{ tag | handle }}">
+            {{ tag }}
+            <span class="count">
+              {% for article in blogs[blog.handle].articles %}
+                {% for temp_tag in article.tags %}
+                  {% if temp_tag == tag %}{% capture tagCount %}{{ tagCount | plus: 1 }}{% endcapture %}{% endif %}
+                {% endfor %}
+              {% endfor %}
+              ({{ tagCount }})
+            </span>
+          </a>
+        </li>
+      {% endfor %}
+
+    </ul>
+  </div>
+  {% endif %}
+  -->
+
+</div>

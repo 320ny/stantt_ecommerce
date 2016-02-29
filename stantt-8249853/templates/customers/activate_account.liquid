@@ -1,0 +1,35 @@
+<section class="content content-area customer activate">
+
+  <!--{% include 'breadcrumbs' %}-->
+
+  <!--<div class="page-title">
+    <span class="label">Activate your account</span>
+  </div>-->
+  <h2 class="fancy"><span>ACTIVATE YOUR ACCOUNT</span></h2>
+
+  <div class="account-form">
+    {% form 'activate_customer_password' %}
+
+      <p class="message">To activate your account, choose a password and enter it below.</p>
+
+      {% if form.errors %}
+        <div class="error-message"><span>{{ form.errors | default_errors }}</span></div>
+      {% endif %}
+
+      <div class="field-wrap password">
+        <label>Password</label>
+        <input type="password" name="customer[password]" class="field">
+      </div>
+
+      <div class="field-wrap password-confirmation">
+        <label>Repeat password</label>
+        <input type="password" name="customer[password_confirmation]" class="field">
+      </div>
+
+      <input type="submit" class="action-button submit-button" value="ACTIVATE NOW">
+      <a class="decline helper" href="/"><span>or </span>decline activation</a>
+
+    {% endform %}
+  </div>
+
+</section>

@@ -1,0 +1,95 @@
+<section class="content" ng-app="App">
+
+  <div class="page-title">
+
+  </div>
+
+  
+  <div ng-controller="ShirtController" class='shirt-products'>
+    {% for product in collection.products %}
+      <div ng-show="activeShirt == '{{product.handle}}'">
+        {% include 'shirt-alt' %}
+      </div>
+    {% endfor %}
+    {% include 'size-modal-alt' %}
+    
+    {% for product in collection.products %}
+      {% if product.handle == 'black' %}
+        <div class="yotpo yotpo-main-widget"
+           data-product-id="{{ product.id }}"
+           data-name="{{ product.title | escape }}"
+           data-url="{{ shop.url }}{{ product.url }}"
+           data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}"
+           data-description="{{ product.description | escape }}">
+        </div>
+      {% endif %}
+    {% endfor %}
+    
+  </div>
+  <div ng-view></div>
+  
+</section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
+<script src="https://code.angularjs.org/1.2.21/angular-route.min.js"></script>
+<script src="{{ 'app.js' | asset_url }}"></script>
+
+<script>
+    var selectShirtProductCallback = function(variant, selector) {
+
+    {% if template contains 'pre-order' %}
+      var submitText = 'Pre-Order';
+    {% else %}
+      var submitText = 'Add to cart';
+    {% endif %}
+    
+   //console.log(variant);
+   //console.log(selector.product.handle);
+
+    var id = selector.product.handle;
+    
+    var context = $("#product-area-" + id);
+    
+
+    if (variant && variant.available == true) {
+      context.find('.submit').attr('value', submitText)
+      
+
+      if ( variant.compare_at_price > 0 && variant.compare_at_price > variant.price ) {
+        if (settings.currency == 'USD' || settings.currency == 'CAD') {
+          context.find('.product-price').html('<span class="original">' + Shopify.formatMoney(variant.compare_at_price) + '</span>' + Shopify.formatMoney(variant.price));  // update price field
+        } else {
+          context.find('.product-price').html('<span class="original">' + Shopify.formatMoney(variant.compare_at_price, "{{shop.money_with_currency_format}}") + '</span>' + Shopify.formatMoney(variant.price, "{{shop.money_with_currency_format}}"));  // update price field
+        }
+
+      } else {
+        if (settings.currency == 'USD' || settings.currency == 'CAD') {
+          context.find('.product-price').html(Shopify.formatMoney(variant.price));  // update price field
+        } else {
+          context.find('.product-price').html(Shopify.formatMoney(variant.price, "{{shop.money_with_currency_format}}"));  // update price field
+        }
+
+      }
+                                                                  
+      // Update shipping message   
+      if (variant.inventory_quantity > 0) {
+        //context.find('.shipping-message').html("Available now, ships within 24 hours");
+	  } else {       
+        if (selector.product.tags.indexOf('sold-out') >= 0) {
+          context.find('.shipping-message').html("SOLD OUT");
+        } else {
+
+         //context.find('.shipping-message').html("Made just for you, ships in 7 days");
+        }
+      }                              
+                             
+    
+      context.find('.submit').removeAttr('disabled').attr('value', submitText); // remove unavailable class from add-to-cart button, and re-enable button
+    
+    } else {
+      var message = variant ? "Sold Out" : "Unavailable";
+      context.find('.submit').attr('disabled', 'disabled').attr('value', message)
+      context.find('.product-price').text(message);
+    }
+  };
+</script>

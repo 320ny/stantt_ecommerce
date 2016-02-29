@@ -1,0 +1,33 @@
+  <div id="customer-create" class="account-form customer-create-snippet">
+    <h3>CUSTOMER PROFILE</h3>
+    {% form 'create_customer' %}
+      <input type="hidden" name="return_to" value="/collections/shirts " />
+      {% if form.errors %}
+        <div class="error-message"><span>{{ form.errors | default_errors }}</span></div>
+      {% endif %}
+
+      <div class="field-wrap first-name">
+        <label for="customer[first_name]">FIRST NAME</label><br>
+        <input type="text" placeholder="" value="" name="customer[first_name]" class="field">
+      </div>
+
+      <div class="field-wrap last-name">
+        <label for="customer[last_name]">LAST NAME</label><br>
+        <input type="text" placeholder="" value="" name="customer[last_name]" class="field">
+      </div>
+
+      <div class="field-wrap email">
+        <label for="customer[email]">EMAIL</label><br>
+        <input type="text" value="" name="customer[email]" class="field">
+      </div>
+
+      <div class="field-wrap password">
+        <label for="customer[password]">PASSWORD</label><br>
+        <input type="password" placeholder="" value="" name="customer[password]" class="field">
+      </div>
+
+      <a href="http://stantt.com/collections/shirts#/color/navy-gingham?sizingStep=1" class="save-profile-back">&#60; Back</a>
+      <input type="submit" class="action-button submit-button modal" value="SAVE">
+          
+    {% endform %}
+  </div>

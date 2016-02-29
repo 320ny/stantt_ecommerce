@@ -1,0 +1,25 @@
+<h3 class="headline-border product-page-h3">SELECT YOUR COLOR</h3>
+
+<span class="selection-title">Dress:</span>
+<div>
+  {% for p in collection.products %}
+    {% if p.tags contains 'shirt' %}
+      {% capture swatch_name %}swatch-{{p.handle}}.jpg{% endcapture %}
+      <a href="#/color/{{p.handle}}">
+        <img ng-class="{'shirt-product-thumb': '{{p.handle}}' == '{{product.handle}}' }" src="{{ swatch_name | file_url }}">
+      </a>
+      {% endif %}
+  {% endfor %}
+</div>
+
+<span class="selection-title casual-swatches">Casual:</span>
+<div>
+  {% for p in collection.products %}
+    {% if p.tags contains 'casual' %}
+      {% capture swatch_name %}swatch-{{p.handle}}.jpg{% endcapture %}
+      <a href="#/color/{{p.handle}}">
+        <img ng-class="{'shirt-product-thumb': '{{p.handle}}' == '{{product.handle}}' }" src="{{ swatch_name | file_url }}">
+      </a>
+      {% endif %}
+  {% endfor %}
+</div>
