@@ -37,7 +37,7 @@
 	or collection.handle == "gift-cards") %}
 	<meta name="robots" content="noindex,follow" />
 {% endif %}
-  
+
   <meta name="viewport" content="width=device-width" />
   <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
 
@@ -50,14 +50,14 @@
   ///////////////////////////////////////// -->
   {{ 'modernizr-2.6.2.min.js' | asset_url | script_tag }}
   {{ 'jquery-1.9.min.js' | asset_url | script_tag }}
-  
+
   {{ "option_selection.js"  | shopify_asset_url | script_tag }}
 
   {% if template contains 'customers' %}
     {{ "shopify_common.js" | shopify_asset_url | script_tag }}
     {{ "customer_area.js"  | shopify_asset_url | script_tag }}
   {% endif %}
-  
+
   {% if page.url == "/pages/how-it-works-casual" %}
   	{{ "howitworks.js" | asset_url | script_tag }}
   {% endif %}
@@ -65,11 +65,11 @@
   {% if page.url == "/pages/measurements" %}
   	{{ "measurements.js" | asset_url | script_tag }}
   {% endif %}
-  
+
   {% if template == 'product.single' %}
   	{{ "whatsthis.js" | asset_url | script_tag }}
   {% endif %}
-  
+
 
   {% include 'social-meta' %}
 
@@ -91,27 +91,29 @@
   </script>
 
   {{ content_for_header }}
-  
+
   <!-- TYPEKIT -->
   <!--<script src="//use.typekit.net/uqu0hgp.js"></script>
   <script>try{Typekit.load();}catch(e){}</script>-->
-  
+
   <!-- GOOGLE FONTS -->
   <!--<link href='//fonts.googleapis.com/css?family=Sanchez:400italic,400|Questrial|Roboto+Condensed:300' rel='stylesheet' type='text/css'>-->
   <link href='https://fonts.googleapis.com/css?family=Merriweather:300,300italic' rel='stylesheet' type='text/css'>
-  
+
   <!-- WEBTYPE -->
   <link href="//cloud.webtype.com/css/0c863ec3-7137-4f79-b763-20ca38ecfb17.css" rel="stylesheet" type="text/css" />
-  
+
   {% include '_yotpo' %}
   {% include '_friendbuy' %}
-  
+
   {% unless template == 'collection.stantt-shirts' %}
   	{% include 'magiczoomplus.headers' %}
   {% endunless %}
-  
+
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
   <script src="https://code.angularjs.org/1.2.21/angular-route.min.js"></script>
+  <script src="{{ 'AppServices.js' | asset_url }}"></script>
+  <script src="{{ 'AppControllers.js' | asset_url }}"></script>
   <script src="{{ 'SingleApp.js' | asset_url }}"></script>
 </head>
 
@@ -121,7 +123,7 @@
 <body class="{% if template contains 'contact' %}template-contact{% else %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% endif %} {% unless showSectionHeaders %}disable-headers{% endunless %} {% if settings.meta-font == "'Open Sans' sans-serif" %}font-open-sans{% endif %} {% if settings.main-title-uppercase %}uppercase{% endif %}">
   <!--
   <div id="fb-root"></div>
-  
+
   <script>(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
@@ -131,28 +133,28 @@
   }(document, 'script', 'facebook-jssdk'));
   </script>
   -->
-  
-  
-  
+
+
+
   {% include '_google-tag-manager' %}
   {% include '_qualaroo' %}
-  {% include '_addthis' %} 
-  
+  {% include '_addthis' %}
+
   {% unless collection.handle == 'express-checkout' %}
     {% include 'header' %}
   {% endunless %}
-  
+
   <div ng-app="SingleApp" class="page-content">
-  
+
   {% unless collection.handle == 'express-checkout' or template contains 'collection' %}
     <aside class="home-notification-bar">free shipping &amp; returns <span> | </span> A BETTER SHIRT, GUARANTEED</aside>
   {% endunless %}
-    
+
   {% if product.type  == 'shirt' %}
     <!--<aside class="home-notification-bar product-notification"><p>Our team at the factory is taking time off to spend with their families until the New Year.</p><p>All orders placed until then will be shipped the first week of January ’16. Thanks for the understanding!</p></aside>-->
   {% endif %}
 
-    
+
   {% if template contains 'product' %}
     <!--{% include 'breadcrumbs' %}-->
   {% endif %}
@@ -163,14 +165,14 @@
     {% include 'collections' %}
   {% endunless %}
   </div><!-- end container -->
-   
-  
+
+
   {% unless collection.handle == 'express-checkout' %}
     {% include 'footer' %}
   {% endunless %}
 
   {% if template contains 'index' or template contains 'collection' or template contains 'product' or template contains '404' or template contains 'search' %}
-  
+
     <section class="quick-shop">
 
     <div class="quick-shop-modal">
@@ -246,13 +248,13 @@
       context.find('.price').text(message);
     }
   };
-    
+
   </script>
- 
+
 
   {% include 'ajaxify-cart' %}
   {% include 'modify_lightbox_snippet' %}
-  
+
   {% unless collection.handle == 'express-checkout' %}
     {% include '_hubspot' %}
     {% include '_crazyegg' %}

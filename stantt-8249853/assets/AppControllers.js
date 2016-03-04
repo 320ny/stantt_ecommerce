@@ -1,46 +1,20 @@
-// SingleApp
-"use strict";
+var StanttAppControllers = angular.module('AppControllers2', []);
 
-var SingleApp;
+StanttAppControllers.controller('CollarCuffController', function($scope, $location, CollarCuff) {
 
-SingleApp = angular.module('SingleApp', [
-  'ngRoute',
-  'AppControllers',
-  'AppControllers2',
-  'AppServices'
-]);
+  $scope.collarCuff = CollarCuff;
 
-// For Express Checkout
-SingleApp.config(function($routeProvider) {
-  $routeProvider.
-  when("/color/:color",
-    {
-      reloadOnSearch: false
-  	}
-  )
-});
-
-// CONTROLLERS
-var AppControllers = angular.module('AppControllers', []);
-
-AppControllers.controller('AutoSizeLoadURLController', function($scope, StanttSizeService, UIService) {
-
-  function loadSizeFromUrl() {
-  	var size, sizestring = window.location.search.split("size=")[1]
-    if (sizestring)
-      size = sizestring.split('&')[0];
-
-    if (size && !(size.toLowerCase().indexOf("found") > -1)) {
-      size = decodeURIComponent(size);
-      StanttSizeService.updateSize(true, 100, size);
-      UIService.updateMenuSize(size);
-    }
+  $scope.changeCollar = function(base_handle, newCollar) {
+    CollarCuff.collar = newCollar;
   }
 
-  loadSizeFromUrl();
+  $scope.changeCuff = function(base_handle, newCuff) {
+    CollarCuff.cuff = newCuff;
+  }
+
 });
 
-AppControllers.controller('ShirtController', function($scope, $routeParams, $location, $timeout, StanttSizeService, Customer, CollarCuff) {
+StanttAppControllers.controller('ShirtProductPageController', function($scope, $routeParams, $location, $timeout, StanttSizeService, Customer, CollarCuff) {
 
   $scope.collarCuff = CollarCuff
   $scope.sizingStep = undefined;
@@ -71,7 +45,7 @@ AppControllers.controller('ShirtController', function($scope, $routeParams, $loc
     }
     if (!(step == 'direct' || step == undefined)) {
       $("body").scrollTop(100);
-    }å
+    }
   };
 
   $scope.render();
@@ -90,7 +64,7 @@ AppControllers.controller('ShirtController', function($scope, $routeParams, $loc
 
 });
 
-AppControllers.controller('SizingController', function($scope, $http, $timeout, StanttSizeService, Customer, UIService) {
+StanttAppControllers.controller('ShirtSizingController', function($scope, $http, $timeout, StanttSizeService, Customer, UIService) {
 
   $scope.measurements = StanttSizeService.measurements;
   $scope.stanttSize = StanttSizeService.stanttSize;
@@ -99,10 +73,6 @@ AppControllers.controller('SizingController', function($scope, $http, $timeout, 
   	$scope.showInputs = false;
   else
     $scope.showInputs = true;
-
-
-  $('#thankyou_return_url').val(window.location.pathname+window.location.search+'#?sizingStep=save');
-
 
   $scope.findMySize = function() {
     if ($scope.measurementsValid()) {
@@ -122,8 +92,8 @@ AppControllers.controller('SizingController', function($scope, $http, $timeout, 
       // Update local storage
       StanttSizeService.storeMeasurements();
     } else if ($scope.stanttSize.name) {
-    	UIService.updateHiddenSelects($scope.stanttSize.name);
-        UIService.updateMenuSize($scope.stanttSize.name);
+    	UIService.updateShirtVariantSelects($scope.stanttSize.name);
+      UIService.updateMenuSize($scope.stanttSize.name);
     }
 
   };
@@ -162,6 +132,7 @@ AppControllers.controller('SizingController', function($scope, $http, $timeout, 
           StanttSizeService.updateSize(true, data.id, data.name);
         }
         UIService.updateHiddenSelects($scope.stanttSize.name);
+        UIService.updateShirtVariantSelects($scope.stanttSize.name);
         UIService.updateMenuSize($scope.stanttSize.name);
       	$scope.showInputs = false;
       	$scope.httpWorking = false;
@@ -177,67 +148,4 @@ AppControllers.controller('SizingController', function($scope, $http, $timeout, 
   };
 
   $scope.calculateStanttSize();
-});
-
-AppControllers.controller('DirectSizeInputController', function($scope, $http, StanttSizeService, UIService, Customer) {
-  $scope.inputSize = "";
-  $scope.showDirectInput = false;
-  $scope.showModal = false;
-
-
-  $scope.loadSize = function(size) {
-    var params = "callback=JSON_CALLBACK&size="+ size;
-    $http.jsonp("http://app.stantt.com/sizing/size/load?" + params)
-      .success(function(data, status, headers, config, statusText) {
-      	StanttSizeService.updateSize(true, data.id, data.name);
-      	UIService.updateHiddenSelects($scope.stanttSize.name);
-      	UIService.updateMenuSize($scope.stanttSize.name);
-      	$scope.$parent.showInputs = false;
-        Customer.updateMetaFields();
-      	$("body").scrollTop(100);
-
-      })
-      .error(function(data) {
-      	alert("Sorry but that is not a correct size name.");
-      });
-  }
-
-  $scope.showHideInputs = function() {
-  	 $scope.showDirectInput = !$scope.showDirectInput;
-  }
-
-});
-
-
-
-
-
-// DIRECTIVES
-
-
-SingleApp.directive('highlightMe', function ($timeout) {
-    return {
-      restrict: 'A',
-      link: function postLink(scope, element, attrs) {
-        $timeout(function() {
-          element[0].select();
-        }, 50, false);
-      }
-    };
-  });
-
-
-SingleApp.controller('ExpressCheckoutMenu', function($scope, $http) {
-  $scope.showMenu = false;
-  $scope.menuLinks = [
-     {name: 'All Products', url: '/collections/express-all'},
-     {name: 'Flannel ', url: '/collections/express-flannels'},
-     {name: 'Gift Cards', url: '/collections/express-gift-cards'},
-     {name: 'Manhattan', url: '/collections/express-manhattan'},
-     {name: 'Highlinee', url: '/collections/express-highline'}
-   ];
-
-  $scope.toggleMenu = function() {
-    $scope.showMenu = !$scope.showMenu;
-  }
 });

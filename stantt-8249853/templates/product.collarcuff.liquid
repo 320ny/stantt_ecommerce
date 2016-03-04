@@ -6,10 +6,6 @@
   <div ng-controller="ShirtController" class='shirt-products'>
     <section class="content express-checkout" ng-cloak>
 
-    <div ng-show="collarCuff.matches(undefined, undefined)">
-   		{% include 'product-shirt', product: product %}
-    </div>
-
     <div ng-show="sizingStep" ng-click="changeSizingStep(undefined)" class="active" id="sizing-modal-background"></div>
 
     <style>
@@ -18,19 +14,18 @@
       }
     </style>
 
-    {% assign styleCuffs = "barrel,barrel,french,barrel,french,barrel,french" | split: ',' %}
     {% assign styleCollars = "button-down,cutaway,cutaway,semi,semi,mod,mod" | split: ',' %}
+    {% assign styleCuffs = "barrel,barrel,french,barrel,french,barrel,french" | split: ',' %}
+
     {% assign styles = "-button-down-barrel,-cutaway-barrel,-cutaway-french,-semi-barrel,-semi-french,-mod-barrel,-mod-french" | split: ',' %}
 
     {% for style in styles %}
       {% assign handle = base_handle | append: style %}
-      {% assign product = all_products[handle] %}
+      {% assign pro = all_products[handle] %}
       <div ng-show="collarCuff.matches('{{styleCollars[forloop.index0]}}', '{{styleCuffs[forloop.index0]}}')">
-        {% include 'product-shirt', product: product, base_product: base_product %}
+        {% include 'product-shirt', product: pro, base_product: base_product %}
       </div>
 	  {% endfor %}
-
-      {% include 'express-checkout-js' %}
 
     </section>
   </div>

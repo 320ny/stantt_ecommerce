@@ -3,26 +3,33 @@
 <div ng-controller="CollarCuffController" class="collar-and-cuff">
   <div>
     <h3>COLLAR SELECTION:</h3>
-    <img ng-click="changeCollar('{{base_handle}}', 'button-down')" {% if hand contains "button-down" %}class="img-border"{% endif %} src="{{ "express-collar-button-down.jpg" | file_url }}">
+    <img ng-hide="collarCuff.cuff == 'french'" ng-click="changeCollar('{{base_handle}}', 'button-down')" {% if hand contains "button-down" %}class="img-border"{% endif %} src="{{ "express-collar-button-down.jpg" | file_url }}">
     <img ng-click="changeCollar('{{base_handle}}', 'semi')" {% if hand contains "semi" %}class="img-border"{% endif %} src="{{ "express-collar-semi-spread.jpg" | file_url }}">
     <img ng-click="changeCollar('{{base_handle}}', 'mod')" {% if hand contains "mod" %}class="img-border"{% endif %} src="{{ "express-collar-modified-spread.jpg" | file_url }}">
     <img ng-click="changeCollar('{{base_handle}}', 'cutaway')" {% if hand contains "cutaway" %}class="img-border"{% endif %} src="{{ "express-collar-cutaway.jpg" | file_url }}">
+    <br><span ng-hide="collarCuff.cuff == 'french'">BUTTON-DOWN</span> <span>SEMI-SPREAD</span> <span>MOD-SPREAD</span> <span>CUTAWAY</span>
   </div>
+  <br>
   <div>
     <h3>CUFF SELECTION:</h3>
     <img ng-click="changeCuff('{{base_handle}}', 'barrel')" {% if hand contains "barrel" %}class="img-border"{% endif %} src="{{ "express-cuff-barrel.jpg" | file_url }}">
-    <img ng-click="changeCuff('{{base_handle}}', 'french')" {% if hand contains "french" %}class="img-border"{% endif %} src="{{ "express-cuff-french.jpg" | file_url }}">
+    <img ng-click="changeCuff('{{base_handle}}', 'french')" ng-hide="collarCuff.collar == 'button-down'"  {% if hand contains "french" %}class="img-border"{% endif %} src="{{ "express-cuff-french.jpg" | file_url }}">
+    <br><span>BARREL CUFF</span> <span ng-hide="collarCuff.collar == 'button-down'">FRENCH CUFF</span></
   </div>
 </div>
+<br>
 
 <style>
   .img-border {
     border: solid red;
   }
   .collar-and-cuff img {
-  	cursor: pointer; 
+  	cursor: pointer;
+    width: 80px;
+    margin: 15px;
+  }
+  .collar-and-cuff span {
+    font-size: 12px;
+    margin: 10px;
   }
 </style>
-
-
-

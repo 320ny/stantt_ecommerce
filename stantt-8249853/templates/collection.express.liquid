@@ -1,0 +1,50 @@
+
+<section class="content" ng-app="SingleApp" ng-controller="AutoSizeLoadURLController">
+
+  <div class="text-content-wrap clearfix">
+    <div class="clearfix text-content">
+
+      <div class="highline-manhattan-collection">
+
+        {% for product in collection.products %}
+            <a href="http://stantt.com/products/{{product.handle}}?view=collarcuff">
+                <div class="collection-product-wrapper">
+                  <img class="product-first" src="{{ product.images[1].src | img_url: 'large' }}">
+                  <img class="product-second" src="{{ product.images[0].src | img_url: 'large' }}">
+                  <span class="collection-title">{{ product.title }}</span>
+                  <span class="collection-price">{{ product.price | money }}</span>
+              </div>
+            </a>
+        {% endfor %}
+
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<style>
+  img.product-second {
+    display: none;
+  }
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
+<script src="https://code.angularjs.org/1.2.21/angular-route.min.js"></script>
+<script src="{{ 'SingleApp.js' | asset_url }}"></script>
+
+<script>
+  (function() {
+    $('.collection-product-wrapper').hover(function() {
+      $(this).find('img.product-first').hide();
+      $(this).find('img.product-second').show();
+    }, function() {
+      $(this).find('img.product-first').show();
+      $(this).find('img.product-second').hide();
+    });
+
+  })()
+
+</script>
+<div ng-controller="SizingController"></div>
