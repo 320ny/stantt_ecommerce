@@ -9,14 +9,16 @@
   <div class="fancy-headline-wrapper">
     <h2 class="fancy"><span>YOUR CART</span></h2>
   </div>
-  
-  
+
+
   {% if cart.item_count > 0 %}
 
     <form action="/cart" method="post" id="cart-form">
       <input type="hidden" name="attributes[shiptocode]" value="STANPB" />
-    
 
+      <div ng-controller="LocationController">
+        <input type="hidden" name="attributes[location]" value="{% raw %}{{stanttLocation}}{% endraw %}" />
+      </div>
       <table class="table">
 
         <thead>
@@ -41,19 +43,19 @@
                         {% assign index = forloop.index0 %}
                       {% endif %}
                     {% endfor %}
-                    
+
                     {% assign product_collections = (item.product.collections | map: 'title' %}
                     {% if product_collections contains 'Shirts' %}
                     	{% capture item_url %} /products/{{item.product.handle}}/?view=single {% endcapture %}
                     {% else %}
                     	{% assign item_url = item.product.url %}
                     {% endif %}
-                    
+
                     <a class="image" href="{{ item_url }}">
                     	{{ item.product.images[index] |  product_img_url: 'medium' | img_tag }}
                       	{% if settings.product-image-borders %}<span class="outline"></span>{% endif %}
                     </a>
-                    
+
                   </div><div class="wrap">
                     <span class="label vendor">{{ item.vendor }}</span>
                 <span class="label title"><a href="/collections/shirts/#/color/{{ item.product.handle }}">{{ item.product.title}}</a></span>
@@ -94,7 +96,7 @@
       {% if settings.shipping_calculator == true %}
         {% include 'shipping-calculator' %}
       {% endif %}
-      
+
 
     </form>
 

@@ -35,8 +35,6 @@ StanttAppControllers.controller('ShirtProductPageController', function($scope, $
 
   $scope.changeSizingStep = function(step, event) {
     $location.search('sizingStep', step);
-    if (step)
-    	ga('send', 'event', 'Shirts Sizing Modal', 'View', 'Step ' + step);
 
     StanttSizeService.storeMeasurements();
     if (event) {
@@ -75,8 +73,10 @@ StanttAppControllers.controller('ShirtSizingController', function($scope, $http,
     $scope.showInputs = true;
 
   $scope.findMySize = function() {
+    console.log("find size");
     if ($scope.measurementsValid()) {
       $scope.httpWorking = true;
+      ga('send', 'event', 'app', 'used', 'find size');
       $timeout(function() {
         $scope.calculateStanttSize(true);
       }, 800, true);
@@ -123,7 +123,7 @@ StanttAppControllers.controller('ShirtSizingController', function($scope, $http,
       var waist  = convertCmToInches(waist);
       var sleeve = convertCmToInches(sleeve);
     };
-	var params = "callback=JSON_CALLBACK&chest="+ chest +"&waist="+ waist +"&arm="+ sleeve;
+	  var params = "callback=JSON_CALLBACK&chest="+ chest +"&waist="+ waist +"&arm="+ sleeve;
     $http.jsonp("http://app.stantt.com/sizing/size/find?" + params)
       .success(function(data, status, headers, config, statusText) {
         if (data.error) {
@@ -148,4 +148,16 @@ StanttAppControllers.controller('ShirtSizingController', function($scope, $http,
   };
 
   $scope.calculateStanttSize();
+});
+
+
+StanttAppControllers.controller('LocationController', function($scope, LocalStorage) {
+  $scope.stanttLocation = "";
+
+  var location = LocalStorage.getItem("stanttLocation");
+  console.log("Location get from LS:", location);
+  if (location) {
+    $scope.stanttLocation = location;
+  }
+
 });

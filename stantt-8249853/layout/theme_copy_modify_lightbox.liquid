@@ -35,7 +35,7 @@
 	|| collection.handle == "gift-cards") %}
 	<meta name="robots" content="noindex,follow" />
 {% endif %}
-  
+
   <meta name="viewport" content="width=device-width" />
   <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
 
@@ -107,11 +107,11 @@
   </script>
 
   {{ content_for_header }}
-  
+
   <!-- TYPEKIT EMBED CODE -->
   <script src="//use.typekit.net/uqu0hgp.js"></script>
   <script>try{Typekit.load();}catch(e){}</script>
-  
+
   <!-- GOOGLE FONTS -->
   <link href='//fonts.googleapis.com/css?family=Sanchez:400italic,400' rel='stylesheet' type='text/css'>
 
@@ -133,7 +133,6 @@
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));</script>
   -->
-  {% include '_google-tag-manager' %}
   {% include '_qualaroo' %}
   {% include 'header' %}
 
@@ -148,11 +147,11 @@
     {% include 'collections' %}
   {% endunless %}
   </div><!-- end container -->
-   
+
   {% include 'footer' %}
 
   {% if template contains 'index' or template contains 'collection' or template contains 'product' or template contains '404' or template contains 'search' %}
-  
+
     <section class="quick-shop">
 
     <div class="quick-shop-modal">

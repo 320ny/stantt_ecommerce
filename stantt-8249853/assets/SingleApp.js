@@ -23,7 +23,7 @@ SingleApp.config(function($routeProvider) {
 // CONTROLLERS
 var AppControllers = angular.module('AppControllers', []);
 
-AppControllers.controller('AutoSizeLoadURLController', function($scope, StanttSizeService, UIService) {
+AppControllers.controller('AutoSizeLoadURLController', function($scope, StanttSizeService, UIService, LocalStorage) {
 
   function loadSizeFromUrl() {
   	var size, sizestring = window.location.search.split("size=")[1]
@@ -37,6 +37,15 @@ AppControllers.controller('AutoSizeLoadURLController', function($scope, StanttSi
     }
   }
 
+  function loadLocationFromUrl() {
+    var location, locationstring = window.location.search.split("location=")[1]
+    if (locationstring) {
+      location = decodeURIComponent(locationstring.split('&')[0]);
+      LocalStorage.setItem('stanttLocation', location);
+    }
+  }
+
+  loadLocationFromUrl();
   loadSizeFromUrl();
 });
 
@@ -61,8 +70,6 @@ AppControllers.controller('ShirtController', function($scope, $routeParams, $loc
 
   $scope.changeSizingStep = function(step, event) {
     $location.search('sizingStep', step);
-    if (step)
-    	ga('send', 'event', 'Shirts Sizing Modal', 'View', 'Step ' + step);
 
     StanttSizeService.storeMeasurements();
     if (event) {
@@ -106,6 +113,7 @@ AppControllers.controller('SizingController', function($scope, $http, $timeout, 
 
   $scope.findMySize = function() {
     if ($scope.measurementsValid()) {
+      ga('send', 'event', 'app', 'used', 'find size');
       $scope.httpWorking = true;
       $timeout(function() {
         $scope.calculateStanttSize(true);
