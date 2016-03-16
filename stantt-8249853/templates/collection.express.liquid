@@ -1,5 +1,10 @@
+{% paginate collection.products by 50 %}
 
 <section class="content" ng-app="SingleApp" ng-controller="AutoSizeLoadURLController">
+
+  {% if paginate.previous or paginate.next %}
+    {% include 'pagination' %}
+  {% endif %}
 
   <div class="text-content-wrap clearfix">
     <div class="clearfix text-content">
@@ -22,7 +27,12 @@
     </div>
   </div>
 
+  {% if paginate.previous or paginate.next %}
+    {% include 'pagination' %}
+  {% endif %}
+
 </section>
+{% endpaginate %}
 
 <style>
   img.product-second {
@@ -36,14 +46,14 @@
 
 <script>
   (function() {
-    $('.collection-product-wrapper').hover(function() {
+  /*  $('.collection-product-wrapper').hover(function() {
       $(this).find('img.product-first').hide();
       $(this).find('img.product-second').show();
     }, function() {
       $(this).find('img.product-first').show();
       $(this).find('img.product-second').hide();
     });
-
+  */
   })()
 
 </script>
