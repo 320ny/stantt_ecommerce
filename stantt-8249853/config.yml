@@ -1,0 +1,12 @@
+---
+:api_key: b6fc19b7333a5ed7c9a41386df8bec36
+:password: ed5c508688343fa12b4d83a183d95b49
+:store: stantt.myshopify.com
+:theme_id: 
+:whitelist_files:
+- layout/
+- assets/
+- config/
+- snippets/
+- templates/
+- locales/
