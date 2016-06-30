@@ -94,16 +94,5 @@
 <script src="{{ 'app.js' | asset_url }}"></script>
 
 <!-- Begin talkable integration code -->
-<div id="talkable-sa"></div>
-
-<script>
-  var _talkable_affiliate = {
-    affiliate_member: {
-      email: "{% if customer.email %}{{customer.email}}{% else %}{% endif %}", 
-      first_name: "{% if customer.first_name %}{{customer.first_name}}{% else %}{% endif %}", 
-      last_name: "{% if customer.last_name %}{{customer.last_name}}{% else %}{% endif %}" 
-    }
-  };
-</script>
-<script src="//d2jjzw81hqbuqv.cloudfront.net/integration/clients/stantt.min.js"></script>
+<div id="talkable-dashboard"></div>
 <!-- End talkable integration code -->

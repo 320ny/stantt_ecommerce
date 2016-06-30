@@ -1,0 +1,36 @@
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '711316992321209');
+fbq('track', "PageView");
+  
+{% if template contains 'product' %}
+  var product_params = {
+  	content_type: 'product',
+    content_ids: ['{{product.id}}'],
+    content_name: '{{product.title}}',
+    value: {{product.price | money_without_currency}},
+    currency: 'USD'
+  };
+  fbq('track', 'ViewContent', product_params);
+                  
+  $(function() {
+    $(".action-button.submit").on("click", function() {
+      fbq('track', 'AddToCart', product_params)
+    });
+  });
+                  
+{% endif %}
+
+</script>
+
+
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=711316992321209&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->

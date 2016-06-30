@@ -82,7 +82,7 @@
               <span ng-hide="stanttSize.available"> Select size above to see ship timing</span>
               <span ng-show="stanttSize.available" class="shipping-message"></span>
             </p>
-            
+                        
               <script>
                 $(function(){
                   new Shopify.OptionSelectors("product-select-{{product.handle}}", { product: {{ product | json }}, onVariantSelected: selectShirtProductCallback });

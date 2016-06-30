@@ -34,6 +34,7 @@ AppControllers.controller('AutoSizeLoadURLController', function($scope, StanttSi
       size = decodeURIComponent(size);
       StanttSizeService.updateSize(true, 100, size);
       UIService.updateMenuSize(size);
+      UIService.updateShirtVariantSelects($scope.stanttSize.name);
     }
   }
 
@@ -162,7 +163,7 @@ AppControllers.controller('SizingController', function($scope, $http, $timeout, 
       var sleeve = convertCmToInches(sleeve);
     };
 	var params = "callback=JSON_CALLBACK&chest="+ chest +"&waist="+ waist +"&arm="+ sleeve;
-    $http.jsonp("http://app.stantt.com/sizing/size/find?" + params)
+    $http.jsonp("https://app.stantt.com/sizing/size/find?" + params)
       .success(function(data, status, headers, config, statusText) {
         if (data.error) {
           StanttSizeService.updateSize(true, 0, data.error);
@@ -170,6 +171,7 @@ AppControllers.controller('SizingController', function($scope, $http, $timeout, 
           StanttSizeService.updateSize(true, data.id, data.name);
         }
         UIService.updateHiddenSelects($scope.stanttSize.name);
+        UIService.updateShirtVariantSelects($scope.stanttSize.name);
         UIService.updateMenuSize($scope.stanttSize.name);
       	$scope.showInputs = false;
       	$scope.httpWorking = false;
@@ -195,15 +197,16 @@ AppControllers.controller('DirectSizeInputController', function($scope, $http, S
 
   $scope.loadSize = function(size) {
     var params = "callback=JSON_CALLBACK&size="+ size;
-    $http.jsonp("http://app.stantt.com/sizing/size/load?" + params)
+    $http.jsonp("https://app.stantt.com/sizing/size/load?" + params)
       .success(function(data, status, headers, config, statusText) {
       	StanttSizeService.updateSize(true, data.id, data.name);
       	UIService.updateHiddenSelects($scope.stanttSize.name);
+        UIService.updateShirtVariantSelects($scope.stanttSize.name);
       	UIService.updateMenuSize($scope.stanttSize.name);
       	$scope.$parent.showInputs = false;
         Customer.updateMetaFields();
       	$("body").scrollTop(100);
-
+		console.log("Updating size to ", data.name)
       })
       .error(function(data) {
       	alert("Sorry but that is not a correct size name.");

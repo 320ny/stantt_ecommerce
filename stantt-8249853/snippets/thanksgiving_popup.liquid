@@ -4,26 +4,26 @@
 
 	<div class="popup_inner">
 
-		<h2>Join the Revolution</h2>
+		<h2>GET 15% OFF <br>YOUR FIRST ORDER</h2>
         <hr>
 
-		<em>Join our email list to receive<br>exclusive updates &amp; promotions.</em>
+		<em>and get other exclusive promotions<br>when you join our mailing list.</em>
 
-		<div class="hs-form-container">
-			<script charset="utf-8" src="//js.hsforms.net/forms/current.js"></script>
-			<script>
-				hbspt.forms.create({ 
-			    portalId: '441929',
-			    formId: 'fb9c8476-f8f7-49fd-8aae-adedc7901e93'
-				});
-			</script>
-			<script>
-				jQuery('.actions .hs-button').on('click', function(){
-					ga('send', 'event', 'email', 'click', 'subscriber');
-				});
-			</script>
-
-		</div>
-  </div>
+        <!--[if lte IE 8]>
+        <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2-legacy.js"></script>
+        <![endif]-->
+        <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2.js"></script>
+        <script>
+          hbspt.forms.create({ 
+            css: '',
+            portalId: '441929',
+            formId: 'd3b2a02f-be66-4af9-9835-230f1375dbd7',
+            onFormSubmit: function() {
+              fbq("track", "CompleteRegistration");
+            }
+          });
+        </script>
+      
+  	</div>
 
 </div>

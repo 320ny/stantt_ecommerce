@@ -127,7 +127,7 @@ AppServices.factory('LocalStorage', function($window) {
 
 AppServices.factory('CollarCuff', function() {
   return {
-    collar: 'button-down',
+    collar: 'semi',
     cuff: 'barrel',
     matches: function(co, cu) {
     	return (this.collar == co) && (this.cuff == cu);

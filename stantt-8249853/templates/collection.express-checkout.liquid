@@ -1,38 +1,31 @@
-<section class="content" ng-app="App">
+{% layout "theme.express" %}
 
-  <div class="page-title">
+<section class="content express-checkout-new">
 
-  </div>
+  <div ng-controller="ExpressCheckoutMenu" ng-cloak class="express-checkout-menu">
+    <div ng-click="toggleMenu()" class="label" ng-click="">{{collection.title}} <i class="fa fa-angle-down"></i></div>
+    <ul ng-show="showMenu" class="dropdown-wrap primary">
+      {% raw %} <li ng-repeat="link in menuLinks"><a href="{{link.url}}">{{link.name}}</a></li>{% endraw %} 
+    </ul>
+  </div>  
 
-  
+  <section ng-controller="AutoSizeLoadURLController"></section>
   <div ng-controller="ShirtController" class='shirt-products'>
-    {% for product in collection.products %}
-      <div ng-show="activeShirt == '{{product.handle}}'">
-        {% include 'shirt' %}
-      </div>
-    {% endfor %}
-    {% include 'size-modal' %}
-    
-    {% for product in collection.products %}
-      {% if product.handle == 'black' %}
-        <div class="yotpo yotpo-main-widget"
-           data-product-id="{{ product.id }}"
-           data-name="{{ product.title | escape }}"
-           data-url="{{ shop.url }}{{ product.url }}"
-           data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}"
-           data-description="{{ product.description | escape }}">
+    <section class="express-product-list">
+      {% raw %}{{stanttSize.name}}{% endraw %}
+      {% include 'express-checkout-list' %}
+    </section>
+    <section class="express-product-details">
+      {% for product in collection.products %}
+        <div ng-if="activeShirt == '{{product.handle}}'">
+          <iframe width="800px" height="1200px" src="https://stantt.com/products/{{product.handle}}?view=express&size={% raw %}{{stanttSize.name}}{% endraw %}"></iframe>
         </div>
-      {% endif %}
-    {% endfor %}
-    
+      {% endfor %}
+    </section>
   </div>
   <div ng-view></div>
   
 </section>
-
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
-<script src="https://code.angularjs.org/1.2.21/angular-route.min.js"></script>
-<script src="{{ 'app.js' | asset_url }}"></script>
 
 <script>
     var selectShirtProductCallback = function(variant, selector) {
@@ -72,17 +65,10 @@
       }
                                                                   
       // Update shipping message   
-      if (variant.inventory_quantity > 0) {
-        //context.find('.shipping-message').html("Available now, ships within 24 hours");
-	  } else {       
-        if (selector.product.tags.indexOf('sold-out') >= 0) {
-          context.find('.shipping-message').html("SOLD OUT");
-        } else if (selector.product.tags.indexOf('shipping-delay') >= 0) {
-          //context.find('.shipping-message').html("Made just for you, ships in ~ 3 weeks.");
-        } else {
-          //context.find('.shipping-message').html("Made just for you, ships in 7 days");
-        }
-      }                              
+      
+      if (selector.product.tags.indexOf('sold-out') >= 0) {
+        context.find('.shipping-message').html("SOLD OUT");
+      }                             
                              
     
       context.find('.submit').removeAttr('disabled').attr('value', submitText); // remove unavailable class from add-to-cart button, and re-enable button
@@ -94,5 +80,4 @@
     }
   };
 </script>
-
-{% include "_addwords_collection" %}
+<div ng-controller="SizingController"></div>

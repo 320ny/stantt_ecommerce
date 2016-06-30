@@ -1,9 +1,9 @@
 <section ng-controller="ShirtController" class="content content-area single-product">
-  
+
   <div class='shirt-products'>
   	{% include 'size-modal-single' %}
   </div>
-  
+
   <div class="mobile-product-title">
     <p class="brand">{{ product.vendor }}</p>
     <p class="title">{{ product.title }}</p>
@@ -15,7 +15,8 @@
   </div>
 
   <section id="product-area" class="clearfix product-area">
-    
+
+
     <div class="custom-product-wrapper">
       <div class="showcase {% if product.images.size == 1 %}wide{% endif %}">
 
@@ -23,21 +24,15 @@
           {% if product.tags contains 'shirt' %}
           <span><a href="/collections/manhattan">Collection: Manhattan</a></span>
           {% endif %}
-          
-          {% if product.tags contains 'empire' %}
-          <span><a href="/collections/empire">Collection: Empire</a></span>
-          {% endif %}
-          
-          {% if product.tags contains 'casual' %}
+          {% if product.tags contains 'flannels' %}
+          <span><a href="/collections/flannels">Collection: Flannels</a></span>
+          {% else %}
           <span><a href="/collections/highline">Collection: Highline</a></span>
           {% endif %}
-          
           <span class="sep">></span> <span>{{ product.title }}</span>
         </div>
-        
-        <!-- START MAGICZOOMPLUS IMAGES -->
-        {% include 'magiczoomplus' %}
-        
+
+        <!-- START MAGICZOOMPLUS IMAGES -->{% include 'magiczoomplus' %}
         {% if settings.display-product-email-link %}
         <div class="notes">
           <a href="mailto:{{ shop.email }}?Subject={{ product.title | escape }}" class="email-us"><span class="icon">j</span>Email us about this product</a>
@@ -50,10 +45,9 @@
         {% endif %}
       </div>
 
-        <!-- END MAGICZOOMPLUS IMAGES -->
-
       {% if product.url contains "measur" %}<br>{% endif %}
 
+      <!-- END MAGICZOOMPLUS IMAGES -->
 
     </div><!-- end custom-product-wrapper -->
 
@@ -63,7 +57,7 @@
       <div class="module header">
         <h1 class="title">{{ product.title }}</h1>
         <div class="product-description">{{product.description}}</div>
-        
+
         {% if product.compare_at_price_min > product.price_min %}
         <p class="price sale"><span class="original">{{ product.compare_at_price_min | money }}</span> {{ product.price_min | money }}</p>
         {% else %}
@@ -74,13 +68,13 @@
       </div>
 
       <div class="color-wrapper">
-        <h3>COLOR<span>:</span> <em>{{product.title}}</em></h3>
+        <h3>COLOR: <em>{{product.title}}</em></h3>
         {% capture swatch_name %}swatch-{{product.handle}}.jpg{% endcapture %}
         <img class="swatch" src="{{ swatch_name | file_url }}">
       </div>
-                
+
       <div ng-controller="SizingController" ng-cloak>
-        
+
         <div class="size-wrapper" ng-show="showInputs">
           <h3>FIND MY SIZE</h3>
 
@@ -126,15 +120,14 @@
               <img ng-click="changeSizingStep('direct', $event)" class="know-size-explanation" src="https://cdn.shopify.com/s/files/1/0434/4097/files/question-mark.jpg?8107312065723205287"><br>
             </div>
             <button ng-show="showDirectInput" ng-click="loadSize(inputSize)">LOAD SIZE</button>
-            <a href="/products/measuringkit" class="free-kit">Need a free measuring kit?</a>
           </div>
-          
+
         </div>
 
         <div class="size-is" ng-show="stanttSize.name && !showInputs">
-          <h3>Your Size is:</h3>
+          <h3>Your Stantt Size is:</h3>
           <h2><span ng-bind="stanttSize.name "></span> <em>&#8482;</em></h2>
-          
+
           <img class="explanation5" src="https://cdn.shopify.com/s/files/1/0434/4097/files/question-mark.jpg?8107312065723205287">
           <span class="explanation5-text">As a homage to Stantt's birthplace, we've named each size after a street in New York City.</span>
 
@@ -145,9 +138,11 @@
             <a href='' ng-click="showInputs = true">Change Size</a>
           </div>
         </div>
-        
+
       </div>
-      
+
+      {% include "express-collar-cuff-selection" %}
+
       <div class="module options {% if product.url contains "gift-card" %}gift-card{% endif %} {% unless product.available %}unavailable{% endunless %}">
 
         {% if product.available %} <!-- If the product is available then... -->
@@ -155,11 +150,11 @@
 
           {% if product.variants.size > 1 %} <!-- Create a variants dropdown IF the product has more than one variant -->
 
-            <select name="id" id="product-select" class="product-select">
-              {% for variant in product.variants %}
-              <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
-              {% endfor %}
-            </select>
+          <select name="id" id="product-select" class="product-select">
+            {% for variant in product.variants %}
+            <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
+            {% endfor %}
+          </select>
 
           <script>
             $(function(){
@@ -208,8 +203,8 @@
 
           <p class="measure-instructions" ng-hide="stanttSize.id">
             Please enter your measurements to find your size before adding to cart.
-          </p>	
-          
+          </p>
+
             {% if product.tags contains 'flannels' %}
             <em class='ships-by'>*ships third week of January</em>
 			{% endif %}
@@ -222,7 +217,6 @@
           </div><!-- end product-share-section -->
           {% endif %}
 
-          <aside class="mobile-shipping-message"><p>FREE SHIPPING, FREE RETURNS &amp; EXCHANGES ALWAYS!</p></aside>
 
         </form>
         {% else %}
@@ -245,13 +239,13 @@
       <h3 class="section-title">CUSTOMER FAVORITES</h3>
 
       <ul class="product-list">
-        
+
 		{% assign allProducts = all_products %}
         {% for handle in handles %}<li>
         	{% assign pHandle = handle | strip %}
             <a href="/products/{{pHandle}}?view=single">
               <img src="{{ allProducts[pHandle].images[0].src | img_url: 'large' }}">
-            </a>  
+            </a>
           </li>{% endfor %}
 
       </ul>
@@ -290,7 +284,7 @@
       {% endif %}
     </div>
   </div>
-  
+
 </section>
 {% endif %}
 
@@ -310,5 +304,3 @@
     display: none;
   }
 </style>
-
-{% include "_addwords_product" %}

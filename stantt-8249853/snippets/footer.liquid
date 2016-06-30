@@ -14,33 +14,67 @@
   
 <footer class="main-footer content-area" id="main-footer">
   
+  {% unless page.url == "/pages/share" or template == "cart" or template == "customers/account" %}
+
   <section class="email-capture">
     <!--<p>Come along for the ride as we set a new standard in apparel.  Along the way, get the latest news and exclusive deals.</p>-->
 
-	{% form 'customer' %}
+    <!--
+	{#% form 'customer' %}
 		<div class="wrap">
-          	<h5>Join the Revolution.</h5>
-			<input type="hidden" id="contact_tags" name="contact[tags]" value="prospect,newsletter,footer"/>
+          	<h5>Get 15% Off Your First Order</h5>
+          
+   			<input type="hidden" id="contact_tags" name="contact[tags]" value="prospect,newsletter,footer"/>
 			<input type="hidden" id="newsletter-first-name" name="contact[first_name]" value="Newsletter" />
 			<input type="hidden" id="newsletter-last-name" name="contact[last_name]" value="Subscriber" />
 			<input class="email" type="email" id="contact_email" name="contact[email]" placeholder="Enter your email" value="" />
 			<input type="submit" class="submit" name="subscribe" value="JOIN"/>
+                    
 		</div>
-	{% endform %}
+	{#% endform %}
+	-->
+    
+    <div class="wrap">
+      <h5>Get 15% Off Your First Order</h5>
 
+      <!--[if lte IE 8]>
+        <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2-legacy.js"></script>
+      <![endif]-->
+      <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2.js"></script>
+      <script>
+        hbspt.forms.create({ 
+          css: '',
+          portalId: '441929',
+          formId: 'f1b25e58-ec15-4d12-a952-4a7685c92c41',
+          onFormSubmit: function() {
+            fbq("track", "CompleteRegistration");
+          }
+        });
+      </script>
+
+    </div>
+    
   </section><!-- end email-capture -->
+  
+  {% endunless %}
+  
+  {% if template == "customers/account" %}
+  <br><br><br>
+  {% endif %}
   
   <section class="footer-links">
     <div class="footer-links-1">
       <h5>SHOP</h5>
-      <a href="/pages/manhattan">Manhattan Collection</a>
-      <a href="/pages/highline">Highline Collection</a>
+      <a href="/collections/highline">High Line Collection</a>
+      <a href="/collections/manhattan">Manhattan Collection</a>
+      <a href="/collections/empire">Empire Collection</a>
       <a href="/products/measuringkit">Measuring Kits</a>
     </div><div class="footer-links-2">
       <h5>ABOUT</h5>
       <a href="/pages/stantt-way">Our Story</a>
       <a href="/pages/stantt-way">Why Stantt?</a>
-      <a href="/pages/visit-our-pop-up">Visit Us</a>
+      <a href="/apps/stores">Visit Us</a>
+      <a href="/pages/wholesale">Wholesale</a>
     </div><div class="footer-links-3">
       <h5>HELP</h5>
       <a href="https://stantt.zendesk.com" target="_blank">FAQ</a>

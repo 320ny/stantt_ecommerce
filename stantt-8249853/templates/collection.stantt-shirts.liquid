@@ -7,6 +7,15 @@
       <div class="highline-manhattan-collection">
         <section class="collection-banner">
           
+          {% if collection.handle == 'highline' %}
+            <div class="banner-text highline">
+              <h1>THE HIGH LINE COLLECTION</h1>
+              <p>OUR MORE CASUAL COLLECTION.  MADE FROM<br>100% EGYPTIAN COTTON IMPORTED FROM EUROPE.<br>INCREDIBLY SOFT AND VERSATILE FOR <br> A SHARP LOOK DAY AND NIGHT.</p>
+            </div>
+            <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/Highline-Nov-Casuals.jpg?2117749647116063371">
+          {% endif %}
+
+          
           {% if collection.handle == 'manhattan' %}
             <div class="banner-text manhattan">
               <h1>THE MANHATTAN COLLECTION</h1>
@@ -14,32 +23,35 @@
             </div>
             <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/Collections-Manhattan-shirt.jpg?12937232584686523987">
           {% endif %}
-            
-          {% if collection.handle == 'highline' %}
-            <div class="banner-text highline">
-              <h1>THE HIGHLINE COLLECTION</h1>
-              <p>OUR MORE CASUAL COLLECTION.  MADE FROM<br>100% EGYPTIAN COTTON IMPORTED FROM EUROPE.<br>INCREDIBLY SOFT AND VERSATILE FOR <br> A SHARP LOOK DAY AND NIGHT.</p>
+       
+          
+          {% if collection.handle == 'empire' %}
+            <div class="banner-text empire">
+              <h1>THE EMPIRE COLLECTION</h1>
+              <p>These stunning weaves are crafted from the highest thread counts yarns we offer.  The crisp patterns and rich colors make a powerful statement without going over the top.</p>
             </div>
-            <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/Highline-Nov-Casuals.jpg?2117749647116063371">
+            <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/Empire_Collection_Image.jpg?1894342863883120906">
           {% endif %}
 
-          {% if collection.handle == 'flannels' %}
+          <!--
+          {#% if collection.handle == 'flannels' %}
             <div class="banner-text flannels">
               <h1>LIGHTWEIGHT FLANNELS</h1>
               <p>These incredibly soft 100% Egyptian Cotton flannels were custom designed to be a perfect weight you can wear year-round.</p>
             </div>
             <img class="flannels-remove-this" src="https://cdn.shopify.com/s/files/1/0434/4097/files/flannel-background_60430231-e145-4ee8-91f2-dbbe408d0b22.jpg?18177959208747691240">
-          {% endif %}
-          
+          {#% endif %}
+		  -->          
+
         </section>
 		<div class="collection-buttons">
-          <a class="collection-btn {% if collection.handle == 'manhattan' %}active{% endif %}" href="/collections/manhattan">MANHATTAN</a><a class="collection-btn {% if collection.handle == 'highline' %}active{% endif %}" href="/collections/highline">HIGHLINE</a><a class="flannels-remove-this collection-btn {% if collection.handle == 'flannels' %}active{% endif %}" href="/collections/flannels">FLANNELS</a>
+          <a class="collection-btn {% if collection.handle == 'highline' %}active{% endif %}" href="/collections/highline">HIGH LINE</a><a class="collection-btn {% if collection.handle == 'manhattan' %}active{% endif %}" href="/collections/manhattan">MANHATTAN</a><a class="flannels-remove-this collection-btn {% if collection.handle == 'empire' %}active{% endif %}" href="/collections/empire">EMPIRE</a>
         </div>
 		<!-- end collection-buttons -->
 		<!--<p>{{collection.description}}</p>-->
         
         {% for product in collection.products %}     
-            <a href="http://stantt.com/products/{{product.handle}}?view=single">
+            <a href="http://stantt.com/products/{{product.handle}}?view=collarcuff">
                 <div class="collection-product-wrapper">
                   <img class="product-first" src="{{ product.images[0].src | img_url: 'large' }}">
                   <img class="product-second" src="{{ product.images[1].src | img_url: 'large' }}">

@@ -92,7 +92,7 @@ StanttAppControllers.controller('ShirtSizingController', function($scope, $http,
       // Update local storage
       StanttSizeService.storeMeasurements();
     } else if ($scope.stanttSize.name) {
-    	UIService.updateShirtVariantSelects($scope.stanttSize.name);
+      UIService.updateShirtVariantSelects($scope.stanttSize.name);
       UIService.updateMenuSize($scope.stanttSize.name);
     }
 
@@ -124,7 +124,7 @@ StanttAppControllers.controller('ShirtSizingController', function($scope, $http,
       var sleeve = convertCmToInches(sleeve);
     };
 	  var params = "callback=JSON_CALLBACK&chest="+ chest +"&waist="+ waist +"&arm="+ sleeve;
-    $http.jsonp("http://app.stantt.com/sizing/size/find?" + params)
+    $http.jsonp("https://app.stantt.com/sizing/size/find?" + params)
       .success(function(data, status, headers, config, statusText) {
         if (data.error) {
           StanttSizeService.updateSize(true, 0, data.error);

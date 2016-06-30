@@ -5,7 +5,7 @@
 <!--[if IE 8]>         <html class="no-js lt-ie10 lt-ie9 ie8"> <![endif]-->
 <!--[if IE 9]>         <html class="no-js lt-ie10 ie9"> <![endif]-->
 <!--[if gt IE 9]><!--> <html class="no-js"> <!--<![endif]-->
-<head>
+<head>{% include 'experiments' %}
   <meta name="google-site-verification" content="ggaYxmO3vS951shMnjp-Ud1Hnm0WMXw4NK0-GqWfOCk" />
   <!--
   ==========================================================================
@@ -115,26 +115,26 @@
   <script src="{{ 'AppServices.js' | asset_url }}"></script>
   <script src="{{ 'AppControllers.js' | asset_url }}"></script>
   <script src="{{ 'SingleApp.js' | asset_url }}"></script>
+  
+  <!-- Begin Talkable integration code -->
+  <script>
+    window._talkableq = window._talkableq || [];
+    _talkableq.push(['authenticate_customer', {
+      email: '{% if customer %}{{ customer.email }}{% endif %}',
+      first_name: '{% if customer %}{{ customer.first_name }}{% endif %}',
+      last_name: '{% if customer %}{{ customer.last_name }}{% endif %}'
+    }]);
+  </script>
+  <script src="//d2jjzw81hqbuqv.cloudfront.net/integration/clients/stantt-2.min.js"></script>
+  <!-- End Talkable integration code -->
+  {% include "_wvo_js" %}
 </head>
 
 {% assign showSectionHeaders = false %}
 {% if settings.show-section-headers %} {% assign showSectionHeaders = true %} {% endif %}
 
 <body class="{% if template contains 'contact' %}template-contact{% else %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% endif %} {% unless showSectionHeaders %}disable-headers{% endunless %} {% if settings.meta-font == "'Open Sans' sans-serif" %}font-open-sans{% endif %} {% if settings.main-title-uppercase %}uppercase{% endif %}">
-  <!--
-  <div id="fb-root"></div>
-
-  <script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-  </script>
-  -->
-
-
+  {% include '_facebook' %}
   {% include '_qualaroo' %}
   {% include '_addthis' %}
 
@@ -145,7 +145,7 @@
   <div ng-app="SingleApp" class="page-content">
 
   {% unless collection.handle == 'express-checkout' or template contains 'collection' %}
-    <aside class="home-notification-bar">free shipping &amp; returns <span> | </span> A BETTER SHIRT, GUARANTEED</aside>
+    <aside class="home-notification-bar">FREE SHIPPING, EXCHANGES & RETURNS</aside>
   {% endunless %}
 
   {% if product.type  == 'shirt' %}
@@ -159,7 +159,7 @@
 
   {% unless template contains 'collections' %}
     {{ content_for_layout }}
-  {% else %}
+  {% else %}x
     {% include 'collections' %}
   {% endunless %}
   </div><!-- end container -->
@@ -185,6 +185,7 @@
   {% endif %}
   {{ 'plugins.js' | asset_url | script_tag }}
   {{ 'site.js' | asset_url | script_tag }}
+  {{ 'auto-discount.js'| asset_url | script_tag }}
 
   <script>
   var selectCallbackQuickShop = function(variant, selector) {
@@ -258,7 +259,6 @@
     {% include '_crazyegg' %}
     {% include '_adroll' %}
     {% include '_remarketing_addwords' %}
-    {% include '_remarketing_facebook' %}
   {% endunless %}
 
   <!--Start of Zopim Live Chat Script-->
@@ -273,5 +273,23 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
 <!--End of Zopim Live Chat Script-->
 {% include '_google_remarketing' %}
 
+<script type="text/javascript">
+window.addEventListener('load',function(){
+var timer = setInterval(function(){
+if(jQuery('.submitted-message').is(":visible") == true){
+	ga('send','event','Form','Submit','Complete Registeration');
+	clearInterval(timer);
+}
+},1000)
+
+})
+</script>
+ <script>
+jQuery(document).ready(function(){
+jQuery('.free-kit').click(function(){
+ga('send','event','link','click','measuring_kit')
+})
+})
+</script> 
 </body>
 </html>

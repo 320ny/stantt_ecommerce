@@ -1,0 +1,58 @@
+<div class="wholesale">
+	<section class="page-section img-panel panel-1"><img src="https://cdn.shopify.com/s/files/1/0434/4097/files/Wholesale-Image.jpg?14662367947125456387" />
+		<div class="img-panel-text">
+			<h2>WHOLESALE</h2>
+		</div><!-- end img-panel-text -->
+  	</section><!-- page-section img-panel panel-1 -->
+
+  	<section class="page-section panel-2">
+		<h3>BE A PART OF THE STANTT REVOLUTION!</h3>
+		<p>For the first time your customers can try on their perfect fit, right off the rack. To apply to sell Stantt in your store, complete the form below and we'll get back to you.</p>
+		
+        {% form 'contact' %}
+
+          {% if form.errors %}
+            <div class="alert-message error"><span>{{ settings.contact-error-message }}</span></div>
+          {% endif %}
+
+          {% if form.posted_successfully? %}
+            <div class="alert-message success"><span>{{ settings.contact-success-message }}</span></div>
+          {% else %}
+
+            <div class="field-wrap">
+              <input type="text" value="" name="contact[first name]" placeholder="FIRST NAME" class="field {% if form.errors contains "first name" %}error{% endif %}">
+            </div>
+      
+            <div class="field-wrap">
+              <input type="text" value="" name="contact[last name]" placeholder="LAST NAME" class="field {% if form.errors contains "last name" %}error{% endif %}">
+            </div>
+
+            <div class="field-wrap">
+              <input type="text" value="" name="contact[company]" placeholder="COMPANY" class="field {% if form.errors contains "company" %}error{% endif %}">
+            </div>
+      
+            <div class="field-wrap">
+              <input type="text" value="" name="contact[title]" placeholder="TITLE" class="field {% if form.errors contains "title" %}error{% endif %}">
+            </div>
+
+            <div class="field-wrap">
+              <input type="text" value="" name="contact[email]" placeholder="EMAIL" class="field {% if form.errors contains "email" %}error{% endif %}">
+            </div>
+
+            <div class="field-wrap phone">
+              <input type="text" value="" name="contact[phone]" placeholder="PHONE" class="field {% if form.errors contains "phone" %}error{% endif %}">
+            </div>
+
+            <div class="field-wrap extension">
+              <input type="text" value="" name="contact[ext]" placeholder="EXT." class="field">
+            </div>
+
+            <input type="submit" class="action-button submit-button" value="JOIN THE REVOLUTION">
+
+          {% endif %}
+
+        {% endform %}
+      
+    </section><!-- end page-section panel-2 -->
+  	<hr>
+</div><!-- end wholesale -->

@@ -1,3 +1,5 @@
+<!-- NEW PRODUCT TEMPLATE W/ CUFFS & COLLARS -->
+
 <section ng-controller="ShirtProductPageController" class="content content-area single-product">
 
   <div class='shirt-products'>
@@ -6,7 +8,7 @@
 
   <div class="mobile-product-title">
     <p class="brand">{{ product.vendor }}</p>
-    <p class="title">{{ product.title }}</p>
+    <p class="title">{{ base_product.title }}</p>
     {% if product.compare_at_price_min > product.price_min %}
     <p class="price sale"><span class="original">{{ product.compare_at_price_min | money }}</span> {{ product.price_min | money }}</p>
     {% else %}
@@ -17,21 +19,31 @@
   <section id="product-area" class="clearfix product-area">
 
     <div class="custom-product-wrapper">
-      <div class="showcase {% if base_product.images.size == 1 %}wide{% endif %}">
+      <div class="showcase {% if product.images.size == 1 %}wide{% endif %}">
 
         <div class="breadcrumb-navigation">
-
-          <span><a href="/collections/express">Collection: Express</a></span>
-
+          {% if base_product.tags contains 'shirt' %}
+          <span><a href="/collections/manhattan">Collection: Manhattan</a></span>
+          {% endif %}
+          
+          {% if base_product.tags contains 'empire' %}
+          <span><a href="/collections/empire">Collection: Empire</a></span>
+          {% endif %}
+          
+          {% if base_product.tags contains 'casual' %}
+          <span><a href="/collections/highline">Collection: Highline</a></span>
+          {% endif %}
+          
           <span class="sep">></span> <span>{{ base_product.title }}</span>
         </div>
 
-        <!-- START MAGICZOOMPLUS IMAGES -->{% include 'magiczoomplus', product: base_product %}
+        <!-- START MAGICZOOMPLUS IMAGES -->
+		{% include 'magiczoomplus', product: base_product %}
+        <!--{#% include 'magiczoomplus', product: base_product, express: true %}-->
+      	<!-- END MAGICZOOMPLUS IMAGES -->
       </div>
 
       {% if product.url contains "measur" %}<br>{% endif %}
-
-      <!-- END MAGICZOOMPLUS IMAGES -->
 
     </div><!-- end custom-product-wrapper -->
 
@@ -39,8 +51,8 @@
     <div ng-cloak class="details {% if base_product.images.size > 1 %}border{% endif %} {% if product.variants.size == 1 and settings.display-product-quantity-option == false %}no-options{% endif %}">
 
       <div class="module header">
-        <h1 class="title">{{ product.title }}</h1>
-        <!--<div class="product-description">{{product.description}}</div>-->
+        <h1 class="title">{{ base_product.title }}</h1>
+        <div class="product-description">{{base_product.description}}</div>
 
         {% if product.compare_at_price_min > product.price_min %}
         <p class="price sale"><span class="original">{{ product.compare_at_price_min | money }}</span> {{ product.price_min | money }}</p>
@@ -52,10 +64,12 @@
       </div>
 
       <div class="color-wrapper">
-        <h3>COLOR: <em>{{product.title}}</em></h3>
+        <h3>COLOR<span>:</span> <em>{{product.title}}</em></h3>
         {% capture swatch_name %}swatch-{{base_product.handle}}.jpg{% endcapture %}
         <img class="swatch" src="{{ swatch_name | file_url }}">
       </div>
+
+      {% include "express-collar-cuff-selection" %}
 
       <div ng-controller="ShirtSizingController" ng-cloak>
 
@@ -67,7 +81,7 @@
 
 
           {% unless customer %}
-              <!--<em>Already know your size? <a href="/account/login">Sign in.</a></em>-->
+            <!--<em>Already know your size? <a href="/account/login">Sign in.</a></em>-->
           {% endunless %}
 
           <section class="size-input">
@@ -104,15 +118,16 @@
               <img ng-click="changeSizingStep('direct', $event)" class="know-size-explanation" src="https://cdn.shopify.com/s/files/1/0434/4097/files/question-mark.jpg?8107312065723205287"><br>
             </div>
             <button ng-show="showDirectInput" ng-click="loadSize(inputSize)">LOAD SIZE</button>
+            <a href="/products/measuringkit" class="free-kit">Need a free measuring kit?</a>
           </div>
 
         </div>
 
         <div class="size-is" ng-show="stanttSize.name && !showInputs">
-          <h3>Your Stantt Size is:</h3>
+          <h3>Your Size is:</h3>
           <h2><span ng-bind="stanttSize.name "></span> <em>&#8482;</em></h2>
 
-          <img class="explanation5" src="https://cdn.shopify.com/s/files/1/0434/4097/files/question-mark.jpg?8107312065723205287">
+          <img ng-click="changeSizingStep('5', $event)" class="explanation5" src="https://cdn.shopify.com/s/files/1/0434/4097/files/question-mark.jpg?8107312065723205287">
           <span class="explanation5-text">As a homage to Stantt's birthplace, we've named each size after a street in New York City.</span>
 
           <div class="size-buttons">
@@ -124,8 +139,6 @@
         </div>
 
       </div>
-
-      {% include "express-collar-cuff-selection" %}
 
       <div class="module options {% if product.url contains "gift-card" %}gift-card{% endif %} {% unless product.available %}unavailable{% endunless %}">
 
@@ -158,13 +171,38 @@
           {% endif %}
 
           <div class="selector-wrapper submit-wrapper">
+            {% if product.options.size > 1 %}<label></label>{% endif %}
+
+            {% if product.url contains "measur" %}
+            <button type="submit" class="action-button submit button-5">&#43; Add to cart</button>
+            {% else %}
+            <button ng-disabled="!stanttSize.id" type="submit" class="action-button submit">&#43; Add to cart</button>
+            {% endif %}
+          </div>
+			
+          <!--
+          <div class="selector-wrapper submit-wrapper">
             <button ng-disabled="!stanttSize.id" type="submit" class="action-button submit">&#43; Add to cart</button>
           </div>
+		  -->
 
           <p class="measure-instructions" ng-hide="stanttSize.id">
             Please enter your measurements to find your size before adding to cart.
           </p>
 
+          {% if product.tags contains 'flannels' %}
+            <em class='ships-by'>*ships third week of January</em>
+		  {% endif %}
+
+          {% if product.url contains "measur" %}
+          <div class="product-share-section">
+            <strong>SHARE</strong>
+            <div class="addthis_custom_sharing"></div>
+          </div><!-- end product-share-section -->
+          {% endif %}
+
+          <aside class="mobile-shipping-message"><p>FREE SHIPPING, FREE RETURNS &amp; EXCHANGES ALWAYS!</p></aside>
+          
         </form>
         {% else %}
           <span class="action-button unavailable disabled">Sold out</span>
@@ -176,10 +214,77 @@
 
   </section><!-- end product-area -->
 
+  {% if base_product.metafields.global.related_products %}
+
+    {% assign handles = base_product.metafields.global.related_products | split: ',' %}
+    <section class="related-products">
+      <h3 class="section-title">CUSTOMER FAVORITES</h3>
+
+      <ul class="product-list">
+        
+		{% assign allProducts = all_products %}
+        {% for handle in handles %}<li>
+        	{% assign pHandle = handle | strip %}
+            <a href="/products/{{pHandle}}?view=single">
+              <img src="{{ allProducts[pHandle].images[0].src | img_url: 'large' }}">
+            </a>  
+          </li>{% endfor %}
+
+      </ul>
+    </section>
+
+  {% endif %}
+
+
 </section>
 
+{% if settings.display-fullsize-product-viewer %}
+<section class="fullscreen-product-viewer">
+  <div class="modal">
+    <div class="modal-wrap">
+      <span class="close">v</span>
+      <div class="showcase {% if product.images.size == 1 %}wide{% endif %}">
+        <div class="container">
+          <div class="wrap">
+            <img alt="{{ product.featured_image.alt }}" src="{{ product.featured_image | product_img_url: 'original' }}">
+            <span class="overlay"></span>
+          </div>
+        </div>
+      </div>
+
+      {% if product.images.size > 1 %}
+      <div class="pager antiscroll-wrap">
+        <div class="antiscroll-inner">
+          {% for image in product.images %}
+          <div class="wrap thumb {% include 'for-looper' %} {% if forloop.first %}active{% endif %}">
+            <img alt="{{ image.alt }}" src="{{ image.src | product_img_url: 'small' }}" data-high-res-url="{{ image.src | product_img_url: 'original' }}">
+            <span class="overlay"></span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  
+</section>
+
+{% endif %}
+
+{% unless product.url contains "measur" %}
+<div class="yotpo yotpo-main-widget"
+     data-product-id="351048429"
+     data-name="{{ product.title | escape }}"
+     data-url="{{ shop.url }}{{ product.url }}"
+     data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}"
+     data-description="{{ product.description | escape }}">
+</div>
+{% endunless %}
+   
 <style>
   .pxuSexyDropWrapper {
-    display: block;
+    display: none;
   }
 </style>
+
+{% include "_addwords_product" %}

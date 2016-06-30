@@ -1,5 +1,35 @@
-<!--<section class="content content-area">-->
-<section class="single-product" ng-controller="ShirtController">
+{% layout none %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
+
+  <title>{{ shop.name }}!</title>
+  
+  {{ content_for_header }}
+	
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
+  <script src="https://code.angularjs.org/1.2.21/angular-route.min.js"></script>
+  <script src="{{ 'AppServices.js' | asset_url }}"></script>
+  <script src="{{ 'AppControllers.js' | asset_url }}"></script>
+  <script src="{{ 'SingleApp.js' | asset_url }}"></script>
+  {{ 'style.css' | asset_url | stylesheet_tag }}
+  {{ 'modernizr-2.6.2.min.js' | asset_url | script_tag }}
+  {{ 'jquery-1.9.min.js' | asset_url | script_tag }}
+</head>
+
+<body>
+  {{ page.content }}
+  
+
+<div ng-app="SingleApp" class="page-content ng-scope">
+  <section class="single-product" ng-controller="ShirtController">
 
   <div class='shirt-products'>
   	{% include 'size-modal-single' %}
@@ -17,37 +47,14 @@
     <div class="clearfix text-content">
       <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js" async=""></script>
 		<div class="new-measurements measurements">
-          <img class="measurement-header" src="https://cdn.shopify.com/s/files/1/0434/4097/files/Meas-Guide-Header.jpg?7761129901509790029" />
 
           	<section ng-cloak ng-show="showInputs" class="page-section">
-              <!--<h3>FINDING YOUR STANTT SIZE</h3>
+              <h3>FINDING YOUR STANTT SIZE</h3>
               <p class="rules">Just enter 3 simple measurements below and our algorithm will find one of our 75 sizes that's tailored to fit you perfectly.
                 <br><a class="need-tape" href="/collections/tapemeasures">Need a tape measure?</a>
               </p>
-			  -->
-              <section class="know-size-instructions">
-                <p>Follow the steps below to find and enter your measurements. Our algorithm will find the size that's tailored to fit you perfectly.</p>
-
-                <div ng-controller="DirectSizeInputController" class="know-size">
-                  <p>Already know your size? <em ng-click="showHideInputs()">Click here to skip these steps</em></p>
-                  <div ng-show="showDirectInput" class="know-size-input">
-                    <input type="text" ng-model="inputSize" placeholder="ENTER SIZE">
-                    <img ng-click="changeSizingStep('direct', $event)" class="know-size-explanation" src="https://cdn.shopify.com/s/files/1/0434/4097/files/question-mark.jpg?8107312065723205287"><br>
-                  </div>
-                  <button ng-show="showDirectInput" ng-click="loadSize(inputSize)">LOAD SIZE</button>
-                </div>
-              </section>
-              
               <div class="measurements-video">
-              	<h3>Step 1: Chest</h3>
-              	<div class="wistia_responsive_padding" style="padding: 56.25% 0 0 0; position: relative;">
-              	  <div class="wistia_responsive_wrapper" style="height: 100%; left: 0; position: absolute; top: 0; width: 100%;">
-              		<div class="wistia_embed wistia_async_zfjqeeaob0 popover=true  videoFoam=true" style="display: inline-block; height: 100%; width: 100%;">
-                    </div>
-                  </div>
-                </div>
-                <p>Breathe naturally and measure around the largest part of your chest, just below your armpits.<br><br></p>
-                <a ng-click="changeSizingStep('2', $event)" class="detailed-instructions" href="">Detailed Instructions ></a>
+              	<h3>CHEST</h3>
               	<section class="size-input"><input ng-model="measurements.chest" type="text" placeholder="ENTER CHEST" class="ng-pristine ng-valid" />
                   <span>
                     <select ng-model="measurements.unit" class="ng-pristine ng-valid">
@@ -56,57 +63,52 @@
                     </select>
                   </span>
                 </section>
+              	<div class="wistia_responsive_padding" style="padding: 56.25% 0 0 0; position: relative;">
+              	  <div class="wistia_responsive_wrapper" style="height: 100%; left: 0; position: absolute; top: 0; width: 100%;">
+              		<div class="wistia_embed wistia_async_zfjqeeaob0 popover=true  videoFoam=true" style="display: inline-block; height: 100%; width: 100%;">
+                    </div>
+                  </div>
+                </div>
+                <p>Breathe naturally and measure around the largest part of your chest, just below your armpits.</p>
+                <a ng-click="changeSizingStep('2', $event)" class="detailed-instructions" href="">Detailed Instructions</a>
               </div>
-              
               <!-- end measurements-video -->
               <div class="measurements-video">
-              <h3>Step 2: Waist</h3>
+              <h3>WAIST</h3>
+              <section class="size-input"><input ng-model="measurements.waist" type="text" placeholder="ENTER WAIST" class="ng-pristine ng-valid" /><span>
+              <select ng-model="measurements.unit" class="ng-pristine ng-valid">
+              <option value="in">in</option>
+              <option value="cm">cm</option>
+              </select>
+              </span></section>
               <div class="wistia_responsive_padding" style="padding: 56.25% 0 0 0; position: relative;">
               <div class="wistia_responsive_wrapper" style="height: 100%; left: 0; position: absolute; top: 0; width: 100%;">
               <div class="wistia_embed wistia_async_ujs8xzlylr popover=true  videoFoam=true" style="display: inline-block; height: 100%; width: 100%;"> </div>
               </div>
               </div>
-              <p>Don't suck in and measure around your "True Waist" - about 2 inches below your belly button.<br><br></p>
-              <a ng-click="changeSizingStep('3', $event)" href="" class="detailed-instructions">Detailed Instructions ></a>
-              <section class="size-input"><input ng-model="measurements.waist" type="text" placeholder="ENTER WAIST" class="ng-pristine ng-valid" />
-                <span>
-                  <select ng-model="measurements.unit" class="ng-pristine ng-valid">
-                    <option value="in">in</option>
-                    <option value="cm">cm</option>
-                  </select>
-                </span>
-              </section>       
-              </div>
-              
+              <p>Don't suck in and measure around your "True Waist" - about 2 inches below your belly button.</p>
+              <a ng-click="changeSizingStep('3', $event)" href="" class="detailed-instructions">Detailed Instructions</a></div>
               <!-- end measurements-video -->
               <div class="measurements-video">
-              <h3>Step 3: Sleeve</h3>
-              <div class="wistia_responsive_padding" style="padding: 56.25% 0 0 0; position: relative;">
-              <div class="wistia_responsive_wrapper" style="height: 100%; left: 0; position: absolute; top: 0; width: 100%;">
-              <div class="wistia_embed wistia_async_n6ew3n50zx popover=true  videoFoam=true" style="display: inline-block; height: 100%; width: 100%;"> </div>
-              </div>
-              </div>
-              <p>Put your fist on your hip. Starting at the back-center of your neck, run tape measure down your arm, over your elbow. Stop at your wrist.</p>
-              <a ng-click="changeSizingStep('4', $event)" class="detailed-instructions" href="">Detailed Instructions ></a>
+              <h3>SLEEVE</h3>
               <section class="size-input"><input ng-model="measurements.sleeve" type="text" placeholder="ENTER SLEEVE" class="ng-pristine ng-valid" /><span>
               <select ng-model="measurements.unit" class="ng-pristine ng-valid">
               <option value="in">in</option>
               <option value="cm">cm</option>
               </select>
               </span></section>
+              <div class="wistia_responsive_padding" style="padding: 56.25% 0 0 0; position: relative;">
+              <div class="wistia_responsive_wrapper" style="height: 100%; left: 0; position: absolute; top: 0; width: 100%;">
+              <div class="wistia_embed wistia_async_n6ew3n50zx popover=true  videoFoam=true" style="display: inline-block; height: 100%; width: 100%;"> </div>
               </div>
-
-              
+              </div>
+              <p>Put your fist on your hip. Starting at the back-center of your neck, run tape measure down your arm, over your elbow. Stop at your wrist.</p>
+              <a ng-click="changeSizingStep('4', $event)" class="detailed-instructions" href="">Detailed Instructions</a></div>
               <!-- end measurements-video -->
               <div ng-cloak class="measurement-cta">
                 <button ng-hide="httpWorking" ng-click="findMySize()">FIND YOUR SIZE</button>
                 <button ng-show="httpWorking" disabled="disabled">FINDING &nbsp; <img src="{{ 'ajax-loader.gif' | file_url }}"></button>
               </div>
-              
-              <a class="need-tape" href="/collections/tapemeasures">Need a tape measure?</a>
-              <hr class="soften" />
-
-              <!--
               <div ng-controller="DirectSizeInputController" class="know-size">
                 <em ng-click="showHideInputs()">Already know your Stantt size? <i ng-hide="showDirectInput" class="fa fa-caret-right"></i> <i ng-show="showDirectInput" class="fa fa-caret-down"></i></em>
                 <div ng-show="showDirectInput" class="know-size-input">
@@ -116,7 +118,6 @@
                 <button ng-show="showDirectInput" ng-click="loadSize(inputSize)">LOAD SIZE</button>
               </div>
               <hr class="soften" />
-			  -->
           	</section>
           
           	<section ng-cloak ng-show="stanttSize.name && !showInputs">
@@ -172,4 +173,8 @@
 
   </div>
 
-</section>
+  </section>
+</div>
+  
+</body>
+</html>

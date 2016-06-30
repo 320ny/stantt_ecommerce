@@ -1,6 +1,9 @@
-{% assign base_product = product %}
-{% assign base_handle = product.handle | replace: '-button-down', '' | replace: '-cutaway', '' | replace: '-semi', '' | replace: '-mod', ''%}
-{% assign base_handle = base_handle | replace: '-french', '' | replace: '-barrel', '' %}
+{% assign tags = product.tags %}
+
+{% if tags contains 'shirt' or tags contains 'casual' or tags contains 'empire' or tags contains 'flannels'%}
+  {% assign base_product = product %}
+  {% assign base_handle = product.handle | replace: '-button-down', '' | replace: '-cutaway', '' | replace: '-semi', '' | replace: '-mod', ''%}
+  {% assign base_handle = base_handle | replace: '-french', '' | replace: '-barrel', '' %}
 
   <section ng-controller="AutoSizeLoadURLController"></section>
   <div ng-controller="ShirtController" class='shirt-products'>
@@ -29,3 +32,6 @@
 
     </section>
   </div>
+{% else %}
+	{% include 'product-non-shirt' %}
+{% endif %}

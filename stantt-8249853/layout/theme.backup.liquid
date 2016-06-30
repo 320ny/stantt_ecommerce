@@ -1,3 +1,4 @@
+{% if template contains 'article' and blog.metafields.blogfeeder.use_canonical == 'yes' %}{% assign canonical_url = article.metafields.blogfeeder.canonical %}{% endif %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7 ie6"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7"> <![endif]-->
@@ -5,6 +6,7 @@
 <!--[if IE 9]>         <html class="no-js lt-ie10 ie9"> <![endif]-->
 <!--[if gt IE 9]><!--> <html class="no-js"> <!--<![endif]-->
 <head>{% include 'experiments' %}
+  <meta name="google-site-verification" content="ggaYxmO3vS951shMnjp-Ud1Hnm0WMXw4NK0-GqWfOCk" />
   <!--
   ==========================================================================
      Atlantic v7.5.0
@@ -26,49 +28,18 @@
 
 
 {% if (product.handle == "white"
-	|| product.handle == "grey"
-	|| product.handle == "pink"
-	|| product.handle == "navy-gingham"
-	|| product.handle == "black"
-	|| product.handle == "blue"
-	|| collection.handle == "shirts"
-	|| collection.handle == "gift-cards") %}
+	or product.handle == "grey"
+	or product.handle == "pink"
+	or product.handle == "navy-gingham"
+	or product.handle == "black"
+	or product.handle == "blue"
+	or collection.handle == "shirts"
+	or collection.handle == "gift-cards") %}
 	<meta name="robots" content="noindex,follow" />
 {% endif %}
 
   <meta name="viewport" content="width=device-width" />
   <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
-
-  <!-- Fonts
-  ///////////////////////////////////////// -->
-
-  <!--
-  {% assign font = "'PT Serif', 'Times New Roman', Times, serif" %}
-  {% if settings.body-font == font or settings.main-title-font == font or settings.secondary-header-font == font or settings.meta-font == font %}
-    <link href='//fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-  {% endif %}
-
-  {% assign font = "'Raleway', sans-serif" %}
-  {% if settings.body-font == font or settings.main-title-font == font or settings.secondary-header-font == font or settings.meta-font == font %}
-    <link href='//fonts.googleapis.com/css?family=Raleway:400,700,600' rel='stylesheet' type='text/css'>
-  {% endif %}
-
-  {% assign font = "'Open Sans', sans-serif" %}
-  {% if settings.body-font == font or settings.main-title-font == font or settings.secondary-header-font == font or settings.meta-font == font %}
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,700,600' rel='stylesheet' type='text/css'>
-  {% endif %}
-
-  {% assign font = "'Source Sans Pro', sans-serif" %}
-  {% if settings.body-font == font or settings.main-title-font == font or settings.secondary-header-font == font or settings.meta-font == font %}
-  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,600italic,700italic' rel='stylesheet' type='text/css'>
-  {% endif %}
-
-  {% assign font = "'Arvo', serif" %}
-  {% if settings.body-font == font or settings.main-title-font == font or settings.secondary-header-font == font or settings.meta-font == font %}
-  <link href='//fonts.googleapis.com/css?family=Arvo:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-  {% endif %}
-  -->
-
 
   <!-- Theme CSS
   ///////////////////////////////////////// -->
@@ -86,6 +57,19 @@
     {{ "shopify_common.js" | shopify_asset_url | script_tag }}
     {{ "customer_area.js"  | shopify_asset_url | script_tag }}
   {% endif %}
+
+  {% if page.url == "/pages/how-it-works-casual" %}
+  	{{ "howitworks.js" | asset_url | script_tag }}
+  {% endif %}
+
+  {% if page.url == "/pages/measurements" %}
+  	{{ "measurements.js" | asset_url | script_tag }}
+  {% endif %}
+
+  {% if template == 'product.single' %}
+  	{{ "whatsthis.js" | asset_url | script_tag }}
+  {% endif %}
+
 
   {% include 'social-meta' %}
 
@@ -108,15 +92,29 @@
 
   {{ content_for_header }}
 
-  <!-- TYPEKIT EMBED CODE -->
-  <script src="//use.typekit.net/uqu0hgp.js"></script>
-  <script>try{Typekit.load();}catch(e){}</script>
+  <!-- TYPEKIT -->
+  <!--<script src="//use.typekit.net/uqu0hgp.js"></script>
+  <script>try{Typekit.load();}catch(e){}</script>-->
 
   <!-- GOOGLE FONTS -->
-  <link href='//fonts.googleapis.com/css?family=Sanchez:400italic,400' rel='stylesheet' type='text/css'>
+  <!--<link href='//fonts.googleapis.com/css?family=Sanchez:400italic,400|Questrial|Roboto+Condensed:300' rel='stylesheet' type='text/css'>-->
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:300,300italic' rel='stylesheet' type='text/css'>
+
+  <!-- WEBTYPE -->
+  <link href="//cloud.webtype.com/css/0c863ec3-7137-4f79-b763-20ca38ecfb17.css" rel="stylesheet" type="text/css" />
 
   {% include '_yotpo' %}
   {% include '_friendbuy' %}
+
+  {% unless template == 'collection.stantt-shirts' %}
+  	{% include 'magiczoomplus.headers' %}
+  {% endunless %}
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
+  <script src="https://code.angularjs.org/1.2.21/angular-route.min.js"></script>
+  <script src="{{ 'AppServices.js' | asset_url }}"></script>
+  <script src="{{ 'AppControllers.js' | asset_url }}"></script>
+  <script src="{{ 'SingleApp.js' | asset_url }}"></script>
 </head>
 
 {% assign showSectionHeaders = false %}
@@ -125,30 +123,51 @@
 <body class="{% if template contains 'contact' %}template-contact{% else %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% endif %} {% unless showSectionHeaders %}disable-headers{% endunless %} {% if settings.meta-font == "'Open Sans' sans-serif" %}font-open-sans{% endif %} {% if settings.main-title-uppercase %}uppercase{% endif %}">
   <!--
   <div id="fb-root"></div>
+
   <script>(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
     js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=187795038002910";
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
     fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));</script>
+  }(document, 'script', 'facebook-jssdk'));
+  </script>
   -->
-  {% include '_qualaroo' %}
-  {% include 'header' %}
 
-  <div class="page-content">
+
+  {% include '_qualaroo' %}
+  {% include '_addthis' %}
+
+  {% unless collection.handle == 'express-checkout' %}
+    {% include 'header' %}
+  {% endunless %}
+
+  <div ng-app="SingleApp" class="page-content">
+
+  {% unless collection.handle == 'express-checkout' or template contains 'collection' %}
+    <aside class="home-notification-bar">free shipping &amp; returns <span> | </span> A BETTER SHIRT, GUARANTEED</aside>
+  {% endunless %}
+
+  {% if product.type  == 'shirt' %}
+    <!--<aside class="home-notification-bar product-notification"><p>Our team at the factory is taking time off to spend with their families until the New Year.</p><p>All orders placed until then will be shipped the first week of January ’16. Thanks for the understanding!</p></aside>-->
+  {% endif %}
+
+
   {% if template contains 'product' %}
     <!--{% include 'breadcrumbs' %}-->
   {% endif %}
 
   {% unless template contains 'collections' %}
     {{ content_for_layout }}
-  {% else %}
+  {% else %}x
     {% include 'collections' %}
   {% endunless %}
   </div><!-- end container -->
 
-  {% include 'footer' %}
+
+  {% unless collection.handle == 'express-checkout' %}
+    {% include 'footer' %}
+  {% endunless %}
 
   {% if template contains 'index' or template contains 'collection' or template contains 'product' or template contains '404' or template contains 'search' %}
 
@@ -158,7 +177,7 @@
       <!-- Content dynamically added -->
     </div>
 
-  </section>
+    </section>
   {% endif %}
 
   {% if template contains 'cart' %}
@@ -166,7 +185,6 @@
   {% endif %}
   {{ 'plugins.js' | asset_url | script_tag }}
   {{ 'site.js' | asset_url | script_tag }}
-  {{ 'easyzoom.min.js' | asset_url | script_tag }}
 
   <script>
   var selectCallbackQuickShop = function(variant, selector) {
@@ -231,7 +249,29 @@
 
   </script>
 
+
   {% include 'ajaxify-cart' %}
-  {% include '_hubspot' %}
+  {% include 'modify_lightbox_snippet' %}
+
+  {% unless collection.handle == 'express-checkout' %}
+    {% include '_hubspot' %}
+    {% include '_crazyegg' %}
+    {% include '_adroll' %}
+    {% include '_remarketing_addwords' %}
+    {% include '_remarketing_facebook' %}
+  {% endunless %}
+
+  <!--Start of Zopim Live Chat Script-->
+<script type="text/javascript">
+window.$zopim||(function(d,s){var z=$zopim=function(c){
+z._.push(c)},$=z.s=
+d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+_.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
+$.src='//v2.zopim.com/?3cJXT7jbBHqZFt0xvxO09mV88HZSg7oV';z.t=+new Date;$.
+type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
+</script>
+<!--End of Zopim Live Chat Script-->
+{% include '_google_remarketing' %}
+
 </body>
 </html>

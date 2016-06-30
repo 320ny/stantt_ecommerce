@@ -6,14 +6,19 @@
     <span class="label">Cart</span>
   </div>
 -->
-  <div class="fancy-headline-wrapper">
-    <h2 class="fancy"><span>YOUR CART</span></h2>
-  </div>
+  
+  <h2>YOUR CART</h2>
 
 
   {% if cart.item_count > 0 %}
 
     <form action="/cart" method="post" id="cart-form">
+      <!-- Our hidden input that stores the discount code value -->
+	  <input id="discount_input" type="hidden" name="discount" value="">
+      <!-- Set the value of our hidden input field #discount-input to the value of our sessionStorage "discount" Variable -->
+	  <script>document.getElementById("discount_input").value = sessionStorage.getItem("discount");</script>
+      
+      
       <input type="hidden" name="attributes[shiptocode]" value="STANPB" />
 
       <div ng-controller="LocationController">
@@ -26,7 +31,7 @@
             <th class="first">Product</th>
             <th>Price</th>
             <th>Quantity</th>
-            <th>Total</th>
+            <th>SubTotal</th>
             <th class="last"></th>
           </tr>
         </thead>
@@ -65,7 +70,7 @@
               <td class="price">{{ item.price | money }}</td>
               <td class="quantity"><input type="text" class="field" value="{{ item.quantity }}" data-id="{{ item.variant.id }}"></td>
               <td class="total">{{ item.quantity | times: item.price | money }}</td>
-              <td class="remove last"><a href="/cart/change/{{ item.variant.id }}?quantity=0">v</td>
+              <td class="remove last"><a href="/cart/change/{{ item.variant.id }}?quantity=0">X &nbsp; remove item</td>
             </tr>
           {% endfor %}
         </tbody>
@@ -80,8 +85,8 @@
         </div>
 		-->
         <div class="totals">
-          <p class="price">{{ cart.total_price | money }}</p>
-          <p class="message">Excluding tax and shipping</p>
+          <p class="price">Subtotal: {{ cart.total_price | money }}</p>
+          <p class="message">(excluding taxes and shipping)</p>
           <div class="checkout">
             <input class="action-button button button-2" type="submit" name="checkout" value="Check out" />
           </div>
@@ -102,9 +107,11 @@
 
   {% else %}
 
-    <p class="empty">You don't have any items in your cart yet. <!--<a href="{{ shop.url }}/collections/all">--><a href="/collections/shirts">Continue shopping.</a></p>
+    <p class="empty">You don't have any items in your cart yet. <!--<a href="{{ shop.url }}/collections/all">--><a href="/collections/manhattan">Continue shopping.</a></p>
 
   {% endif %}
 
   <div ng-controller="SizingController"></div>
 </section>
+
+{% include "_addwords_cart" %}

@@ -23,19 +23,7 @@
   {% elsif template == 'index' and shop.description != '' %}
     <meta name="description" content="{{ shop.description }}" />
   {% endif %}
-
-
-{% if (product.handle == "white"
-	|| product.handle == "grey"
-	|| product.handle == "pink"
-	|| product.handle == "navy-gingham"
-	|| product.handle == "black"
-	|| product.handle == "blue"
-	|| collection.handle == "shirts"
-	|| collection.handle == "gift-cards") %}
-	<meta name="robots" content="noindex,follow" />
-{% endif %}
-
+  
   <meta name="viewport" content="width=device-width" />
   <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
 
@@ -82,13 +70,6 @@
 
   {{ "option_selection.js"  | shopify_asset_url | script_tag }}
 
-  {% if template contains 'customers' %}
-    {{ "shopify_common.js" | shopify_asset_url | script_tag }}
-    {{ "customer_area.js"  | shopify_asset_url | script_tag }}
-  {% endif %}
-
-  {% include 'social-meta' %}
-
   <!-- Store object
   ///////////////////////////////////////// -->
   <script type="text/javascript">
@@ -107,38 +88,25 @@
   </script>
 
   {{ content_for_header }}
-
+  
   <!-- TYPEKIT EMBED CODE -->
   <script src="//use.typekit.net/uqu0hgp.js"></script>
   <script>try{Typekit.load();}catch(e){}</script>
-
+  
   <!-- GOOGLE FONTS -->
   <link href='//fonts.googleapis.com/css?family=Sanchez:400italic,400' rel='stylesheet' type='text/css'>
-
-  {% include '_yotpo' %}
-  {% include '_friendbuy' %}
 </head>
 
 {% assign showSectionHeaders = false %}
 {% if settings.show-section-headers %} {% assign showSectionHeaders = true %} {% endif %}
 
 <body class="{% if template contains 'contact' %}template-contact{% else %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% endif %} {% unless showSectionHeaders %}disable-headers{% endunless %} {% if settings.meta-font == "'Open Sans' sans-serif" %}font-open-sans{% endif %} {% if settings.main-title-uppercase %}uppercase{% endif %}">
-  <!--
-  <div id="fb-root"></div>
-  <script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=187795038002910";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));</script>
-  -->
-  {% include '_qualaroo' %}
-  {% include 'header' %}
+
+  {% include 'plain-header' %}
 
   <div class="page-content">
   {% if template contains 'product' %}
-    <!--{% include 'breadcrumbs' %}-->
+    {% include 'breadcrumbs' %}
   {% endif %}
 
   {% unless template contains 'collections' %}
@@ -147,11 +115,11 @@
     {% include 'collections' %}
   {% endunless %}
   </div><!-- end container -->
-
-  {% include 'footer' %}
+   
+  {% include 'plain-footer' %}
 
   {% if template contains 'index' or template contains 'collection' or template contains 'product' or template contains '404' or template contains 'search' %}
-
+  
     <section class="quick-shop">
 
     <div class="quick-shop-modal">
@@ -161,12 +129,9 @@
   </section>
   {% endif %}
 
-  {% if template contains 'cart' %}
-    {{ 'api.jquery.js' | shopify_asset_url | script_tag }}
-  {% endif %}
+  
   {{ 'plugins.js' | asset_url | script_tag }}
   {{ 'site.js' | asset_url | script_tag }}
-  {{ 'easyzoom.min.js' | asset_url | script_tag }}
 
   <script>
   var selectCallbackQuickShop = function(variant, selector) {
@@ -232,6 +197,6 @@
   </script>
 
   {% include 'ajaxify-cart' %}
-  {% include '_hubspot' %}
+  {% include 'hubspotcode' %}
 </body>
 </html>

@@ -1,35 +1,60 @@
 {% assign hand = product.handle %}
 
-<div ng-controller="CollarCuffController" class="collar-and-cuff">
-  <div>
-    <h3>COLLAR SELECTION:</h3>
-    <img ng-hide="collarCuff.cuff == 'french'" ng-click="changeCollar('{{base_handle}}', 'button-down')" {% if hand contains "button-down" %}class="img-border"{% endif %} src="{{ "express-collar-button-down.jpg" | file_url }}">
-    <img ng-click="changeCollar('{{base_handle}}', 'semi')" {% if hand contains "semi" %}class="img-border"{% endif %} src="{{ "express-collar-semi-spread.jpg" | file_url }}">
-    <img ng-click="changeCollar('{{base_handle}}', 'mod')" {% if hand contains "mod" %}class="img-border"{% endif %} src="{{ "express-collar-modified-spread.jpg" | file_url }}">
-    <img ng-click="changeCollar('{{base_handle}}', 'cutaway')" {% if hand contains "cutaway" %}class="img-border"{% endif %} src="{{ "express-collar-cutaway.jpg" | file_url }}">
-    <br><span ng-hide="collarCuff.cuff == 'french'">BUTTON-DOWN</span> <span>SEMI-SPREAD</span> <span>MOD-SPREAD</span> <span>CUTAWAY</span>
-  </div>
-  <br>
-  <div>
-    <h3>CUFF SELECTION:</h3>
-    <img ng-click="changeCuff('{{base_handle}}', 'barrel')" {% if hand contains "barrel" %}class="img-border"{% endif %} src="{{ "express-cuff-barrel.jpg" | file_url }}">
-    <img ng-click="changeCuff('{{base_handle}}', 'french')" ng-hide="collarCuff.collar == 'button-down'"  {% if hand contains "french" %}class="img-border"{% endif %} src="{{ "express-cuff-french.jpg" | file_url }}">
-    <br><span>BARREL CUFF</span> <span ng-hide="collarCuff.collar == 'button-down'">FRENCH CUFF</span></
-  </div>
-</div>
-<br>
+<div class="shirt-collar-cuff-wrapper">
 
-<style>
-  .img-border {
-    border: solid red;
-  }
-  .collar-and-cuff img {
-  	cursor: pointer;
-    width: 80px;
-    margin: 15px;
-  }
-  .collar-and-cuff span {
-    font-size: 12px;
-    margin: 10px;
-  }
-</style>
+  <div ng-controller="CollarCuffController" class="collar-and-cuff">
+    <div class="collar-selection-wrapper">
+      <h3 class="desktop-title">COLLAR SELECTION:</h3>
+      <h3 class="mobile-title">SELECT COLLAR</h3>
+      <div class="collar-selection">
+        <img ng-click="changeCollar('{{base_handle}}', 'semi')" {% if hand contains "semi" %}class="img-border"{% endif %} src="{{ "express-collar-semi-spread.jpg" | file_url }}">
+        <span>SEMI-SPREAD</span>
+        {% if hand contains "semi" %}
+          <img class="collar-cuff-checkmark" src="https://cdn.shopify.com/s/files/1/0434/4097/files/checkmark-cuff.png?14232944450428490517">
+        {% endif %}
+        <p class="original-collar">(our original collar)</p>
+      </div>
+      <div class="collar-selection">
+        <img ng-click="changeCollar('{{base_handle}}', 'mod')" {% if hand contains "mod" %}class="img-border"{% endif %} src="{{ "express-collar-modified-spread.jpg" | file_url }}">
+        <span>MODIFIED-SPREAD</span>
+        {% if hand contains "mod" %}
+          <img class="collar-cuff-checkmark" src="https://cdn.shopify.com/s/files/1/0434/4097/files/checkmark-cuff.png?14232944450428490517">
+        {% endif %}
+      </div>
+      <div class="collar-selection">
+        <img ng-click="changeCollar('{{base_handle}}', 'cutaway')" {% if hand contains "cutaway" %}class="img-border"{% endif %} src="{{ "express-collar-cutaway.jpg" | file_url }}">
+        <span>CUTAWAY</span>
+        {% if hand contains "cutaway" %}
+          <img class="collar-cuff-checkmark" src="https://cdn.shopify.com/s/files/1/0434/4097/files/checkmark-cuff.png?14232944450428490517">
+        {% endif %}
+      </div>
+      <div class="collar-selection">
+        <img ng-hide="collarCuff.cuff == 'french'" ng-click="changeCollar('{{base_handle}}', 'button-down')" {% if hand contains "button-down" %}class="img-border"{% endif %} src="{{ "express-collar-button-down.jpg" | file_url }}">
+        <span ng-hide="collarCuff.cuff == 'french'">BUTTON-DOWN</span>
+        {% if hand contains "button-down" %}
+          <img class="collar-cuff-checkmark" src="https://cdn.shopify.com/s/files/1/0434/4097/files/checkmark-cuff.png?14232944450428490517">
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="cuff-section-wrapper">
+      <h3 class="desktop-title">CUFF SELECTION:</h3>
+      <h3 class="mobile-title">SELECT CUFF</h3>
+      <div class="cuff-selection">
+        <img ng-click="changeCuff('{{base_handle}}', 'barrel')" {% if hand contains "barrel" %}class="img-border"{% endif %} src="{{ "express-cuff-barrel.jpg" | file_url }}">
+        <span>BARREL CUFF</span>
+        {% if hand contains "barrel" %}
+          <img class="collar-cuff-checkmark" src="https://cdn.shopify.com/s/files/1/0434/4097/files/checkmark-cuff.png?14232944450428490517">
+        {% endif %}
+      </div>
+      <div class="cuff-selection">
+        <img ng-click="changeCuff('{{base_handle}}', 'french')" ng-hide="collarCuff.collar == 'button-down'"  {% if hand contains "french" %}class="img-border"{% endif %} src="{{ "express-cuff-french.jpg" | file_url }}">
+        <span ng-hide="collarCuff.collar == 'button-down'">FRENCH CUFF</span>
+        {% if hand contains "french" %}
+          <img class="collar-cuff-checkmark" src="https://cdn.shopify.com/s/files/1/0434/4097/files/checkmark-cuff.png?14232944450428490517">
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  
+</div><!-- end shirt-collar-cuff-wrapper -->

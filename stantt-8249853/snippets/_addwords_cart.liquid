@@ -1,0 +1,7 @@
+<script type="text/javascript">
+    var google_tag_params = {
+        ecomm_prodid: [{% for item in cart.items %}'{{item.variant.id}}',{% endfor %}],
+        ecomm_pagetype: 'cart',
+        ecomm_totalvalue: {{ cart.total_price | money_without_currency | remove: ","}}
+    };
+</script>

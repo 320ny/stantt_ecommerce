@@ -1,11 +1,7 @@
 <script>
 $(document).ready(function(){
 
-  var fb_code_1 = '/* Facebook Conversion Code for Email Capture */'+
-       '(function() {var _fbq = window._fbq || (window._fbq = []);if (!_fbq.loaded) {'+
-        'var fbds = document.createElement("script");fbds.async = true;fbds.src = "//connect.facebook.net/en_US/fbds.js";'+
-        'var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(fbds, s);_fbq.loaded = true;}})();'+
-        'window._fbq = window._fbq || [];window._fbq.push(["track", "6022030958956", {"value":"0.00","currency":"USD"}]);';
+  var fb_code_1 = 'fbq("track", "CompleteRegistration");';
   var fb_code_2 = $('<img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?ev=6022030958956&amp;cd[value]=0.00&amp;cd[currency]=USD&amp;noscript=1"/>');
   
   var ga_code_1 = '/*<!-- Google Code for Email Captures Conversion Page -->*/ /* <![CDATA[ */'+
@@ -27,7 +23,6 @@ $(document).ready(function(){
     $("body").append($("<script />", {
       html: fb_code_1
     }));
-    $("body").append($("<noscript />").html(fb_code_2));
   }
   
   function loadGAEmailConversion() {
