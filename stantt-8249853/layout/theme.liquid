@@ -112,10 +112,11 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
   <script src="https://code.angularjs.org/1.2.21/angular-route.min.js"></script>
-  <script src="{{ 'AppServices.js' | asset_url }}"></script>
-  <script src="{{ 'AppControllers.js' | asset_url }}"></script>
-  <script src="{{ 'SingleApp.js' | asset_url }}"></script>
-  
+  <script src="{{ 'StanttAppServices.js' | asset_url }}"></script>
+  <script src="{{ 'StanttAppControllers.js' | asset_url }}"></script>
+  <script src="{{ 'StanttAppDirectives.js' | asset_url }}"></script>
+  <script src="{{ 'StanttApp.js' | asset_url }}"></script>
+
   <!-- Begin Talkable integration code -->
   <script>
     window._talkableq = window._talkableq || [];
@@ -142,7 +143,7 @@
     {% include 'header' %}
   {% endunless %}
 
-  <div ng-app="SingleApp" class="page-content">
+  <div ng-app="StanttApp" class="page-content">
 
   {% unless collection.handle == 'express-checkout' or template contains 'collection' %}
     <aside class="home-notification-bar">FREE SHIPPING, EXCHANGES & RETURNS</aside>
@@ -290,6 +291,6 @@ jQuery('.free-kit').click(function(){
 ga('send','event','link','click','measuring_kit')
 })
 })
-</script> 
+</script>
 </body>
 </html>

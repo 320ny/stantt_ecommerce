@@ -1,12 +1,12 @@
 
-<section class="content" ng-app="SingleApp" ng-controller="AutoSizeLoadURLController">
+<section class="content" ng-app="StanttApp" ng-controller="AutoSizeLoadURLController">
 
   <div class="text-content-wrap clearfix">
     <div class="clearfix text-content">
-      
+
       <div class="highline-manhattan-collection">
         <section class="collection-banner">
-          
+
           {% if collection.handle == 'highline' %}
             <div class="banner-text highline">
               <h1>THE HIGH LINE COLLECTION</h1>
@@ -15,7 +15,7 @@
             <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/Highline-Nov-Casuals.jpg?2117749647116063371">
           {% endif %}
 
-          
+
           {% if collection.handle == 'manhattan' %}
             <div class="banner-text manhattan">
               <h1>THE MANHATTAN COLLECTION</h1>
@@ -23,8 +23,8 @@
             </div>
             <img src="https://cdn.shopify.com/s/files/1/0434/4097/files/Collections-Manhattan-shirt.jpg?12937232584686523987">
           {% endif %}
-       
-          
+
+
           {% if collection.handle == 'empire' %}
             <div class="banner-text empire">
               <h1>THE EMPIRE COLLECTION</h1>
@@ -41,7 +41,7 @@
             </div>
             <img class="flannels-remove-this" src="https://cdn.shopify.com/s/files/1/0434/4097/files/flannel-background_60430231-e145-4ee8-91f2-dbbe408d0b22.jpg?18177959208747691240">
           {#% endif %}
-		  -->          
+		  -->
 
         </section>
 		<div class="collection-buttons">
@@ -49,8 +49,8 @@
         </div>
 		<!-- end collection-buttons -->
 		<!--<p>{{collection.description}}</p>-->
-        
-        {% for product in collection.products %}     
+
+        {% for product in collection.products %}
             <a href="http://stantt.com/products/{{product.handle}}?view=collarcuff">
                 <div class="collection-product-wrapper">
                   <img class="product-first" src="{{ product.images[0].src | img_url: 'large' }}">
@@ -60,7 +60,7 @@
               </div>
             </a>
         {% endfor %}
-      
+
       </div>
 
     </div>
@@ -85,9 +85,9 @@
       $(this).find('img.product-second').show();
     }, function() {
       $(this).find('img.product-first').show();
-      $(this).find('img.product-second').hide(); 
+      $(this).find('img.product-second').hide();
     });
-    
+
     //  .collection-buttons-fixed to the .collection-buttons div
     var stickyEl = $('div.collection-buttons');
     var stickyElHeight = stickyEl.offset().top;
@@ -99,6 +99,6 @@
   	  }
     });
   })()
-  
+
 </script>
 <div ng-controller="SizingController"></div>

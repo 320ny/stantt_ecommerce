@@ -1,8 +1,8 @@
 // SERVICES
 
-var AppServices = angular.module('AppServices', []);
+var StanttAppServices = angular.module('StanttAppServices', []);
 
-AppServices.factory('Customer', function($http, StanttSizeService) {
+StanttAppServices.factory('Customer', function($http, StanttSizeService) {
   return {
     id: undefined,
     loggedIn: false,
@@ -71,7 +71,7 @@ AppServices.factory('Customer', function($http, StanttSizeService) {
   }
 });
 
-AppServices.factory('StanttSizeService', function(LocalStorage) {
+StanttAppServices.factory('StanttSizeService', function(LocalStorage) {
   var defaultMeasurements = {
     chest: '',
     waist: '',
@@ -104,7 +104,7 @@ AppServices.factory('StanttSizeService', function(LocalStorage) {
   };
 });
 
-AppServices.factory('LocalStorage', function($window) {
+StanttAppServices.factory('LocalStorage', function($window) {
   return {
     setItem: function(key, value) {
       var string = JSON.stringify(value);
@@ -125,7 +125,7 @@ AppServices.factory('LocalStorage', function($window) {
 });
 
 
-AppServices.factory('CollarCuff', function() {
+StanttAppServices.factory('CollarCuff', function() {
   return {
     collar: 'semi',
     cuff: 'barrel',
@@ -135,7 +135,7 @@ AppServices.factory('CollarCuff', function() {
   }
 });
 
-AppServices.factory('UIService', function() {
+StanttAppServices.factory('UIService', function() {
   return {
     updateMenuSize: function(size) {
       $('#appstanttsize').remove();
