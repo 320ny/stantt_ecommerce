@@ -10,13 +10,22 @@
       {% if product.compare_at_price_min > product.price_min %}
         <p class="price sale"><span class="original">{{ product.compare_at_price_min | money }}</span> {{ product.price_min | money }}</p>
       {% else %}
-        <p class="price">{{ product.price_min | money }}</p>
+      	{% unless product.url contains "measuringkit" %}
+          <p class="price">{{ product.price_min | money }}</p>
+      	{% endunless %}
       {% endif %}
 
       {% if product.url contains "measuringkit" %}
+      	<!--
         <p class="custom-description">We searched the world to find the best materials for your shirt. But feel for yourself how incredibly soft they are. Each measuring kit comes with a selection of materials, a flexible tape measure and a $5 gift card you can use towards your Stantt shirt. Ships free within the Continental US. All sales final on measuring kits.</p>
         <p class="kit-includes"><em>Kit Includes:</em><br>Selection of Fabric Swatches<br>1 Flexible Tape Measure<br>$5 Stantt Gift Card</p>
-      {% elsif product.url contains "tapemeasure" %}
+      	-->
+        <img class="mobile-kit-img" src="//cdn.shopify.com/s/files/1/0434/4097/products/Gift-Card-Kit-thumbnail.jpg?v=1467980149">
+        <p class="kit-includes">
+          <em>JUST COVER $5 FOR SHIPPING</em>To offset the shipping costs, we're giving you $5 toward any Stantt purchase, so the kit ends up costing you $0.
+          <em>Kit Includes:</em>Assortment of premium fabric swatches<br>Flexible Stantt tape measure<br>$5 Stantt Gift Card
+        </p>
+	  {% elsif product.url contains "tapemeasure" %}
         <p class="custom-description">All we need are 3 measurements that you can take at home. Don't have a tape measure sitting around at home? We've got you covered. Ships for free within the Continental US.</p>
       {% else %}
         {{ product.description }}
@@ -62,8 +71,16 @@
             <p class="title">{{ product.title }}</p>
 
             {% if product.url contains "measuringkit" %}
-              <p class="custom-description">Finding your size has never been easier. Each kit comes with a selection of material samples, a flexible tape measure and a $5 gift card. Just pay $5 for shipping and then you can use the $5 gift card on your shirt order, so the kit ends up costing you zippo, zero, zilch. We've always been fans of free things.</p>
-            <p class="kit-includes"><em>Kit Includes:</em><br>Selection of Fabric Swatches<br>Flexible Tape Measure<br>$5 Stantt Gift Card</p>
+            <!--
+            <p class="custom-description">
+              Finding your size has never been easier. Each kit comes with a selection of material samples, a flexible tape measure and a $5 gift card. Just pay $5 for shipping and then you can use the $5 gift card on your shirt order, so the kit ends up costing you zippo, zero, zilch. We've always been fans of free things.
+            </p>
+			-->
+            <img class="mobile-kit-img" src="//cdn.shopify.com/s/files/1/0434/4097/products/Gift-Card-Kit-thumbnail.jpg?v=1467980149">
+            <p class="kit-includes">
+              <em>JUST COVER $5 FOR SHIPPING</em>To offset the shipping costs, we're giving you $5 toward any Stantt purchase, so the kit ends up costing you $0.
+              <em>Kit Includes:</em>Assortment of premium fabric swatches<br>Flexible Stantt tape measure<br>$5 Stantt Gift Card
+            </p>
             {% elsif product.url contains "tapemeasure" %}
             <p class="custom-description">All we need are 3 measurements that you can take at home. Don't have a tape measure sitting around at home? We've got you covered. Ships for free within the Continental US.</p>
             {% else %}
@@ -73,7 +90,9 @@
             {% if product.compare_at_price_min > product.price_min %}
               <p class="price sale"><span class="original">{{ product.compare_at_price_min | money }}</span> {{ product.price_min | money }}</p>
             {% else %}
-              <p class="price">{{ product.price_min | money }}</p>
+              {% unless product.url contains "measuringkit" %}
+                <p class="price">{{ product.price_min | money }}</p>
+              {% endunless %}
             {% endif %}
           </div>
 
